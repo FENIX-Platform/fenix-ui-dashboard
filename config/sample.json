@@ -1,0 +1,21 @@
+{"widgets": [
+        {
+            "id": "widget-1",
+            "type": "table",
+            "title": "Widget 1",
+            "size": {
+                "css": "item w5"
+            },
+            "url":"http://faostat3.fao.org/d3s2/v2/msd/resources/uid/AFO_ProductionCapacities?dsd=true&full=true&order=time"
+        },
+    {
+        "id": "widget-9",
+        "type": "chart",
+        "title": "Widget 9",
+        "url":"http://faostat3.fao.org/d3s2/v2/msd/resources/uid/CountrySTAT_215CFE020?dsd=true&full=true&order=time",
+        "size": {
+            "css": "item w5"
+        }
+    }
+    ]
+}
