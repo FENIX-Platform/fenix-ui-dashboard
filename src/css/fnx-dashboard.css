@@ -124,7 +124,7 @@ body { font-family: sans-serif; }
 }
 
 /** highcharts fix to fit in DIV **/
-/**.fx-dashboard-chart .highcharts-container {width: 100% !important; width: 100% !important;} **/
+.fx-dashboard-chart .highcharts-container {width: 100% !important; width: 100% !important;}
 
 .fx-dashboard-grid-item.fit {
     width: 100%;
