@@ -11,7 +11,7 @@
     'use strict';
 
     var DashboardView = View.extend({
-        container: '#widgets-container',
+        container: '#fx-dashboard-container',
         template: template,
         model: Dashboard,
         autoRender: true,
@@ -20,10 +20,10 @@
         defaults: {
             grid: '',
             css :{
-                draggable: '.handle',
-                item: '.item',
-                gutter: '.gutter-sizer',
-                columnWidth: '.grid-sizer'
+                draggable: '.fx-dashboard-drag',
+                item: '.fx-dashboard-grid-item',
+                gutter: '.fx-dashboard-grid-gutter-sizer',
+                columnWidth: '.fx-dashboard-grid-sizer'
             }
          },
         //listen: {
@@ -38,6 +38,8 @@
             View.prototype.initialize.apply(this, arguments);
 
             amplify.subscribe('fx.component.dashboard.widgetloaded', this.refresh);
+            amplify.subscribe('fx.component.dashboard.widgetshrink', this.shrink);
+            amplify.subscribe('fx.component.dashboard.widgetexpand', this.expand);
 
             //Chaplin.mediator.subscribe('widgetLoadedEvent', this.refresh);
 
@@ -79,16 +81,25 @@
                 },
                 config: {
                     itemSelector: this.options.css.item,
-                    gutter:  this.options.css.gutter,
-                    columnWidth:  this.options.css.columnWidth
+                    gutter:  this.options.css.gutter//,
+                   // columnWidth:  this.options.css.columnWidth
                 }
             });
 
             this.grid.render();
        },
-        refresh : function() {
-            //console.log("============ REFRESH");
+
+        shrink : function() {
+            console.log("Shrink");
+           // this.grid.pckry.layout();
+        },
+        expand : function(target) {
+            console.log(target);
+            this.grid.resize(target);
             this.grid.pckry.layout();
+        },
+        refresh : function() {
+             this.grid.pckry.layout();
         }
     });
 

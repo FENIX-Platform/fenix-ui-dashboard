@@ -23,11 +23,23 @@
     },
 
     show : function(params) {
+
+        if (!params.hasOwnProperty('config')) {
+            throw 'Dashboard requires a JSON configuration!'
+        }
+        if (!params.hasOwnProperty('container')) {
+            throw 'Dashboard requires a container!'
+        }
+
+        if (params.hasOwnProperty('title')) {
+            this.title = params.title;
+        }
+
           var widgets = new WidgetsCollection({
               url: params.config
           });
 
-          this.model = new Dashboard({widgets: widgets, title: 'Dashboard'});
+          this.model = new Dashboard({widgets: widgets, title: this.title});
           this.view = new DashboardView({model : this.model, el: params.container});
       }
 

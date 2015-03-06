@@ -11,8 +11,7 @@ define([
 
     var ChartView = View.extend({
         template: template,
-        events     : {
-        },
+
         model: Chart,
 
         defaults : {},
@@ -52,6 +51,8 @@ define([
 
             return this;
         }
+
+
 
     });
 
