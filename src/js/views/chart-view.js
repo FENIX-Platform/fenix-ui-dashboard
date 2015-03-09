@@ -5,8 +5,9 @@ define([
     'fx-dashboard/views/base/view',
     'text!fx-dashboard/templates/chart.hbs',
     'fx-dashboard/models/chart',
-    'fx-c-c/start'
-], function(amplify, require, $, View, template, Chart, ChartCreator) {
+    'fx-c-c/start',
+    'fx-dashboard/config/events'
+], function(amplify, require, $, View, template, Chart, ChartCreator, Events) {
     'use strict';
 
     var ChartView = View.extend({
@@ -22,17 +23,24 @@ define([
             View.prototype.initialize.apply(this, arguments);
 
             this.template = this.getTemplateFunction();
-
+            this.chartCreator = new ChartCreator();
+            this.model.id = this.model.attributes.id;
             var _this = this;
-            amplify.subscribe('fx.component.chart.ready', function () {
-                _this.onLoadComplete();
-            })
+
+              amplify.subscribe(Events.CHART_READY, function (chart) {
+                _this.onLoadComplete(chart);
+             })
         },
 
-        onLoadComplete : function(){
-            console.log('onLoadComplete CHART');
-            amplify.publish('fx.component.dashboard.widgetloaded', this.model);
-            //Chaplin.mediator.publish('widgetLoadedEvent', this.model);
+        onLoadComplete : function(chart){
+             this.chart = chart;
+
+            amplify.publish(Events.REFRESH_GRID_ITEM, this.model);
+
+        },
+
+        redraw : function(){
+             this.chartCreator.adapter.reflow();
         },
 
         render : function(){
@@ -41,8 +49,7 @@ define([
 
             this.model.fetch({
                 success: function(response){
-                      var chartCreator = new ChartCreator();
-                                        chartCreator.render({
+                                        _this.chartCreator.render({
                                             container: '#'+_this.model.attributes.id,
                                             model: response.toJSON()
                                         });

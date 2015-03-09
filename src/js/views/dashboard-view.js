@@ -6,8 +6,9 @@
     'fx-dashboard/views/widget-view',
     'text!fx-dashboard/templates/dashboard.hbs',
     'fx-dashboard/lib/Fx-fluid-grid',
-    'fx-dashboard/models/dashboard'
-], function($, amplify, View, WidgetsCollectionView, WidgetView, template, FluidGrid, Dashboard) {
+    'fx-dashboard/models/dashboard',
+    'fx-dashboard/config/events'
+], function($, amplify, View, WidgetsCollectionView, WidgetView, template, FluidGrid, Dashboard, Events) {
     'use strict';
 
     var DashboardView = View.extend({
@@ -26,10 +27,6 @@
                 columnWidth: '.fx-dashboard-grid-sizer'
             }
          },
-        //listen: {
-        // Same as this.subscribeEvent('pubSubEvent', this[methodName])
-         //'widget_loaded mediator': 'refresh'
-        //},
 
         initialize: function(attributes, options) {
             this.options = _.extend(this.defaults, attributes);
@@ -37,18 +34,15 @@
 
             View.prototype.initialize.apply(this, arguments);
 
-            amplify.subscribe('fx.component.dashboard.widgetloaded', this.refresh);
-            amplify.subscribe('fx.component.dashboard.widgetshrink', this.shrink);
-            amplify.subscribe('fx.component.dashboard.widgetexpand', this.expand);
 
-            //Chaplin.mediator.subscribe('widgetLoadedEvent', this.refresh);
+            amplify.subscribe(Events.REFRESH_GRID_ITEM, this.refresh);
+            amplify.subscribe(Events.RESIZE_GRID_ITEM, this.resize);
+
 
             this.template = this.getTemplateFunction();
 
             this.grid = new FluidGrid();
 
-            //console.log("WIDGETS ++++++++++++++++++++++");
-           // console.log(this.model.widgets);
 
             this._widgetCollectionView = new WidgetsCollectionView({
                 collection: this.model.widgets,
@@ -64,8 +58,9 @@
             this._widgetCollectionView.listSelector = this.container;
             this._widgetCollectionView.render();
 
-            amplify.subscribe('fx.component.dashboard.collectionrendered', this.initializeGrid);
-           // Chaplin.mediator.subscribe('collectionRenderedEvent', this.initializeGrid);
+
+            amplify.subscribe(Events.WIDGET_COLLECTION_READY, this.initializeGrid);
+
 
             return this;
         },
@@ -89,15 +84,12 @@
             this.grid.render();
        },
 
-        shrink : function() {
-            console.log("Shrink");
-           // this.grid.pckry.layout();
-        },
-        expand : function(target) {
-            console.log(target);
+        resize : function(target) {
             this.grid.resize(target);
             this.grid.pckry.layout();
+            amplify.publish(Events.GRID_ITEM_RE_SIZED, target);
         },
+
         refresh : function() {
              this.grid.pckry.layout();
         }
