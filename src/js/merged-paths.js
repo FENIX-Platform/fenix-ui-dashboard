@@ -9,6 +9,7 @@
         'fx-dashboard/lib': './lib',
         'fx-dashboard/widgets': './widgets',
         'fx-dashboard/utils': './utils',
+        'fx-dashboard/config': '../../config',
 
         // explicit references for TABLE CREATOR (needs to be dealt with in a better way)
         'fx-c-c' : '../../../fenix-ui-chart-creator/src/js',

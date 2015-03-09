@@ -1,13 +1,13 @@
 {"widgets": [
-        {
-            "id": "widget-1",
-            "type": "table",
-            "title": "Widget 1",
-            "size": {
-                "css": "fx-dashboard-grid-item w5"
-            },
-            "url":"http://faostat3.fao.org/d3s2/v2/msd/resources/uid/AFO_ProductionCapacities?dsd=true&full=true&order=time"
+    {
+        "id": "widget-1",
+        "type": "table",
+        "title": "Widget 1",
+        "size": {
+            "css": "fx-dashboard-grid-item w5"
         },
+        "url":"http://faostat3.fao.org/d3s2/v2/msd/resources/uid/AFO_ProductionCapacities?dsd=true&full=true&order=time"
+    },
     {
         "id": "widget-9",
         "type": "chart",
@@ -17,5 +17,5 @@
             "css": "fx-dashboard-grid-item w5"
         }
     }
-    ]
+]
 }

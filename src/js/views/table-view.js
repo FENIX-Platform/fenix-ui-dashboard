@@ -5,8 +5,9 @@ define([
     'fx-dashboard/views/base/view',
     'text!fx-dashboard/templates/table.hbs',
     'fx-dashboard/models/table',
-    'fx-t-c/start'
-], function(amplify, require, $, View, template, Table, TableCreator) {
+    'fx-t-c/start',
+    'fx-dashboard/config/events'
+], function(amplify, require, $, View, template, Table, TableCreator, Events) {
     'use strict';
 
     var TableView = View.extend({
@@ -23,14 +24,31 @@ define([
             View.prototype.initialize.apply(this, arguments);
 
             this.template = this.getTemplateFunction();
+            this.tableCreator = new TableCreator();
+            this.model.id = this.model.attributes.id;
+           // console.log("INITIALIZE TABLE "+ this.model.attributes.id);
+
             var _this = this;
-            amplify.subscribe('fx.component.table.created', function () {
-                _this.onLoadComplete();
-            })
+
+         //  amplify.subscribe('fx.component.table.ready', function (table) {
+            //    _this.onLoadComplete(table);
+          //  })
+
+              amplify.subscribe(Events.TABLE_READY, function (table) {
+               _this.onLoadComplete(table);
+              })
         },
 
-        onLoadComplete : function(){
-            amplify.publish('fx.component.dashboard.widgetloaded', this.model);
+        onLoadComplete : function(table){
+            this.table = table;
+
+            amplify.publish(Events.REFRESH_GRID_ITEM, this.model);
+
+        },
+
+        redraw : function(){
+            this.tableCreator.adapter.applyEvent('refresh');
+           //  this.tableCreator.adapter.getContainer().jqxGrid('refresh');
         },
 
         render : function(){
@@ -39,9 +57,8 @@ define([
 
             this.model.fetch({
                 success: function(response){
-                                        var tableCreator = new TableCreator();
 
-                                        tableCreator.render({
+                                         _this.tableCreator.render({
                                             container: '#'+_this.model.attributes.id,
                                             model: response.toJSON()
                                         });

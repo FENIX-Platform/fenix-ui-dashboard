@@ -2,8 +2,9 @@ define([
     'amplify',
     'jquery',
     'fx-dashboard/views/base/collection-view',
-    'fx-dashboard/views/widget-view'
-], function(amplify, $, CollectionView, WidgetView) {
+    'fx-dashboard/views/widget-view',
+    'fx-dashboard/config/events'
+], function(amplify, $, CollectionView, WidgetView, Events) {
     'use strict';
 
     var WidgetsCollectionView = CollectionView.extend({
@@ -36,6 +37,10 @@ define([
             });
 
              this.collection.bind('add', this.add);
+
+           // amplify.subscribe('fx.component.dashboard.griditemresized', this.redraw);
+            amplify.subscribe(Events.GRID_ITEM_RE_SIZED, this.redraw);
+
             //this.collection.bind('remove', this.remove);
        },
 
@@ -67,17 +72,28 @@ define([
             this._rendered = true;
 
             _(this._childViews).each(function(childView) {
-                //console.log("RENDER::: HERE CHILD VIEW");
+                //\\console.log("RENDER::: HERE CHILD VIEW");
                // $(that.el).append(childView.render().el);
             });
 
             return this;
         },
 
+        redraw : function(id){
+              var children = _(this._childViews)
+                .filter(function(childView) {
+                    return childView.model.id == id;
+            }).value();
+
+            if(children.length == 1)
+               children[0].childView.redraw();
+        },
+
 
         loadComplete : function(response){
             //console.log("===================== WIDGETS VIEW ================================ loadComplete");
-            amplify.publish('fx.component.dashboard.collectionrendered', this.collection);
+          //  amplify.publish('fx.component.dashboard.collectionrendered', this.collection);
+            amplify.publish(Events.WIDGET_COLLECTION_READY, this.collection);
            // Chaplin.mediator.publish('collectionRenderedEvent',this.collection);
         },
 

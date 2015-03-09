@@ -7,8 +7,9 @@ define([
     'text!fx-dashboard/templates/widget.hbs',
     'fx-dashboard/models/widget',
     'fx-dashboard/models/chart',
-    'fx-dashboard/views/chart-view'
-], function(amplify, Chaplin, $, require, View, template, Widget, ChartModel, ChartView) {
+    'fx-dashboard/views/chart-view',
+    'fx-dashboard/config/events'
+], function(amplify, Chaplin, $, require, View, template, Widget, ChartModel, ChartView, Events) {
     'use strict';
 
     var WidgetView = View.extend({
@@ -62,6 +63,8 @@ define([
             $(this.el).append(this.childView.render().el);
         },
 
+
+
         expandView: function(){
             var $widget = $('#'+this.model.id);
             var isGigante =  $widget.hasClass('fit');
@@ -78,10 +81,8 @@ define([
                 });
            }
 
-            amplify.publish('fx.component.dashboard.widgetexpand', this.model.id);
-
-          //  this.undelegate('click', '#'+this.model.id+' .fx-dashboard-resize-btn', this.resize);
-        }
+            amplify.publish(Events.RESIZE_GRID_ITEM, this.model.id);
+         }
 
     });
 

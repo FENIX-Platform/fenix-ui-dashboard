@@ -9,6 +9,7 @@
         'fx-dashboard/lib': './lib',
         'fx-dashboard/widgets': './widgets',
         'fx-dashboard/utils': './utils',
+        'fx-dashboard/config': '../../config',
 
         // third party libs
         'jquery': 'http://fenixapps.fao.org/repository/js/jquery/2.1.1/jquery.min',
