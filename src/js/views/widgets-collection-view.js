@@ -21,8 +21,9 @@ define([
             this.options = _.extend(this.defaults, attributes);
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
-            _.bindAll(this);
-            _(this).bindAll('add', 'remove');
+            //_.bindAll(this);
+          
+            _(this).bindAll('add', 'remove', 'loadComplete', 'redraw');
 
             if (!this.options.childViewConstructor) throw "no child view constructor provided";
 
@@ -80,7 +81,7 @@ define([
         },
 
         redraw : function(id){
-              var children = _(this._childViews)
+              var children = _(this._childViews).chain()
                 .filter(function(childView) {
                     return childView.model.id == id;
             }).value();

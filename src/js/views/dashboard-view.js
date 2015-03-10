@@ -30,8 +30,9 @@
 
         initialize: function(attributes, options) {
             this.options = _.extend(this.defaults, attributes);
-            _.bindAll(this);
-
+            //bind(this);
+            _(this).bindAll('refresh', 'resize', 'initializeGrid');
+            
             View.prototype.initialize.apply(this, arguments);
 
 

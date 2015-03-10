@@ -20,8 +20,7 @@ define([
         initialize: function(attributes, options) {
             WidgetModel.prototype.initialize.apply(this, arguments);
             this.options = _.extend(this.defaults, attributes,  WidgetModel.prototype.defaults);
-            _.bindAll(this);
-
+            //_.bindAll(this);
             this.url = this.options.url;
             //console.log("================= TABLE MODEL ============");
            // console.log(this.url);

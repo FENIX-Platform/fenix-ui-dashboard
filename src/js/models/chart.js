@@ -12,6 +12,9 @@ define([
             type: 'highchart'
         },
         url: '',
+        id: '',
+        config: {},
+        filter: {},
 
         parse: function (response) {
           this.data = response
@@ -21,8 +24,8 @@ define([
         initialize: function(attributes, options) {
             WidgetModel.prototype.initialize.apply(this, arguments);
             this.options = _.extend(this.defaults, attributes,  WidgetModel.prototype.defaults);
-            _.bindAll(this);
-
+            //_.bindAll(this);
+           // _.bindAll.apply(_, [this].concat(_.functions(this)));
             //console.log(this.options);
             this.url = this.options.url;
          }

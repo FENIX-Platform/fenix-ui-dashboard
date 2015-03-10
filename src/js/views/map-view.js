@@ -16,7 +16,7 @@ define([
 
         initialize: function(attributes, options) {
             this.options = _.extend(this.defaults, attributes);
-            _.bindAll(this);
+          //  _.bindAll(this);
             View.prototype.initialize.apply(this, arguments);
         },
 

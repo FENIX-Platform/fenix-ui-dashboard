@@ -18,7 +18,7 @@
 
       initialize: function(attributes, options) {
        this.options = _.extend(this.defaults, attributes);
-       _.bindAll(this);
+       //_.bindAll(this);
        Model.prototype.initialize.apply(this, arguments);
       }
   });

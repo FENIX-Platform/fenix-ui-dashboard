@@ -15,6 +15,22 @@
         "url":"http://faostat3.fao.org/d3s2/v2/msd/resources/uid/CountrySTAT_215CFE020?dsd=true&full=true&order=time",
         "size": {
             "css": "fx-dashboard-grid-item w5"
+        },
+        "filter": {
+            "Item": [{ "componentName": "Item", "code": "310510", "label": "NPK complex <=10kg"},
+                     { "componentName": "Item", "code": "310430", "label": "Potassium sulphate"}]
+        },
+        "config" : {
+            "seriesSubject": ["item"],
+            "options" : {
+                "title": {
+                    "text": "Tanzania Export Quantity"
+                },
+                "tooltip": {
+                    "valueSuffix": ""
+                }
+
+            }
         }
     }
 ]

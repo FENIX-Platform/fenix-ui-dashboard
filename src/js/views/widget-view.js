@@ -29,8 +29,7 @@ define([
 
         initialize: function(attributes, options) {
             this.options = _.extend(this.defaults, attributes);
-            _.bindAll(this);
-
+            //_.bindAll(this);
             View.prototype.initialize.apply(this, arguments);
 
             this.template = this.getTemplateFunction();
@@ -50,7 +49,8 @@ define([
                 _that._widgetTypeModel = new WidgetTypeModel;
                 _that._widgetTypeModel.attributes.id = _that.model.attributes.type +'-'+_that.model.id;
                 _that._widgetTypeModel.url = _that.model.attributes.url;
-
+                _that._widgetTypeModel.config = _that.model.attributes.config;
+                _that._widgetTypeModel.filter = _that.model.attributes.filter;
 
                 _that.childView = new WidgetTypeView({model : _that._widgetTypeModel, grid: _that.options.grid});
 
