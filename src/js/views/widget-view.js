@@ -23,7 +23,7 @@ define([
             widgetModel: ChartModel,
             html:'',
             css: {
-              'RESIZE': '.fx-dashboard-resize-btn'
+              'RESIZE': '.fx-catalog-modular-form-resize-btn'//'.fx-dashboard-resize-btn'
             }
         },
 

@@ -30,9 +30,9 @@ define([
             this.chartCreator = new ChartCreator();
             this.model.id = this.model.attributes.id;
 
-            console.log("INITIALIZE FILTER UTILS ======================");
+            //console.log("INITIALIZE FILTER UTILS ======================");
            // this.filterUtils = new FilterUtils();
-            console.log("INITIALIZE FILTER UTILS END ======================");
+           // console.log("INITIALIZE FILTER UTILS END ======================");
             var _this = this;
 
               amplify.subscribe(Events.CHART_READY, function (chart) {
@@ -67,10 +67,10 @@ define([
                    resource.original_data = response.toJSON();
                     //resource.metadata = data.metadata;
 
-                    console.log("SELECTED DATA");
-                    console.log(selected_data);
+                    //console.log("SELECTED DATA");
+                    //console.log(selected_data);
 
-                    console.log("response");
+                    //console.log("response");
                     //console.log(response.toJSON);
 
                    // console.log("RESOURCE");
@@ -88,11 +88,12 @@ define([
                    // console.log("THIS FILTER UTILS");
                    // console.log(_this.filterUtils);
                    // FilterUtils.filterData(resource, selected_data);
-                    console.log(resource);
+                 //  console.log(resource);
                   //  var filtered = filterUtils.filterData({original_data: response.toJSON()}, selected_data);
                     var filtered = (filterUtils.filterData({original_data: response.toJSON()}, selected_data, false)).original_data;
 
-                    console.log(filtered);
+                  //  console.log("=========================");
+                  // console.log(filtered);
 
 
                                         _this.chartCreator.render({

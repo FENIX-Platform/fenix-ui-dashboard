@@ -21,7 +21,7 @@
         defaults: {
             grid: '',
             css :{
-                draggable: '.fx-dashboard-drag',
+                draggable: '.fx-catalog-modular-form-handler', //'.fx-dashboard-drag',
                 item: '.fx-dashboard-grid-item',
                 gutter: '.fx-dashboard-grid-gutter-sizer',
                 columnWidth: '.fx-dashboard-grid-sizer'
@@ -31,14 +31,13 @@
         initialize: function(attributes, options) {
             this.options = _.extend(this.defaults, attributes);
             //bind(this);
-            _(this).bindAll('refresh', 'resize', 'initializeGrid');
+            _(this).bindAll('refresh', 'resize', 'initializeGrid', 'render');
             
             View.prototype.initialize.apply(this, arguments);
 
 
             amplify.subscribe(Events.REFRESH_GRID_ITEM, this.refresh);
             amplify.subscribe(Events.RESIZE_GRID_ITEM, this.resize);
-
 
             this.template = this.getTemplateFunction();
 
@@ -50,6 +49,8 @@
                 childViewConstructor : WidgetView
             });
 
+            //console.log("============ LISTEN TO EVENT =====================");
+            amplify.subscribe(Events.WIDGET_COLLECTION_READY, this.initializeGrid);
         },
 
         render : function() {
@@ -60,8 +61,8 @@
             this._widgetCollectionView.render();
 
 
-            amplify.subscribe(Events.WIDGET_COLLECTION_READY, this.initializeGrid);
-
+           // console.log("============ LISTEN TO EVENT: when loading JSON from URL  =====================");
+           // amplify.subscribe(Events.WIDGET_COLLECTION_READY, this.initializeGrid);
 
             return this;
         },

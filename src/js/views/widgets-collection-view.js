@@ -31,12 +31,12 @@ define([
 
             this._childViews = [];
 
-            this.collection.fetch({
+            /** When loading JSON from URL this.collection.fetch({
                 add: true,
                 success: this.loadComplete,
                 error: this.errorHandler
-            });
-
+            });  **/
+            var _that =  this;
              this.collection.bind('add', this.add);
 
            // amplify.subscribe('fx.component.dashboard.griditemresized', this.redraw);
@@ -53,6 +53,7 @@ define([
                 el: $(this.listSelector),
                 model : model
             });
+
 
             this._childViews.push(childView);
 
@@ -72,10 +73,19 @@ define([
             var that = this;
             this._rendered = true;
 
-            _(this._childViews).each(function(childView) {
+            //console.log("this._rendered "+this._rendered);
+
+            amplify.publish(Events.WIDGET_COLLECTION_READY, this.collection);
+
+            _.each(this.collection.models, this.add);
+
+           // console.log("============ PUBLISH EVENT !!! ===========");
+            amplify.publish(Events.WIDGET_COLLECTION_READY, this.collection);
+
+            //_(this._childViews).each(function(childView) {
                 //\\console.log("RENDER::: HERE CHILD VIEW");
                // $(that.el).append(childView.render().el);
-            });
+           // });
 
             return this;
         },

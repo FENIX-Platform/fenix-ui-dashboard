@@ -4,8 +4,6 @@
     box-sizing: border-box;
 }
 
-body { font-family: sans-serif; }
-
 /** Packery Grid related CSS **/
 .fx-dashboard-grid {
     background: #FDD;
@@ -25,15 +23,6 @@ body { font-family: sans-serif; }
 
 .fx-dashboard-grid-sizer {
     width: 49%;  /**  2 columns per row and 2% gutter 100% - 2% / 2 = 49% **/
-}
-
-.fx-dashboard-grid-item-original {
-    width: 49%;
-    /**height: 60px; **/
-    float: left;
-    background: #C09;
-    border: 2px solid #333;
-    border-color: hsla(0, 0%, 0%, 0.3);
 }
 
 .fx-dashboard-grid-item {
@@ -60,16 +49,10 @@ body { font-family: sans-serif; }
     position: relative;
     height: 30px; }
 
-.fx-dashboard-label {
-    position: absolute;
-    top: 4px;
-    left: 30px;
-    font-weight: 300;
-    color: #bf4040; }
-
 .fx-dashboard-grid-item.w2 { width: 38.8%; /*background: #9C0;*/ }
 .fx-dashboard-grid-item.h2 { height:450px; }
 .fx-dashboard-grid-item.w5 { width:  49% ; /*background: #90C;*/ /**min-height:450px;**/}
+.fx-dashboard-grid-item.w3 { width:  100% ; /*background: #90C;*/ /**min-height:450px;**/}
 
 /**.fx-dashboard-chart >div { height: 100%; width: 100%;}
 .fx-dashboard-table >div { height: 100%; width: 100%;}  **/
@@ -81,43 +64,9 @@ body { font-family: sans-serif; }
     z-index: 2;
 }
 
-
-/* drag handle: appears behind other elements
-   takes up entire size of parent */
-/**.fx-dashboard-grid-item .fx-dashboard-drag {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: #09F;
-} **/
-
-.fx-dashboard-grid-item .fx-dashboard-drag {
-    position: absolute;
-    left: 7px;
-    top: 7px;
-    height: 15px;
-    width: 15px;
-    background: url("../../../fenix-ui-common/css/img/fenix-catalog-sprite-small.svg") no-repeat -15px 0;
-    background-size: 150px 30px;
-    cursor: pointer; }
-
-
 .fx-dashboard-grid-item span {
     padding-left: 70px;
 }
-
-/**.fx-dashboard-drag:hover {
-    background: #09F;
-} **/
-.fx-dashboard-resize-btn {
-    position: absolute;
-    top: 7px;
-    right: 28px;
-    height: 15px;
-    width: 15px;
-    background: url("../../../fenix-ui-common/css/img/fenix-catalog-sprite-small.svg") no-repeat -30px 0;
-    background-size: 150px 30px;
-    cursor: pointer; }
 
 .fx-dashboard-grid-item.expand {
     width: 100%;

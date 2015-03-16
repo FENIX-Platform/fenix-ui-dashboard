@@ -6,8 +6,9 @@ define([
     'text!fx-dashboard/templates/table.hbs',
     'fx-dashboard/models/table',
     'fx-t-c/start',
-    'fx-dashboard/config/events'
-], function(amplify, require, $, View, template, Table, TableCreator, Events) {
+    'fx-dashboard/config/events',
+    'fx-filter/utils'
+], function(amplify, require, $, View, template, Table, TableCreator, Events, FilterUtils) {
     'use strict';
 
     var TableView = View.extend({
@@ -57,10 +58,18 @@ define([
 
             this.model.fetch({
                 success: function(response){
+                    var selected_data = _this.model.filter;
+                    var resource = {};
+                    resource.original_data = response.toJSON();
+
+                    var filterUtils = new FilterUtils();
+                    var filtered = (filterUtils.filterData({original_data: response.toJSON()}, selected_data, false)).original_data;
+
 
                                          _this.tableCreator.render({
                                             container: '#'+_this.model.attributes.id,
-                                            model: response.toJSON()
+                                             model: filtered//response.toJSON()
+                                            //model: response.toJSON()
                                         });
                 }
             });
