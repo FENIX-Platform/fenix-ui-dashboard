@@ -2,9 +2,10 @@
 define([
     'jquery',
     'underscore',
+    'fx-c-c/start',
     'amplify',
     'bootstrap'
-], function ($, _) {
+], function ($, _, ChartCreator) {
 
     'use strict';
 
@@ -13,6 +14,8 @@ define([
     };
 
     function ChartItem(options) {
+
+        console.log(ChartCreator)
 
         this.o = $.extend(true, {}, defaultOptions, options);
 
