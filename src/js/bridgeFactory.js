@@ -1,43 +1,48 @@
 /*global define, amplify */
 define([
     'jquery',
-    'fx-ds/renders/chartItem',
-    'amplify',
-    'bootstrap'
-], function ($, ChartItem) {
+    'fx-ds/bridges/d3p',
+    'amplify'
+], function ($, D3P) {
 
     'use strict';
 
-    var defaultOptions = {
-
-    };
+    var defaultOptions = { };
 
     function Factory(options) {
 
         this.o = $.extend(true, {}, defaultOptions, options);
 
-        this.renders = {};
+        this.bridges = {};
 
-        this.renders.CHART = ChartItem;
+        this.bridges.D3P = D3P;
 
-        this.bindEventListeners();
+        this._bindEventListeners();
     }
 
-    Factory.prototype.bindEventListeners = function () {
+    Factory.prototype._bindEventListeners = function () {
 
     };
 
-    Factory.prototype.getRender = function ( model ) {
+    Factory.prototype.getBridge = function ( item ) {
 
-        //TODO add logic to discriminate if the resource shown is a dataset, a codelist or else
-        return new this.renders.CHART(model);
+        var type = this.o.bridge.type || 'd3p';
+
+        switch (type.toLocaleLowerCase()) {
+            case "d3p" :
+                return new this.bridges.D3P(item);
+                break;
+            case "wds" :
+                break;
+        }
     };
 
-    Factory.prototype.render = function ( item ) {
+    Factory.prototype._unbindEventListeners = function () {
 
-        var render = this.getRender(item);
+    };
 
-        render.render(item);
+    Factory.prototype.destroy = function () {
+       this._unbindEventListeners();
     };
 
     return Factory;

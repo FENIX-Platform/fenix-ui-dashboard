@@ -1,0 +1,97 @@
+/*global define, amplify */
+
+define([
+    "jquery",
+    'fx-ds/config/config',
+    'fx-ds/config/config-default',
+    'fx-ds/config/events',
+    'fx-ds/config/errors',
+    'q',
+    "amplify"
+], function ($, C, DC, E, Err, Q) {
+
+    'use strict';
+
+    var defaultOptions = { };
+
+    function D3P_bridge(options) {
+
+        this.o = $.extend(true, {}, defaultOptions, options);
+
+        return this;
+    }
+
+    D3P_bridge.prototype.getPage = function (page) {
+
+        var self = this;
+
+        return Q.Promise(function (resolve, reject) {
+
+            var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS;
+
+            var url = SERVICE_PREFIX + "/resources/find?perPage=" + (C.SEARCH_PER_PAGE || DC.SEARCH_PER_PAGE) + '&page=' + page;
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(self.filter),
+                success: function (response, textStatus, jqXHR) {
+
+                    if (jqXHR.status === 204) {
+                        amplify.publish(E.SEARCH_QUERY_EMPTY_RESPONSE, {});
+
+                    }
+
+                    resolve({response: response || [], filter: self.filter});
+
+                },
+                error: function () {
+                    reject(new Error("Can't XHR " + JSON.stringify(url)));
+                },
+
+                complete: function () {
+                    amplify.publish(E.SEARCH_QUERY_END, {});
+                }
+            });
+
+        });
+    };
+
+    D3P_bridge.prototype.getFirstPage = function () {
+
+        return this.getPage(1);
+    };
+
+    D3P_bridge.prototype.getPage = function (page) {
+
+        return this.getPage(page);
+    };
+
+    D3P_bridge.prototype.query = function ( process ) {
+
+        if (!Array.isArray(process)) {
+            console.error(process);
+            throw new Error(Err.INVALID_PROCESS)
+        }
+
+        var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS,
+            url = SERVICE_PREFIX + "d3s/processes/" + this.o.uid,
+            baseFilter = this.o.filter || [],
+            filter = baseFilter.concat(process);
+
+        return Q(
+            $.ajax({
+                url: url,
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(filter)
+            })
+        );
+    };
+
+    return D3P_bridge;
+
+});

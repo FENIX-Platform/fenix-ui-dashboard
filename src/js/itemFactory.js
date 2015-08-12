@@ -1,7 +1,7 @@
 /*global define, amplify */
 define([
     'jquery',
-    'fx-ds/renders/chartItem',
+    'fx-ds/itemRenders/chartItem',
     'amplify',
     'bootstrap'
 ], function ($, ChartItem) {
@@ -27,17 +27,10 @@ define([
 
     };
 
-    Factory.prototype.getRender = function ( model ) {
+    Factory.prototype.getItemRender = function ( item ) {
 
         //TODO add logic to discriminate if the resource shown is a dataset, a codelist or else
-        return new this.renders.CHART(model);
-    };
-
-    Factory.prototype.render = function ( item ) {
-
-        var render = this.getRender(item);
-
-        render.render(item);
+        return new this.renders.CHART(item);
     };
 
     return Factory;
