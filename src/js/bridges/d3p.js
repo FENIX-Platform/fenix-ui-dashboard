@@ -6,9 +6,10 @@ define([
     'fx-ds/config/config-default',
     'fx-ds/config/events',
     'fx-ds/config/errors',
+    'fx-ds/config/d3p_filters',
     'q',
     "amplify"
-], function ($, C, DC, E, Err, Q) {
+], function ($, C, DC, E, Err, Filters, Q) {
 
     'use strict';
 
@@ -76,8 +77,9 @@ define([
             throw new Error(Err.INVALID_PROCESS)
         }
 
-        var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS,
-            url = SERVICE_PREFIX + "d3s/processes/" + this.o.uid,
+        var SERVICE_PREFIX = this.o.bridge.service_base_address||C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS,
+            D3P_PATHNAME = this.o.bridge.d3p_pathname || C.D3P_PATHNAME || DC.D3P_PATHNAME,
+            url = SERVICE_PREFIX + D3P_PATHNAME + this.o.uid,
             baseFilter = this.o.filter || [],
             filter = baseFilter.concat(process);
 

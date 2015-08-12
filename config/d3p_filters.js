@@ -4,5 +4,6 @@ define(function () {
 
     return {
 
+        DISTINCT : {}
     }
 });

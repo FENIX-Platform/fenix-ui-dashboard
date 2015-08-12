@@ -29,8 +29,20 @@ define([
 
     Factory.prototype.getItemRender = function ( item ) {
 
-        //TODO add logic to discriminate if the resource shown is a dataset, a codelist or else
-        return new this.renders.CHART(item);
+        var type = item.type || '';
+
+        switch (type.toLocaleLowerCase()){
+            case 'chart' :
+                return new this.renders.CHART(item);
+                break;
+            case 'map' :
+                return new this.renders.MAP(item);
+                break;
+            case 'table' :
+                return new this.renders.TABLE(item);
+                break;
+        }
+
     };
 
     return Factory;
