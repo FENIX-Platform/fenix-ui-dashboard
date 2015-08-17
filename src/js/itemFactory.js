@@ -2,9 +2,11 @@
 define([
     'jquery',
     'fx-ds/itemRenders/chartItem',
+    'fx-ds/itemRenders/mapItem',
+    'fx-ds/itemRenders/tableItem',
     'amplify',
     'bootstrap'
-], function ($, ChartItem) {
+], function ($, ChartItem, MapItem, TableItem) {
 
     'use strict';
 
@@ -19,6 +21,10 @@ define([
         this.renders = {};
 
         this.renders.CHART = ChartItem;
+
+        this.renders.MAP = MapItem;
+
+        this.renders.TABLE = TableItem;
 
         this.bindEventListeners();
     }

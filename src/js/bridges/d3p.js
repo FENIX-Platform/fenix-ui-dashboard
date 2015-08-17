@@ -79,7 +79,8 @@ define([
 
         var SERVICE_PREFIX = this.o.bridge.service_base_address||C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS,
             D3P_PATHNAME = this.o.bridge.d3p_pathname || C.D3P_PATHNAME || DC.D3P_PATHNAME,
-            url = SERVICE_PREFIX + D3P_PATHNAME + this.o.uid,
+            D3P_QUERY_PARAMS = this.o.bridge.d3p_query_params || C.D3P_QUERY_PARAMS || DC.D3P_QUERY_PARAMS,
+            url = SERVICE_PREFIX + D3P_PATHNAME + this.o.uid +D3P_QUERY_PARAMS,
             baseFilter = this.o.filter || [],
             filter = baseFilter.concat(process);
 

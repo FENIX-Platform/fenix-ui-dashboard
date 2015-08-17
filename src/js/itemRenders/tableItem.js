@@ -2,9 +2,9 @@
 define([
     'jquery',
     'underscore',
-    'fx-c-c/start',
+    'fx-t-c/start',
     'amplify'
-], function ($, _, ChartCreator) {
+], function ($, _, TableCreator) {
 
     'use strict';
 
@@ -12,27 +12,27 @@ define([
 
     };
 
-    function ChartItem(options) {
+    function TableItem(options) {
 
         this.o = $.extend(true, {}, defaultOptions, options);
 
         this._bindEventListeners();
 
-        this.chartCreator = new ChartCreator();
+        this.tableCreator = new TableCreator();
 
     }
 
-    ChartItem.prototype._bindEventListeners = function () {
+    TableItem.prototype._bindEventListeners = function () {
 
     };
 
-    ChartItem.prototype._getProcess = function () {
+    TableItem.prototype._getProcess = function () {
 
         return [];
 
     };
 
-    ChartItem.prototype.render = function () {
+    TableItem.prototype.render = function () {
 
         var process = this._getProcess();
 
@@ -40,7 +40,7 @@ define([
             .then(_.bind(this._onQuerySuccess, this), _.bind(this._onQueryError, this));
     };
 
-    ChartItem.prototype._onQuerySuccess = function (model) {
+    TableItem.prototype._onQuerySuccess = function (model) {
 
         var data = [];
         for (var i=0; i < 30; i++) {
@@ -56,33 +56,38 @@ define([
         //this.o.model = model;
         this.o.model = modelTest;
 
-        var chartConfig = $.extend(true, {}, this.o.config, {
-            model : this.o.model,
-            onReady: _.bind(this.renderCharts, this)
-        });
+        this.tableCreator.render({
+            container: this.o.config.container,
+            model: this.o.model
+            /*
+             if you want to override the default configuration,
+             options: {
+             sortable: true
+             }
+             */
 
-        this.chartCreator.init(chartConfig);
+        });
 
     };
 
-    ChartItem.prototype.renderCharts = function(creator) {
+    TableItem.prototype.renderCharts = function(creator) {
 
         creator.render( this.o.config);
     };
 
-    ChartItem.prototype._onQueryError = function () {
+    TableItem.prototype._onQueryError = function () {
 
         alert("Query error")
     };
 
-    ChartItem.prototype._unbindEventListeners = function () {
+    TableItem.prototype._unbindEventListeners = function () {
 
     };
 
-    ChartItem.prototype.destroy = function () {
+    TableItem.prototype.destroy = function () {
 
        this._unbindEventListeners();
     };
 
-    return ChartItem;
+    return TableItem;
 });
