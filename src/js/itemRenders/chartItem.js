@@ -28,7 +28,7 @@ define([
 
     ChartItem.prototype._getProcess = function () {
 
-        return [];
+        return this.o.filter || [];
 
     };
 

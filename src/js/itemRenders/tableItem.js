@@ -28,8 +28,7 @@ define([
 
     TableItem.prototype._getProcess = function () {
 
-        return [];
-
+        return this.o.filter || [];
     };
 
     TableItem.prototype.render = function () {
@@ -53,8 +52,8 @@ define([
             data: data
         };
 
-        //this.o.model = model;
-        this.o.model = modelTest;
+        this.o.model = model;
+        //this.o.model = modelTest;
 
         this.tableCreator.render({
             container: this.o.config.container,
