@@ -43,8 +43,11 @@ define([
     ChartItem.prototype._onQuerySuccess = function (model) {
 
         var data = [];
-        for (var i=0; i < 30; i++) {
-             data.push(model.data[i]);
+        for (var i=0; i < model.data.length; i++) {
+            if (model.data[i][21] !== null) {
+                console.log(model.data[i][21] + " " + model.data[i][3]);
+                data.push(model.data[i]);
+            }
         }
 
         //TODO implement
@@ -52,6 +55,12 @@ define([
             metadata: model.metadata,
             data: data
         };
+
+        //console.log(model.data);
+        //for (var i=0; i < model.data.length; i++) {
+        //   console.log(model.data[i][21] + " " + model.data[i][3]);
+        //}
+
 
         //this.o.model = model;
         this.o.model = modelTest;

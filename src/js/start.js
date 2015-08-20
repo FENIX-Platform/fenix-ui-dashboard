@@ -43,6 +43,7 @@ define([
 
         this.items = [];
 
+        return this;
     }
 
     DS.prototype._initVariables = function () {
@@ -81,18 +82,65 @@ define([
     DS.prototype.filter = function ( filter ) {
 
         //update base filter and render items
-        this.o.filter = filter;
+        //this.o.filter = filter;
 
         this._destroyItems();
 
-        this._renderItems();
+        this._renderItems(filter);
     };
 
-    DS.prototype._renderItems = function () {
+    DS.prototype._renderItems = function (filter) {
+
+/*
+        filter = [
+            {
+                "year": {
+                    "time": [
+                        {
+                            "from": 2000,
+                            "to": 2000
+                        }
+                    ]
+                }
+            }
+        ]
+*/
 
         if (this.o.items && Array.isArray(this.o.items)) {
-            _.each(this.o.items, _.bind(this._addItem, this));
+            _.each(this.o.items, _.bind(function (item) {
+
+                item.filter = this._prepareFilter(item, filter);
+
+                this._addItem( item );
+
+            }, this ));
         }
+    };
+
+    DS.prototype._prepareFilter = function (item, filter) {
+
+        var originalFilter = item.filter || [],
+            allowedFilter = item.allowedFilter;
+
+        if (!allowedFilter) {
+            return originalFilter;
+        }
+
+        _.each(filter, function (f) {
+            var filterKey = Object.keys(f)[0];
+            if ( allowedFilter.indexOf(filterKey) >= 0 ) {
+                _.each(originalFilter, function (of) {
+                    if ( of.hasOwnProperty("parameters")
+                         && of.parameters.hasOwnProperty("filter")
+                         && of.parameters.filter.hasOwnProperty("rows")) {
+                            of.parameters.filter.rows[filterKey] = f[filterKey];
+                    }
+                });
+            }
+
+        });
+
+        return originalFilter;
     };
 
     DS.prototype._addItem = function (item) {
@@ -154,7 +202,9 @@ define([
 
         this._unbindEventListeners();
 
-        this.layout.destroy();
+        if (this.layout && this.layout.destroy){
+            this.layout.destroy();
+        }
 
         this._destroyItems();
 
