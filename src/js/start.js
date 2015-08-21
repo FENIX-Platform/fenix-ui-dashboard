@@ -92,7 +92,7 @@ define([
     DS.prototype._renderItems = function (filter) {
 
         if (this.o.items && Array.isArray(this.o.items)) {
-            
+
             _.each(this.o.items, _.bind(function (item) {
 
                 item.filter = this._prepareFilter(item, filter);
@@ -120,7 +120,7 @@ define([
                         if (of.hasOwnProperty("parameters")
                             && of.parameters.hasOwnProperty("filter")
                             && of.parameters.filter.hasOwnProperty("rows")) {
-                            of.parameters.filter.rows[filterKey] = f[filterKey];
+                                of.parameters.filter.rows[filterKey] = f[filterKey];
                         }
                     });
                 }
