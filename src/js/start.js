@@ -91,22 +91,8 @@ define([
 
     DS.prototype._renderItems = function (filter) {
 
-/*
-        filter = [
-            {
-                "year": {
-                    "time": [
-                        {
-                            "from": 2000,
-                            "to": 2000
-                        }
-                    ]
-                }
-            }
-        ]
-*/
-
         if (this.o.items && Array.isArray(this.o.items)) {
+            
             _.each(this.o.items, _.bind(function (item) {
 
                 item.filter = this._prepareFilter(item, filter);
@@ -115,6 +101,7 @@ define([
 
             }, this ));
         }
+        
     };
 
     DS.prototype._prepareFilter = function (item, filter) {
@@ -127,16 +114,17 @@ define([
         }
 
         _.each(filter, function (f) {
-            var filterKey = Object.keys(f)[0];
-            if ( allowedFilter.indexOf(filterKey) >= 0 ) {
-                _.each(originalFilter, function (of) {
-                    if ( of.hasOwnProperty("parameters")
-                         && of.parameters.hasOwnProperty("filter")
-                         && of.parameters.filter.hasOwnProperty("rows")) {
+            _.each(f, function (v, filterKey) {
+                if (allowedFilter.indexOf(filterKey) >= 0) {
+                    _.each(originalFilter, function (of) {
+                        if (of.hasOwnProperty("parameters")
+                            && of.parameters.hasOwnProperty("filter")
+                            && of.parameters.filter.hasOwnProperty("rows")) {
                             of.parameters.filter.rows[filterKey] = f[filterKey];
-                    }
-                });
-            }
+                        }
+                    });
+                }
+            });
 
         });
 
