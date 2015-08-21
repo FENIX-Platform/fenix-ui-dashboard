@@ -43,12 +43,6 @@ define([
     ChartItem.prototype._onQuerySuccess = function (model) {
 
         var data = [];
-        for (var i=0; i < model.data.length; i++) {
-            if (model.data[i][21] !== null) {
-                console.log(model.data[i][21] + " " + model.data[i][3]);
-                data.push(model.data[i]);
-            }
-        }
 
         //TODO implement
         var modelTest = {
@@ -60,7 +54,6 @@ define([
         //for (var i=0; i < model.data.length; i++) {
         //   console.log(model.data[i][21] + " " + model.data[i][3]);
         //}
-
 
         //this.o.model = model;
         this.o.model = modelTest;
