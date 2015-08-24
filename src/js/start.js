@@ -16,7 +16,7 @@ define([
 
     var defaultOptions = {
 
-        layout : "fluid",
+        layout: "fluid",
 
         grid: {
             container: '[data-role="grid-container"]',
@@ -29,9 +29,9 @@ define([
             }
         },
 
-        bridge : {
+        bridge: {
 
-            type : "d3p"
+            type: "d3p"
 
         }
 
@@ -79,7 +79,7 @@ define([
 
     };
 
-    DS.prototype.filter = function ( filter ) {
+    DS.prototype.filter = function (filter) {
 
         //update base filter and render items
         //this.o.filter = filter;
@@ -97,11 +97,11 @@ define([
 
                 item.filter = this._prepareFilter(item, filter);
 
-                this._addItem( item );
+                this._addItem(item);
 
-            }, this ));
+            }, this));
         }
-        
+
     };
 
     DS.prototype._prepareFilter = function (item, filter) {
@@ -114,15 +114,23 @@ define([
         }
 
         _.each(filter, function (f) {
-            _.each(f, function (v, filterKey) {
+            _.each(f, function (filterValue, filterKey) {
                 if (allowedFilter.indexOf(filterKey) >= 0) {
                     _.each(originalFilter, function (of) {
                         if (of.hasOwnProperty("parameters")
                             && of.parameters.hasOwnProperty("filter")
                             && of.parameters.filter.hasOwnProperty("rows")) {
-                                of.parameters.filter.rows[filterKey] = f[filterKey];
+                            // checks if the filter has to be removed
+                            if (filterValue.hasOwnProperty("removeFilter")) {
+                                delete of.parameters.filter.rows[filterKey];
+                            }
+                            // else add the filter
+                            else {
+                                of.parameters.filter.rows[filterKey] = filterValue;
+                            }
                         }
                     });
+
                 }
             });
 
@@ -147,8 +155,8 @@ define([
         //inject bridge and template within render
         $.extend(true, renderer, {
             bridge: bridge,
-            el : itemTmpl,
-            $el : $(itemTmpl)
+            el: itemTmpl,
+            $el: $(itemTmpl)
         });
 
         //take track of displayed item
@@ -174,7 +182,7 @@ define([
 
         //Destroy items
         _.each(this.items, function (item) {
-            if (item.destroy){
+            if (item.destroy) {
                 item.destroy();
             }
         });
@@ -190,7 +198,7 @@ define([
 
         this._unbindEventListeners();
 
-        if (this.layout && this.layout.destroy){
+        if (this.layout && this.layout.destroy) {
             this.layout.destroy();
         }
 
