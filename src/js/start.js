@@ -118,16 +118,15 @@ define([
                 if (allowedFilter.indexOf(filterKey) >= 0) {
                     _.each(originalFilter, function (of) {
                         if (of.hasOwnProperty("parameters")
-                            && of.parameters.hasOwnProperty("filter")
-                            && of.parameters.filter.hasOwnProperty("rows")) {
-                            // checks if the filter has to be removed
-                            if (filterValue.hasOwnProperty("removeFilter")) {
-                                delete of.parameters.filter.rows[filterKey];
-                            }
-                            // else add the filter
-                            else {
-                                of.parameters.filter.rows[filterKey] = filterValue;
-                            }
+                            && of.parameters.hasOwnProperty("rows")) {
+                                // checks if the filter has to be removed
+                                if (filterValue.hasOwnProperty("removeFilter")) {
+                                    delete of.parameters.rows[filterKey];
+                                }
+                                // else add the filter
+                                else {
+                                    of.parameters.rows[filterKey] = filterValue;
+                                }
                         }
                     });
 

@@ -42,21 +42,8 @@ define([
 
     ChartItem.prototype._onQuerySuccess = function (model) {
 
-        var data = [];
-
-        //TODO implement
-        var modelTest = {
-            metadata: model.metadata,
-            data: data
-        };
-
-        //console.log(model.data);
-        //for (var i=0; i < model.data.length; i++) {
-        //   console.log(model.data[i][21] + " " + model.data[i][3]);
-        //}
-
         //this.o.model = model;
-        this.o.model = modelTest;
+        this.o.model = model;
 
         var chartConfig = $.extend(true, {}, this.o.config, {
             model : this.o.model,
