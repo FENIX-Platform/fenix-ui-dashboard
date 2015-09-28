@@ -109,6 +109,8 @@ define([
         var originalFilter = item.filter || [],
             allowedFilter = item.allowedFilter;
 
+
+
         if (!allowedFilter) {
             return originalFilter;
         }
