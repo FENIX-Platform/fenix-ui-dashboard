@@ -8,7 +8,7 @@ define(function () {
         paths:  {
 
             'fx-ds/start': './start',
-            'fx-ds/templates': './templates/',
+            'fx-ds/templates': './templates',
             'fx-ds/config' : '../../config',
             'fx-ds' : './',
 
