@@ -55,17 +55,15 @@ define([
         this.o.model = model;
         //this.o.model = modelTest;
 
-        this.tableCreator.render({
+        var payload = {
             container: this.o.config.container,
             model: this.o.model
-            /*
-             if you want to override the default configuration,
-             options: {
-             sortable: true
-             }
-             */
+        };
+        if(this.o.config.options){
+            payload['options'] = this.o.config.options
+        }
 
-        });
+        this.tableCreator.render(payload);
 
     };
 
