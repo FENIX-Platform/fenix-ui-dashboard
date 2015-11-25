@@ -8,9 +8,7 @@ define([
 
     'use strict';
 
-    var defaultOptions = {
-
-    };
+    var defaultOptions = {};
 
     function MapItem(options) {
 
@@ -49,11 +47,11 @@ define([
 
     };
 
-    MapItem.prototype.renderCharts = function(creator) {
+    MapItem.prototype.renderCharts = function (creator) {
 
         console.log(creator)
 
-        creator.render( this.o.config);
+        creator.render(this.o.config);
     };
 
     MapItem.prototype._onQueryError = function () {
@@ -67,7 +65,11 @@ define([
 
     MapItem.prototype.destroy = function () {
 
-       this._unbindEventListeners();
+        this._unbindEventListeners();
+    };
+
+    MapItem.prototype.getModel = function () {
+        return this.o.model;
     };
 
     return MapItem;

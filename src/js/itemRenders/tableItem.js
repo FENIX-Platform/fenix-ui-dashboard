@@ -8,9 +8,7 @@ define([
 
     'use strict';
 
-    var defaultOptions = {
-
-    };
+    var defaultOptions = {};
 
     function TableItem(options) {
 
@@ -42,8 +40,8 @@ define([
     TableItem.prototype._onQuerySuccess = function (model) {
 
         var data = [];
-        for (var i=0; i < 30; i++) {
-             data.push(model.data[i]);
+        for (var i = 0; i < 30; i++) {
+            data.push(model.data[i]);
         }
 
         //TODO implement
@@ -55,21 +53,23 @@ define([
         this.o.model = model;
         //this.o.model = modelTest;
 
-        var payload = {
+        this.tableCreator.render({
             container: this.o.config.container,
             model: this.o.model
-        };
-        if(this.o.config.options){
-            payload['options'] = this.o.config.options
-        }
+            /*
+             if you want to override the default configuration,
+             options: {
+             sortable: true
+             }
+             */
 
-        this.tableCreator.render(payload);
+        });
 
     };
 
-    TableItem.prototype.renderCharts = function(creator) {
+    TableItem.prototype.renderCharts = function (creator) {
 
-        creator.render( this.o.config);
+        creator.render(this.o.config);
     };
 
     TableItem.prototype._onQueryError = function () {
@@ -83,7 +83,11 @@ define([
 
     TableItem.prototype.destroy = function () {
 
-       this._unbindEventListeners();
+        this._unbindEventListeners();
+    };
+
+    TableItem.prototype.getModel = function () {
+        return this.o.model;
     };
 
     return TableItem;

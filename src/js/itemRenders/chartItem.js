@@ -8,9 +8,7 @@ define([
 
     'use strict';
 
-    var defaultOptions = {
-
-    };
+    var defaultOptions = {};
 
     function ChartItem(options) {
 
@@ -46,7 +44,7 @@ define([
         this.o.model = model;
 
         var chartConfig = $.extend(true, {}, this.o.config, {
-            model : this.o.model,
+            model: this.o.model,
             onReady: _.bind(this.renderCharts, this)
         });
 
@@ -54,9 +52,9 @@ define([
 
     };
 
-    ChartItem.prototype.renderCharts = function(creator) {
+    ChartItem.prototype.renderCharts = function (creator) {
 
-        creator.render( this.o.config);
+        creator.render(this.o.config);
     };
 
     ChartItem.prototype._onQueryError = function () {
@@ -70,7 +68,11 @@ define([
 
     ChartItem.prototype.destroy = function () {
 
-       this._unbindEventListeners();
+        this._unbindEventListeners();
+    };
+
+    ChartItem.prototype.getModel = function () {
+        return this.o.model;
     };
 
     return ChartItem;

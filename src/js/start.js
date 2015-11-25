@@ -2,6 +2,7 @@
 define([
     "jquery",
     "underscore",
+    'fx-ds/config/errors',
     'fx-ds/itemFactory',
     'fx-ds/bridgeFactory',
     'fx-ds/layoutManager',
@@ -10,7 +11,7 @@ define([
     "handlebars",
     "amplify",
     "bootstrap"
-], function ($, _, ItemFactory, BridgeFactory, Layout, template, itemTemplate, Handlebars) {
+], function ($, _, E, ItemFactory, BridgeFactory, Layout, template, itemTemplate, Handlebars) {
 
     'use strict';
 
@@ -41,7 +42,7 @@ define([
 
         this.o = $.extend(true, {}, defaultOptions, o);
 
-        this.items = [];
+        this.items = {};
 
         return this;
     }
@@ -66,16 +67,20 @@ define([
 
     DS.prototype.render = function (o) {
 
-        $.extend(true, this.o, o);
 
-        //Init auxiliary variables
-        this._initVariables();
+        if (this._isValidConfiguration(o)) {
 
-        this._bindEventListeners();
+            $.extend(true, this.o, o);
 
-        this._initComponents();
+            //Init auxiliary variables
+            this._initVariables();
 
-        this._renderItems();
+            this._bindEventListeners();
+
+            this._initComponents();
+
+            this._renderItems();
+        }
 
     };
 
@@ -110,7 +115,6 @@ define([
             allowedFilter = item.allowedFilter;
 
 
-
         if (!allowedFilter) {
             return originalFilter;
         }
@@ -121,14 +125,14 @@ define([
                     _.each(originalFilter, function (of) {
                         if (of.hasOwnProperty("parameters")
                             && of.parameters.hasOwnProperty("rows")) {
-                                // checks if the filter has to be removed
-                                if (filterValue.hasOwnProperty("removeFilter")) {
-                                    delete of.parameters.rows[filterKey];
-                                }
-                                // else add the filter
-                                else {
-                                    of.parameters.rows[filterKey] = filterValue;
-                                }
+                            // checks if the filter has to be removed
+                            if (filterValue.hasOwnProperty("removeFilter")) {
+                                delete of.parameters.rows[filterKey];
+                            }
+                            // else add the filter
+                            else {
+                                of.parameters.rows[filterKey] = filterValue;
+                            }
                         }
                     });
 
@@ -161,7 +165,7 @@ define([
         });
 
         //take track of displayed item
-        this.items.push(renderer);
+        this.items[renderer.o.id] = renderer;
 
         renderer.render();
 
@@ -188,6 +192,8 @@ define([
             }
         });
 
+        this.items = {};
+
     };
 
     DS.prototype.clear = function () {
@@ -206,6 +212,32 @@ define([
         this._destroyItems();
 
     };
+
+    DS.prototype._isValidConfiguration = function (conf) {
+        return this._checkItems(conf.items);
+    }
+
+    DS.prototype._checkItems = function (items) {
+
+        // check  id of every item is unique
+        var ids = []
+        if (items && items != null) {
+            for (var i = 0; i < items.length; i++) {
+                if (ids.indexOf(items[i].id) != -1) {
+                    throw new Error(E.INVALID_ID_ITEM)
+                }
+            }
+        }
+        return true;
+    };
+
+    DS.prototype.getModel = function (id) {
+        if (this.items[id]) {
+            return this.items[id].getModel();
+        }
+        return null;
+    };
+
 
     return DS;
 });
