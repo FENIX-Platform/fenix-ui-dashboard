@@ -40,7 +40,7 @@ define([
     TableItem.prototype._onQuerySuccess = function (model) {
 
         var data = [];
-        for (var i = 0; i < 30; i++) {
+        for (var i=0; i < 30; i++) {
             data.push(model.data[i]);
         }
 
@@ -53,17 +53,16 @@ define([
         this.o.model = model;
         //this.o.model = modelTest;
 
-        this.tableCreator.render({
+        var payload = {
             container: this.o.config.container,
             model: this.o.model
-            /*
-             if you want to override the default configuration,
-             options: {
-             sortable: true
-             }
-             */
+        };
+        if(this.o.config.options){
+            payload['options'] = this.o.config.options
+        }
 
-        });
+        this.tableCreator.render(payload);
+
 
     };
 
