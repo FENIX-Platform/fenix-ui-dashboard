@@ -84,6 +84,21 @@ define([
 
     };
 
+    DS.prototype.rebuild = function (o, filter) {
+
+        $.extend(true, this.o, o);
+
+        //Init auxiliary variables
+        this._initVariables();
+
+        this._bindEventListeners();
+
+        this._initComponents();
+
+        this._renderItems(filter);
+
+    };
+
     DS.prototype.filter = function (filter) {
 
         //update base filter and render items
