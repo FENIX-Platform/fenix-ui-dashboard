@@ -4,9 +4,10 @@ define([
     'fx-ds/itemRenders/chartItem',
     'fx-ds/itemRenders/mapItem',
     'fx-ds/itemRenders/tableItem',
+    'fx-ds/itemRenders/customItem',
     'amplify',
     'bootstrap'
-], function ($, ChartItem, MapItem, TableItem) {
+], function ($, ChartItem, MapItem, TableItem, CustomItem) {
 
     'use strict';
 
@@ -25,6 +26,8 @@ define([
         this.renders.MAP = MapItem;
 
         this.renders.TABLE = TableItem;
+
+        this.renders.CUSTOM = CustomItem;
 
         this.bindEventListeners();
     }
@@ -46,6 +49,9 @@ define([
                 break;
             case 'table' :
                 return new this.renders.TABLE(item);
+                break;
+            case 'custom' :
+                return new this.renders.CUSTOM(item);
                 break;
         }
 
