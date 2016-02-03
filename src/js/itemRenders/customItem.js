@@ -48,7 +48,7 @@ define([
            payload['options'] = this.o.config.options
         }
 
-        amplify.publish(E.CUSTOM_ITEM_RESPONSE, payload);
+        amplify.publish(E.CUSTOM_ITEM_RESPONSE+this.o.config.eventId, payload);
 
     };
 

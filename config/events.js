@@ -4,6 +4,6 @@ define(function () {
 
     return {
         // CUSTOM ITEM
-        CUSTOM_ITEM_RESPONSE: 'fx.dashboard.custom.item.response'
+        CUSTOM_ITEM_RESPONSE: 'fx.dashboard.custom.item.response.'
     }
 });
