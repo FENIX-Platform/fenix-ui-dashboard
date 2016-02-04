@@ -42,11 +42,9 @@ define([
 
         var payload = {
             container: this.o.config.container,
-            model: this.o.model
+            model: this.o.model,
+            config: this.o.config
         };
-        if(this.o.config.options){
-           payload['options'] = this.o.config.options
-        }
 
         amplify.publish(E.CUSTOM_ITEM_RESPONSE+this.o.config.eventId, payload);
 
