@@ -33,12 +33,10 @@ define([
 
         var dashboard = this.createDashboard(Model1);
 
-        dashboard.on("ready", function () {
-            $(s.REFRESH_BTN).on("click", function () {
-                dashboard.refresh({
-                    countrycode : ["1099"]
-                });
-            })
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                countrycode : ["1099"]
+            });
         })
     };
 

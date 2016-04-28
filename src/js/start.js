@@ -282,7 +282,6 @@ define([
     Dashboard.prototype._renderDashboard = function () {
 
         this._renderItems();
-
     };
 
     Dashboard.prototype._renderItems = function () {
@@ -319,7 +318,7 @@ define([
 
             if (stored === undefined) {
 
-                log.info(this._getCacheKey(item.filter) + " not in session storage.");
+                log.info(this._getCacheKey(item.filter) + " not in cache.");
 
                 this._getProcessedResource(item)
                     .then(
@@ -327,7 +326,7 @@ define([
                         _.bind(this._onGetProcessedResourceError, this, item));
 
             } else {
-                log.info(this._getCacheKey(item.filter) + " read from session storage.");
+                log.info(this._getCacheKey(item.filter) + " read from cache.");
 
                 item.body = stored;
 
