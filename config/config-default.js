@@ -17,8 +17,8 @@ define(function () {
             'map': {
                 path: selectorPath + 'map'
             },
-            'table': {
-                path: selectorPath + 'table'
+            'olap': {
+                path: selectorPath + 'olap'
             }
         }
 

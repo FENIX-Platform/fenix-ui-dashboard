@@ -8,16 +8,16 @@ define([
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
     'fx-dashboard/config/config-default',
-    'fx-chart/start',
+    'fx-olap/start',
     'amplify'
-], function ($, log, _, ERR, EVT, C, CD, ChartCreator) {
+], function ($, log, _, ERR, EVT, C, CD, OlapCreator) {
 
     'use strict';
 
     var defaultOptions = {},
         s = { };
 
-    function Chart(o) {
+    function Olap(o) {
 
         var self = this;
 
@@ -27,7 +27,7 @@ define([
 
         this._initVariables();
 
-        this._renderChart();
+        this._renderOlap();
 
         this._bindEventListeners();
 
@@ -45,7 +45,7 @@ define([
      * Disposition method
      * Mandatory method
      */
-    Chart.prototype.dispose = function () {
+    Olap.prototype.dispose = function () {
 
         this._dispose();
         
@@ -57,7 +57,7 @@ define([
      * refresh method
      * Mandatory method
      */
-    Chart.prototype.refresh = function () {
+    Olap.prototype.refresh = function () {
 
         log.info("Item refresh successfully");
 
@@ -68,7 +68,7 @@ define([
      * pub/sub
      * @return {Object} Dashboard instance
      */
-    Chart.prototype.on = function (channel, fn) {
+    Olap.prototype.on = function (channel, fn) {
         if (!this.channels[channel]) {
             this.channels[channel] = [];
         }
@@ -76,7 +76,7 @@ define([
         return this;
     };
 
-    Chart.prototype._trigger = function (channel) {
+    Olap.prototype._trigger = function (channel) {
 
         if (!this.channels[channel]) {
             return false;
@@ -90,17 +90,17 @@ define([
         return this;
     };
 
-    Chart.prototype._getStatus = function () {
+    Olap.prototype._getStatus = function () {
 
         return this.status;
     };
 
-    Chart.prototype._renderTemplate = function () {
+    Olap.prototype._renderTemplate = function () {
 
         //TODO
     };
 
-    Chart.prototype._initVariables = function () {
+    Olap.prototype._initVariables = function () {
 
         //Init status
         this.status = {};
@@ -111,45 +111,45 @@ define([
         //TODO
     };
 
-    Chart.prototype._renderChart = function () {
+    Olap.prototype._renderOlap = function () {
 
         var config = $.extend(true, {}, this.config, {
                 model : this.model,
                 el : this.$el
         });
 
-        new ChartCreator(config);
+        new OlapCreator(config);
 
     };
 
-    Chart.prototype._destroyChart = function () {
+    Olap.prototype._destroyOlap = function () {
 
         //TODO
 
-        log.info("Destroyed Chart: " + this.id);
+        log.info("Destroyed Olap: " + this.id);
     };
 
-    Chart.prototype._bindEventListeners = function () {
+    Olap.prototype._bindEventListeners = function () {
         //TODO
     };
 
-    Chart.prototype._unbindEventListeners = function () {
+    Olap.prototype._unbindEventListeners = function () {
         //TODO
     };
 
-    Chart.prototype._dispose = function () {
+    Olap.prototype._dispose = function () {
 
         this._unbindEventListeners();
 
-        this._destroyChart();
+        this._destroyOlap();
 
     };
 
-    Chart.prototype._getEventName = function (evt) {
+    Olap.prototype._getEventName = function (evt) {
 
         return this.controller.id + evt;
     };
 
-    return Chart;
+    return Olap;
 
 });

@@ -329,7 +329,6 @@ define([
                 log.info(this._getCacheKey(item.filter) + " read from cache.");
 
                 item.body = stored;
-
                 this._onGetProcessedResourceSuccess(item)
             }
 
@@ -397,12 +396,13 @@ define([
 
     Dashboard.prototype._renderItem = function (item) {
 
-        var Item = this._getItemRender(item.type);
+        var Item = this._getItemRender(item.type),
+            conf = $.extend(true, {}, item, {
+                controller: this,
+                $el: this._getItemContainer(item.id)
+            });
 
-        var is = new Item($.extend(true, {}, item, {
-            controller: this,
-            $el: this._getItemContainer(item.id)
-        }));
+        var is = new Item(conf);
 
         is.on("ready", _.bind(this._onItemReady, this));
 

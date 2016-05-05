@@ -21,7 +21,7 @@ require.config({
         mapPaths: pathProjectRoot + 'submodules/fenix-ui-map-creator/src/js/paths',
         tablePaths: pathProjectRoot + 'submodules/fenix-ui-table-creator/src/js/paths',
         filterPaths: pathProjectRoot + 'submodules/fenix-ui-filter/src/js/paths',
-        olapPaths: pathProjectRoot + 'submodules/fenix-ui-olap/js/paths',
+        olapPaths: pathProjectRoot + 'submodules/fenix-ui-olap/src/js/paths',
         reportPaths: pathProjectRoot + 'submodules/fenix-ui-reports/src/js/paths',
         visualizationPaths : pathProjectRoot + 'submodules/fenix-ui-visualization-box/src/js/paths',
         dataEditorPaths : pathProjectRoot + 'submodules/fenix-ui-DataEditor/js/paths',
@@ -35,8 +35,10 @@ require.config({
 require([
     "compilerPaths",
     "commonPaths",
-    "dashboardPaths"
-], function (Compiler, Common, Dashboard ) {
+    "dashboardPaths",
+    "chartPaths",
+    "olapPaths"
+], function (Compiler, Common, Dashboard, Chart, Olap ) {
 
     'use strict';
 
@@ -48,7 +50,13 @@ require([
     var dashboardConfig = Dashboard;
     dashboardConfig.baseUrl = submodules_path + 'fenix-ui-dashboard/src/js';
 
-    Compiler.resolve([commonConfig, dashboardConfig],
+    var chartConfig = Chart;
+    chartConfig.baseUrl = submodules_path + 'fenix-ui-chart-creator/src/js';
+
+    var olapConfig = Olap;
+    olapConfig.baseUrl = submodules_path + 'fenix-ui-olap/src/js';
+
+    Compiler.resolve([commonConfig, dashboardConfig, chartConfig, olapConfig],
         {
             placeholders: {"FENIX_CDN": "http://fenixrepo.fao.org/cdn"},
 
@@ -102,7 +110,7 @@ require([
     ], function (log, Test) {
 
         //trace, debug, info, warn, error, silent
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         log.warn("~~~~~ FENIX Filter: test");
         log.info("===== Start testing:...");

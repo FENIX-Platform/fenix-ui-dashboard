@@ -3,8 +3,9 @@ define([
     'jquery',
     'underscore',
     'fx-dashboard/start',
-    'test/models/model-1'
-], function (log, $, _, Dashboard, Model1 ) {
+    'test/models/model-1',
+    'test/models/uneca'
+], function (log, $, _, Dashboard, Model1, UnecaModel ) {
 
     'use strict';
 
@@ -26,7 +27,9 @@ define([
 
     Test.prototype._render = function () {
 
-        this._renderModel1();
+        //this._renderModel1();
+
+        this._renderUneca();
     };
 
     Test.prototype._renderModel1 = function () {
@@ -38,6 +41,12 @@ define([
                 countrycode : ["1099"]
             });
         })
+    };
+
+    Test.prototype._renderUneca = function () {
+
+        var dashboard = this.createDashboard(UnecaModel);
+
     };
 
     //Utils
