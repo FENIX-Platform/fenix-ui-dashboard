@@ -54,7 +54,7 @@ define([
      */
     Dashboard.prototype.refresh = function (values) {
 
-        if ( this.ready !== true) {
+        if (this.ready !== true) {
             this.toSync = values;
         } else {
             this._refresh(values);
@@ -302,7 +302,7 @@ define([
 
             //no items by default
             window.setTimeout(_.bind(function () {
-               this._onReady();
+                this._onReady();
             }, this), 100);
         }
 
@@ -358,15 +358,23 @@ define([
             values = item.filter || {},
             filter = {};
 
-        _.each(filterFor, function (r) {
+        if (filterFor.length !== 0) {
 
-            if (values.hasOwnProperty(r)) {
-                filter[r] = values[r];
-            } else {
-                log.warn("Item " + item.id + ": filter " + r + " not included because not present in item.filterFor")
-            }
+            _.each(filterFor, function (r) {
 
-        });
+                if (values.hasOwnProperty(r)) {
+                    filter[r] = values[r];
+                } else {
+                    log.warn("Item " + item.id + ": filter " + r + " not included because not present in item.filterFor")
+                }
+
+            });
+
+        } else {
+
+            //include all filter values
+            filter = values;
+        }
 
         var body = [{
             name: "filter",
@@ -375,6 +383,7 @@ define([
             }
         }];
 
+        log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body))
         return body;
 
     };

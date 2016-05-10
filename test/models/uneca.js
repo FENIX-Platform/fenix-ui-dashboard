@@ -41,7 +41,7 @@ define(function () {
                 filter: { //FX-filter format
                     //countrycode: ["1012"]
                 },
-                //filterFor: ["d"], // allowed dimension ids to filter,
+                //filterFor: ["countrycode"], // allowed dimension ids to filter,
             },
             //"IndicatorCode_EN",, "CountryCode_EN"
             {
