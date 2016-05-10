@@ -108,6 +108,7 @@ define([
         this.items = this.initial.items || [];
         this.preProcess = this.initial.preProcess || [];
         this.postProcess = this.initial.postProcess || [];
+        this.commonFilter = this.initial.filter || {};
 
         this.types = [];
         this.ids = [];
@@ -356,7 +357,8 @@ define([
 
         var filterFor = item.filterFor || [],
             values = item.filter || {},
-            filter = {};
+            filter = {},
+            rowsFilter ;
 
         if (filterFor.length !== 0) {
 
@@ -376,14 +378,19 @@ define([
             filter = values;
         }
 
+        rowsFilter = $.extend(true, {},
+            Utils.toD3P(this.filterConfiguration, {values: filter}),
+            Utils.toD3P(this.filterConfiguration, {values: this.commonFilter}));
+
         var body = [{
             name: "filter",
             parameters: {
-                rows: Utils.toD3P(this.filterConfiguration, {values: filter})
+                rows: rowsFilter
             }
         }];
 
         log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body))
+
         return body;
 
     };
