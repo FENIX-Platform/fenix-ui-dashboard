@@ -63,7 +63,7 @@ define([
 
     Dashboard.prototype._refresh = function (values) {
 
-        this.values = values;
+        this.values = values.values;
 
         this._disposeItems();
 
@@ -194,7 +194,6 @@ define([
 
         // pub/sub
         this.channels = {};
-        this.cache = {};
 
         this.itemInstances = {};
     };
@@ -309,29 +308,15 @@ define([
 
         _.each(this.items, _.bind(function (item) {
 
+            //used during refresh
+            item.filter = $.extend({}, item.filter, this.values);
+
             item.body = this._createProcessBody(item);
 
-            //used during refresh
-            item.filter = this.values ? this.values : item.filter;
-
-            //Check if codelist is cached otherwise query
-            var stored = this._getCachedResource(item.filter);
-
-            if (stored === undefined) {
-
-                log.info(this._getCacheKey(item.filter) + " not in cache.");
-
-                this._getProcessedResource(item)
-                    .then(
-                        _.bind(this._onGetProcessedResourceSuccess, this, item),
-                        _.bind(this._onGetProcessedResourceError, this, item));
-
-            } else {
-                log.info(this._getCacheKey(item.filter) + " read from cache.");
-
-                item.body = stored;
-                this._onGetProcessedResourceSuccess(item)
-            }
+            this._getProcessedResource(item)
+                .then(
+                    _.bind(this._onGetProcessedResourceSuccess, this, item),
+                    _.bind(this._onGetProcessedResourceError, this, item));
 
         }, this));
 
@@ -358,7 +343,7 @@ define([
         var filterFor = item.filterFor || [],
             values = item.filter || {},
             filter = {},
-            rowsFilter ;
+            rowsFilter;
 
         if (filterFor.length !== 0) {
 
@@ -389,7 +374,7 @@ define([
             }
         }];
 
-        log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body))
+        log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body));
 
         return body;
 
@@ -403,8 +388,6 @@ define([
         log.info("Resources load: success");
 
         item.model = this._updateModel(resource);
-
-        this._setCachedResource(item.filter, item.model);
 
         this._renderItem(item)
 
@@ -423,33 +406,6 @@ define([
         is.on("ready", _.bind(this._onItemReady, this));
 
         this.itemInstances[item.id] = is
-    };
-
-    // cache
-
-    Dashboard.prototype._setCachedResource = function (obj, resource) {
-
-        this.cache[this._getCacheKey(obj)] = resource;
-
-        return this.cache[this._getCacheKey(obj)];
-    };
-
-    Dashboard.prototype._getCachedResource = function (obj) {
-
-        return this.cache[this._getCacheKey(obj)];
-    };
-
-    Dashboard.prototype._getCacheKey = function (o) {
-
-        var obj = typeof o === 'object' ? o : {},
-            key = "_",
-            keys = Object.keys(obj).sort();
-
-        for (var i = 0; i < keys.length; i++) {
-            key += "_" + keys[i] + ":" + obj[keys[i]];
-        }
-
-        return key;
     };
 
     // Handlers
@@ -532,6 +488,8 @@ define([
 
         if (Array.isArray(newData)) {
             Utils.assign(model, "data", newData);
+        } else {
+            Utils.assign(model, "data", []);
         }
 
         return model;
@@ -539,7 +497,6 @@ define([
 
     //disposition
     Dashboard.prototype._unbindEventListeners = function () {
-
 
     };
 
