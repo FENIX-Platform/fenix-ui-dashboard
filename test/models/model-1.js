@@ -10,6 +10,7 @@ define(function () {
         //version: "",
         //preProcess : {} //D3P process
         //postProcess : {} //D3P process
+        //filter : {} //FX-filter format
         items: [
             {
                 id: "chart_1", //ref [data-item=':id']
