@@ -3,7 +3,7 @@ define(function () {
     var config = {
 
         paths: {
-            'fx-dashboard/start': './start',
+            'fx-dashboard/start': './dashboard',
             'fx-dashboard/html': '../../html',
             'fx-dashboard/js': './',
             'fx-dashboard/config' :  '../../config',

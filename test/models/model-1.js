@@ -16,24 +16,34 @@ define(function () {
                 id: "chart_1", //ref [data-item=':id']
                 type: "chart", //chart || map || table,
                 config: {
-                    test: "param"
+                    type: "line",
+                    y: ["Values"],
+                    x : ["Year"],
+                    series : ["IndicatorCode"],
+                    aggregationFn: {"Value": "sum"}
                 }, // :type-creator config
                 filter: { //FX-filter format
-                    countrycode: ["1012"]
+                    //countrycode: ["1012"]
                 },
-                filterFor: ["d"], // allowed dimension ids to filter,
+                //filterFor: ["d"], // allowed dimension ids to filter,
             },
             {
-                id: "chart_2", //ref [data-item=':id']
-                type: "chart", //chart || map || table,
+                id: "olap_1", //ref [data-item=':id']
+                type: "olap", //chart || map || olap,
                 config: {
-                    test: "param"
-                }, // :type-creator config
+                    "aggregations": [],
+                    "columns": ["Year"],
+                    "rows": [ "IndicatorCode_EN"],
+                    "values": ["Value"],
+                    aggregationFn: {Value: "sum"},
+                }
+                , // :type-creator config
                 filter: { //FX-filter format
-                    countrycode: ["1012"]
-                },
-                filterFor: [] // allowed dimension ids to filter
+                    //countrycode: ["1012"]
+                }
+                //filterFor: ["d"], // allowed dimension ids to filter,
             }
+
         ]
     }
 
