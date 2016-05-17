@@ -27,7 +27,6 @@ define(function () {
 					inputFormat:"fenixtool",// || default raw else fenixtool
                     "x": ["GenderCode"],
                     "series": [ "IndicatorCode"],
-            showCode:true,
                     "y": ["Value"], 
                    
                 }
