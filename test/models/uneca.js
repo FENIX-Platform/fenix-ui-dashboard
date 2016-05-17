@@ -19,14 +19,14 @@ define(function () {
         //postProcess : {} //D3P process
         //filter : {} //FX-filter format
         items: [
-            {
+         /*   {
                 id: "chart_1", //ref [data-item=':id']
                 type: "chart", //chart || map || olap,
                 config: {
-                    type : "line",
+                    type : "column_stacked",
 					inputFormat:"fenixtool",// || default raw else fenixtool
-                    "x": ["Year"],
-                    "series": [ "IndicatorCode","GenderCode"],
+                    "x": ["GenderCode"],
+                    "series": [ "IndicatorCode"],
             
                     "y": ["Value"], 
                    
@@ -60,7 +60,7 @@ define(function () {
                     //countrycode: ["1012"]
                 },
                 //filterFor: ["countrycode"], // allowed dimension ids to filter,
-            },
+            },*/
             //"IndicatorCode_EN",, "CountryCode_EN"
             {
                 id: "olap_1", //ref [data-item=':id']
@@ -90,18 +90,19 @@ define(function () {
                 id: "olap_2", //ref [data-item=':id']
                 type: "olap", //chart || map || olap,
                 config: {
+					inputFormat:"fenixtool",
                     "aggregations": [],
-                    "columns": ["Year"],
-                    "rows": [ "GenderCode_EN"],
+                    "columns": ["Year","IndicatorCode"],
+                    "rows": [ "GenderCode"],
                     "hidden": [],
                     "values": ["Value"],
                     "aggregationFn": {"Value": "sum", "v1": "default"},
                     //"valueOutputType": "classicToNumber",
                     "formatter": "localstring",
                     "decimals": 2,
-                    "showUnit": false,
-                    "showFlag": false,
-                    "showCode": false,
+                    "showUnit": true,
+                    "showFlag": true,
+                    "showCode": true,
                     "showRowHeaders": true
                 }
                 , // :type-creator config
