@@ -11,7 +11,7 @@ define([
 
     var s = {
         REFRESH_BTN : "#refresh-btn"
-    },
+    }, 
         instances = [];
 
     function Test() {
@@ -45,8 +45,8 @@ define([
 
     Test.prototype._renderUneca = function () {
 
-        var dashboard = this.createDashboard(Model1);
-
+        var dashboard = this.createDashboard(UnecaModel);
+		
     };
 
     //Utils

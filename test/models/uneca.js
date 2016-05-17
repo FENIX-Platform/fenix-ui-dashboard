@@ -28,7 +28,7 @@ define(function () {
                     "columns": ["Year"],
                     "rows": [ "IndicatorCode_EN","GenderCode_EN"],
                     "hidden": [],
-                    "values": ["Value"],
+                    "values": ["Value"], 
                     "aggregationFn": {"Value": "sum", "v1": "default"},
                     //"valueOutputType": "classicToNumber",
                     "formatter": "value",

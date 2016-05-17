@@ -18,15 +18,13 @@ define([
 
     'use strict';
 
-    var defaultOptions = {
-        lang: "EN"
-    }, s = {};
+    var defaultOptions = {lang: "EN" }, s = {};
 
     function Dashboard(o) {
         log.info("FENIX Dashboard");
         log.info(o);
 
-        $.extend(true, this, DC, C, {initial: o}, defaultOptions);
+		$.extend(true, this, DC, C, {initial: o}, defaultOptions);
 
         this._parseInput(o);
 
@@ -400,7 +398,7 @@ define([
                 controller: this,
                 $el: this._getItemContainer(item.id)
             });
-
+//console.log("CONF",conf,Item)
         var is = new Item(conf);
 
         is.on("ready", _.bind(this._onItemReady, this));
