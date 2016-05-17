@@ -24,11 +24,28 @@ define(function () {
                 type: "chart", //chart || map || olap,
                 config: {
                     type : "line",
+					inputFormat:"fenixtool",// || default raw else fenixtool
+                    "x": ["Year"],
+                    "series": [ "IndicatorCode","GenderCode"],
+            
+                    "y": ["Value"], 
+                   
+                }
+                , // :type-creator config
+                filter: { //FX-filter format
+                    Year: ["2001","2012"]
+                },
+                //filterFor: ["countrycode"], // allowed dimension ids to filter,
+            },   {
+                id: "chart_2", //ref [data-item=':id']
+                type: "chart", //chart || map || olap,
+                config: {
+                    type : "line",
                     "aggregations": [],
-                    "columns": ["Year"],
-                    "rows": [ "IndicatorCode_EN","GenderCode_EN"],
+                    "x": ["Year"],
+                    "series": [ "IndicatorCode_EN","GenderCode_EN"],
                     "hidden": [],
-                    "values": ["Value"], 
+                    "y": ["Value"], 
                     "aggregationFn": {"Value": "sum", "v1": "default"},
                     //"valueOutputType": "classicToNumber",
                     "formatter": "value",
@@ -66,6 +83,30 @@ define(function () {
                 , // :type-creator config
                 filter: { //FX-filter format
                     //countrycode: ["1012"]
+                },
+                //filterFor: ["d"], // allowed dimension ids to filter,
+            } ,
+			{
+                id: "olap_2", //ref [data-item=':id']
+                type: "olap", //chart || map || olap,
+                config: {
+                    "aggregations": [],
+                    "columns": ["Year"],
+                    "rows": [ "GenderCode_EN"],
+                    "hidden": [],
+                    "values": ["Value"],
+                    "aggregationFn": {"Value": "sum", "v1": "default"},
+                    //"valueOutputType": "classicToNumber",
+                    "formatter": "localstring",
+                    "decimals": 2,
+                    "showUnit": false,
+                    "showFlag": false,
+                    "showCode": false,
+                    "showRowHeaders": true
+                }
+                , // :type-creator config
+                filter: { //FX-filter format
+                    GenderCode: [1]
                 },
                 //filterFor: ["d"], // allowed dimension ids to filter,
             }
