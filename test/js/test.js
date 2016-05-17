@@ -44,7 +44,6 @@ define([
     };
 
     Test.prototype._renderUneca = function () {
-console.log("la",UnecaModel)
         var dashboard = this.createDashboard(UnecaModel);
 		
     };
