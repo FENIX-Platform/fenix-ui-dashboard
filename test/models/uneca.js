@@ -19,7 +19,7 @@ define(function () {
         //postProcess : {} //D3P process
         //filter : {} //FX-filter format
         items: [
-         /*   {
+            {
                 id: "chart_1", //ref [data-item=':id']
                 type: "chart", //chart || map || olap,
                 config: {
@@ -27,7 +27,7 @@ define(function () {
 					inputFormat:"fenixtool",// || default raw else fenixtool
                     "x": ["GenderCode"],
                     "series": [ "IndicatorCode"],
-            
+            showCode:true,
                     "y": ["Value"], 
                    
                 }
@@ -60,7 +60,7 @@ define(function () {
                     //countrycode: ["1012"]
                 },
                 //filterFor: ["countrycode"], // allowed dimension ids to filter,
-            },*/
+            },
             //"IndicatorCode_EN",, "CountryCode_EN"
             {
                 id: "olap_1", //ref [data-item=':id']
