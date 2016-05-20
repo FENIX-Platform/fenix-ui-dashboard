@@ -118,13 +118,13 @@ define([
             el: this.$el
         });
 
-        new MapCreator(config);
+        this.map = new MapCreator(config);
 
     };
 
     Map.prototype._destroyMap = function () {
 
-        //TODO
+        this.map.dispose();
 
         log.info("Destroyed Map: " + this.id);
     };
