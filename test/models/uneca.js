@@ -13,7 +13,7 @@ define(function () {
 
     return {
 
-        uid: "UNECA_Education",
+        uid: "UNECA_Population",
         //version: "",
         //preProcess : [{id:"preResource"}], //D3P process
         //postProcess : [{id: "postResource"}], //D3P process
@@ -23,16 +23,18 @@ define(function () {
                 id: "chart_1", //ref [data-item=':id']
                 type: "chart", //chart || map || olap,
                 config: {
-                    type : "column_stacked",
+                    type : "pyramide",
 					inputFormat:"fenixtool",// || default raw else fenixtool
                     "x": ["GenderCode"],
-                    "series": [ "IndicatorCode"],
+                    "series": [ "Year"],
                     "y": ["Value"], 
                    
                 }
                 , // :type-creator config
                 filter: { //FX-filter format
-                    Year: ["2001","2012"]
+                    GenderCode: [2,1],
+					  Year: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010],
+					  //CountryCode:["MWI"]
                 },
                 //preProcess : [{id:"preItem"}], //D3P process
                 //postProcess : [{id: "postIem"}] //D3P process
