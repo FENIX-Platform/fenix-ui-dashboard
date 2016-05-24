@@ -322,7 +322,7 @@ define([
 
     Dashboard.prototype._getProcessedResource = function (item) {
 
-        var body = this.preProcess.concat(item.body).concat(this.postProcess);
+        var body = _.union(this.preProcess, item.body, this.postProcess);
 
         return Bridge.getResource({
             uid: this.uid,
@@ -371,6 +371,16 @@ define([
                 rows: rowsFilter
             }
         }];
+
+        //prepend a custom D3P process
+        if (Array.isArray(item.preProcess)){
+            body = _.union(item.preProcess, body);
+        }
+
+        //append a custom D3P process
+        if (Array.isArray(item.postProcess)){
+            body = _.union(body, item.postProcess );
+        }
 
         log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body));
 

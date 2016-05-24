@@ -15,8 +15,8 @@ define(function () {
 
         uid: "UNECA_Education",
         //version: "",
-        //preProcess : {} //D3P process
-        //postProcess : {} //D3P process
+        //preProcess : [{id:"preResource"}], //D3P process
+        //postProcess : [{id: "postResource"}], //D3P process
         //filter : {} //FX-filter format
         items: [
             {
@@ -34,6 +34,8 @@ define(function () {
                 filter: { //FX-filter format
                     Year: ["2001","2012"]
                 },
+                //preProcess : [{id:"preItem"}], //D3P process
+                //postProcess : [{id: "postIem"}] //D3P process
                 //filterFor: ["countrycode"], // allowed dimension ids to filter,
             },   {
                 id: "chart_2", //ref [data-item=':id']

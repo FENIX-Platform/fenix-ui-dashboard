@@ -8,8 +8,8 @@ define(function () {
 
         uid: "adam_country_indicators",
         //version: "",
-        //preProcess : {} //D3P process
-        //postProcess : {} //D3P process
+        //preProcess : [] //D3P process
+        //postProcess : [] //D3P process
         //filter : {} //FX-filter format
         items: [
             {
@@ -26,6 +26,8 @@ define(function () {
                     //countrycode: ["1012"]
                 },
                 //filterFor: ["d"], // allowed dimension ids to filter,
+                //preProcess : [] //D3P process
+                //postProcess : [] //D3P process
             },
             {
                 id: "olap_1", //ref [data-item=':id']
