@@ -26,15 +26,31 @@ define(function () {
                     type : "pyramide",
 					inputFormat:"fenixtool",// || default raw else fenixtool
                     "x": ["GenderCode"],
-                    "series": [ "Year"],
+                    "series": [ "AgeRangeCode"],
                     "y": ["Value"], 
                    
                 }
                 , // :type-creator config
                 filter: { //FX-filter format
-                    GenderCode: [2,1],
-					  Year: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010],
-					  //CountryCode:["MWI"]
+                    IndicatorCode: ["010101"],
+                           GenderCode: ["1","2"],
+                           AgeRangeCode: [
+                               "AG02",
+                                "AG03",
+                                "AG04",
+                                "AG05",
+                                "AG06",
+                                "AG07",
+                                "AG08",
+                                "AG09",
+                                "AG10",
+                                "AG11",
+                                "AG12",
+                                "AG13",
+                                "AG14",
+                                "AG15"
+                            ],
+                            Year: ["2008"]
                 },
                 //preProcess : [{id:"preItem"}], //D3P process
                 //postProcess : [{id: "postIem"}] //D3P process
