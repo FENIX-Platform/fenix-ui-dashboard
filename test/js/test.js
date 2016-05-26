@@ -44,7 +44,10 @@ define([
     };
 
     Test.prototype._renderUneca = function () {
-        var dashboard = this.createDashboard(UnecaModel);
+        
+        var dashboard = this.createDashboard($.extend(true, UnecaModel, {
+            environment : 'develop'
+        }));
 		
     };
 

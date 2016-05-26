@@ -107,6 +107,7 @@ define([
         this.preProcess = this.initial.preProcess || [];
         this.postProcess = this.initial.postProcess || [];
         this.commonFilter = this.initial.filter || {};
+        this.environment = this.initial.environment;
 
         this.types = [];
         this.ids = [];
@@ -194,6 +195,11 @@ define([
         this.channels = {};
 
         this.itemInstances = {};
+
+        this.bridge = new Bridge({
+            environment : this.environment
+        });
+
     };
 
     Dashboard.prototype._getItemContainer = function (id) {
@@ -250,7 +256,7 @@ define([
 
     Dashboard.prototype._preloadMetadataResource = function () {
 
-        return Bridge.getMetadata({
+        return this.bridge.getMetadata({
             uid: this.uid,
             version: this.version,
             params: {
@@ -324,7 +330,7 @@ define([
 
         var body = _.union(this.preProcess, item.body, this.postProcess);
 
-        return Bridge.getResource({
+        return this.bridge.getResource({
             uid: this.uid,
             version: this.version,
             body: body,
