@@ -8,7 +8,7 @@ define([
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
     'fx-dashboard/config/config-default',
-    'fx-map/start',
+    'fx-m-c/start',
     'amplify'
 ], function ($, log, _, ERR, EVT, C, CD, MapCreator) {
 
@@ -117,6 +117,8 @@ define([
             model: this.model,
             el: this.$el
         });
+
+        console.log(config)
 
         this.map = new MapCreator(config);
 
