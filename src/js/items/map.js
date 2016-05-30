@@ -118,8 +118,6 @@ define([
             el: this.$el
         });
 
-        console.log(config)
-
         this.map = new MapCreator(config);
 
     };
