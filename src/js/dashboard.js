@@ -330,7 +330,7 @@ define([
 
         var body = _.union(this.preProcess, item.body, this.postProcess);
 
-        return this.bridge.getResource({
+        return this.bridge.getProcessedResource({
             uid: this.uid,
             version: this.version,
             body: body,
