@@ -102,6 +102,7 @@ define([
 
         this.id = this.initial.id;
         this.uid = this.initial.uid;
+        this.$el = $(this.initial.el);
         this.version = this.initial.version;
         this.items = this.initial.items || [];
         this.preProcess = this.initial.preProcess || [];
@@ -203,7 +204,11 @@ define([
     };
 
     Dashboard.prototype._getItemContainer = function (id) {
-        return $("[data-item='" + id + "']");
+        if(this.$el)
+           return this.$el.find("[data-item='" + id + "']");
+
+         else
+            return $("[data-item='" + id + "']");
     };
 
     Dashboard.prototype._preloadItemsScripts = function () {
