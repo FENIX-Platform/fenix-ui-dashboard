@@ -18,13 +18,13 @@ define([
 
     'use strict';
 
-    var defaultOptions = {lang: "EN" }, s = {};
+    var defaultOptions = {lang: "EN"}, s = {};
 
     function Dashboard(o) {
         log.info("FENIX Dashboard");
         log.info(o);
 
-		$.extend(true, this, DC, C, {initial: o}, defaultOptions);
+        $.extend(true, this, DC, C, {initial: o}, defaultOptions);
 
         this._parseInput(o);
 
@@ -102,13 +102,17 @@ define([
 
         this.id = this.initial.id;
         this.uid = this.initial.uid;
-        this.el = this.initial.el || null;
+        this.el = this.initial.el || window.document;
         this.version = this.initial.version;
         this.items = this.initial.items || [];
         this.preProcess = this.initial.preProcess || [];
         this.postProcess = this.initial.postProcess || [];
         this.commonFilter = this.initial.filter || {};
         this.environment = this.initial.environment;
+
+        this.$el = $(this.el);
+
+        console.log(this.$el)
 
         this.types = [];
         this.ids = [];
@@ -198,17 +202,15 @@ define([
         this.itemInstances = {};
 
         this.bridge = new Bridge({
-            environment : this.environment
+            environment: this.environment
         });
 
     };
 
     Dashboard.prototype._getItemContainer = function (id) {
-        if(this.el)
-           return $(this.el).find("[data-item='" + id + "']");
 
-         else
-            return $("[data-item='" + id + "']");
+        return this.$el.find("[data-item='" + id + "']");
+
     };
 
     Dashboard.prototype._preloadItemsScripts = function () {
@@ -384,13 +386,13 @@ define([
         }];
 
         //prepend a custom D3P process
-        if (Array.isArray(item.preProcess)){
+        if (Array.isArray(item.preProcess)) {
             body = _.union(item.preProcess, body);
         }
 
         //append a custom D3P process
-        if (Array.isArray(item.postProcess)){
-            body = _.union(body, item.postProcess );
+        if (Array.isArray(item.postProcess)) {
+            body = _.union(body, item.postProcess);
         }
 
         log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body));
