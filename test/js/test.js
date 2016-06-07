@@ -4,14 +4,17 @@ define([
     'underscore',
     'fx-dashboard/start',
     'test/models/model-1',
-    'test/models/uneca'
-], function (log, $, _, Dashboard, Model1, UnecaModel ) {
+    'test/models/uneca',
+    'test/models/custom'
+], function (log, $, _, Dashboard, Model1, UnecaModel, CustomItemModel) {
 
     'use strict';
 
     var s = {
-        REFRESH_BTN : "#refresh-btn"
-    }, 
+            REFRESH_BTN: "#refresh-btn"
+        },
+        environment = "production",
+        cache = false,
         instances = [];
 
     function Test() {
@@ -27,9 +30,23 @@ define([
 
     Test.prototype._render = function () {
 
+        this._renderCustomItem();
+
         //this._renderModel1();
 
-        this._renderUneca();
+        //this._renderUneca();
+    };
+
+    Test.prototype._renderCustomItem = function () {
+
+        var dashboard = this.createDashboard($.extend(true, CustomItemModel, {
+            items_registry : {
+                custom: {
+                    path: 'test/js/custom'
+                }
+            }
+        }));
+
     };
 
     Test.prototype._renderModel1 = function () {
@@ -38,24 +55,25 @@ define([
 
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
-                countrycode : ["1099"]
+                countrycode: ["1099"]
             });
         })
     };
 
     Test.prototype._renderUneca = function () {
-        
-        var dashboard = this.createDashboard($.extend(true, UnecaModel, {
-            environment : 'develop'
-        }));
-		
+
+        var dashboard = this.createDashboard(UnecaModel);
+
     };
 
     //Utils
 
     Test.prototype.createDashboard = function (params) {
 
-        var instance = new Dashboard(params);
+        var instance = new Dashboard($.extend(true, params, {
+            environment : environment,
+            cache : cache
+        }));
 
         instances.push(instance);
 

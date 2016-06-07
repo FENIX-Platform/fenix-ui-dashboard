@@ -6,7 +6,7 @@ define(function () {
 
     return {
 
-        uid: "adam_country_indicators",
+        uid: "UNECA_Education",
         //version: "",
         //preProcess : [] //D3P process
         //postProcess : [] //D3P process
@@ -17,9 +17,10 @@ define(function () {
                 type: "chart", //chart || map || table,
                 config: {
                     type: "line",
+                    useDimensionLabelsIfExist : true,
                     y: ["Values"],
-                    x : ["Year"],
-                    series : ["IndicatorCode"],
+                    x: ["Year"],
+                    series: ["IndicatorCode"],
                     aggregationFn: {"Value": "sum"}
                 }, // :type-creator config
                 filter: { //FX-filter format
@@ -33,11 +34,11 @@ define(function () {
                 id: "olap_1", //ref [data-item=':id']
                 type: "olap", //chart || map || olap,
                 config: {
-                    "aggregations": [],
-                    "columns": ["Year"],
-                    "rows": [ "IndicatorCode_EN"],
-                    "values": ["Value"],
-                    aggregationFn: {Value: "sum"},
+                    useDimensionLabelsIfExist : true,
+                    columns: ["Year"],
+                    rows: ["IndicatorCode"],
+                    values: ["Value"],
+                    aggregationFn: {Value: "sum"}
                 }
                 , // :type-creator config
                 filter: { //FX-filter format

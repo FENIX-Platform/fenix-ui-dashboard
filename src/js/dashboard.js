@@ -112,8 +112,6 @@ define([
 
         this.$el = $(this.el);
 
-        console.log(this.$el)
-
         this.types = [];
         this.ids = [];
     };
@@ -194,7 +192,7 @@ define([
 
     Dashboard.prototype._initVariables = function () {
 
-        this.items_registry = $.extend(true, {}, this.initial.items_registry || C.items_registry || DC.items_registry)
+        this.items_registry = $.extend(true, {}, DC.items_registry, C.items_registry, this.initial.items_registry);
 
         // pub/sub
         this.channels = {};
@@ -239,7 +237,7 @@ define([
         var conf = registeredItems[name];
 
         if (!conf) {
-            log.error('Registration not found for "' + name + ' item".');
+            log.error('Registration not found for "' + name + '" item.');
         }
 
         if (conf.path) {
