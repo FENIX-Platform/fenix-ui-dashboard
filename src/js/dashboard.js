@@ -8,12 +8,11 @@ define([
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
     'text!fx-dashboard/html/templates.hbs',
-    'i18n!fx-dashboard/nls/labels',
     "fx-common/bridge",
     "fx-common/utils",
     'amplify',
     'bootstrap'
-], function ($, require, _, log, ERR, EVT, C, templates, i18nLabels, Bridge, Utils) {
+], function ($, require, _, log, ERR, EVT, C, templates, Bridge, Utils) {
 
     'use strict';
 

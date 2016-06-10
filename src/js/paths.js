@@ -7,7 +7,6 @@ define(function () {
             'fx-dashboard/html': '../../html',
             'fx-dashboard/js': './',
             'fx-dashboard/config' :  '../../config',
-            'fx-dashboard/nls' :  '../../i18n',
 
             //3rd party libs
             'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
