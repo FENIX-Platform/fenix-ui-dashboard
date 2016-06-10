@@ -7,10 +7,9 @@ define([
     'fx-dashboard/config/errors',
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
-    'fx-dashboard/config/config-default',
     'fx-m-c/start',
     'amplify'
-], function ($, log, _, ERR, EVT, C, CD, MapCreator) {
+], function ($, log, _, ERR, EVT, C, MapCreator) {
 
     'use strict';
 
@@ -66,13 +65,14 @@ define([
 
     /**
      * pub/sub
-     * @return {Object} Dashboard instance
+     * @return {Object} component instance
      */
-    Map.prototype.on = function (channel, fn) {
+    Map.prototype.on = function (channel, fn, context) {
+        var _context = context || this;
         if (!this.channels[channel]) {
             this.channels[channel] = [];
         }
-        this.channels[channel].push({context: this, callback: fn});
+        this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
 

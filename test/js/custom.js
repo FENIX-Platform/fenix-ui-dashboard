@@ -7,9 +7,8 @@ define([
     'fx-dashboard/config/errors',
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
-    'fx-dashboard/config/config-default',
     'amplify'
-], function ($, log, _, ERR, EVT, C, CD) {
+], function ($, log, _, ERR, EVT, C) {
 
     'use strict';
 
@@ -63,13 +62,14 @@ define([
 
     /**
      * pub/sub
-     * @return {Object} Dashboard instance
+     * @return {Object} component instance
      */
-    Custom.prototype.on = function (channel, fn) {
+    Custom.prototype.on = function (channel, fn, context) {
+        var _context = context || this;
         if (!this.channels[channel]) {
             this.channels[channel] = [];
         }
-        this.channels[channel].push({context: this, callback: fn});
+        this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
 

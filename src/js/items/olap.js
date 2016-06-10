@@ -7,10 +7,9 @@ define([
     'fx-dashboard/config/errors',
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
-    'fx-dashboard/config/config-default',
     'fx-olap/start',
     'amplify'
-], function ($, log, _, ERR, EVT, C, CD, OlapCreator) {
+], function ($, log, _, ERR, EVT, C, OlapCreator) {
 
     'use strict';
 
@@ -66,16 +65,16 @@ define([
 
     /**
      * pub/sub
-     * @return {Object} Dashboard instance
+     * @return {Object} component instance
      */
-    Olap.prototype.on = function (channel, fn) {
+    Olap.prototype.on = function (channel, fn, context) {
+        var _context = context || this;
         if (!this.channels[channel]) {
             this.channels[channel] = [];
         }
-        this.channels[channel].push({context: this, callback: fn});
+        this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
-
     Olap.prototype._trigger = function (channel) {
 
         if (!this.channels[channel]) {

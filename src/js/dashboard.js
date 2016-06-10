@@ -7,14 +7,13 @@ define([
     'fx-dashboard/config/errors',
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
-    'fx-dashboard/config/config-default',
     'text!fx-dashboard/html/templates.hbs',
     'i18n!fx-dashboard/nls/labels',
     "fx-common/bridge",
     "fx-common/utils",
     'amplify',
     'bootstrap'
-], function ($, require, _, log, ERR, EVT, C, DC, templates, i18nLabels, Bridge, Utils) {
+], function ($, require, _, log, ERR, EVT, C, templates, i18nLabels, Bridge, Utils) {
 
     'use strict';
 
@@ -24,7 +23,7 @@ define([
         log.info("FENIX Dashboard");
         log.info(o);
 
-        $.extend(true, this, DC, C, {initial: o}, defaultOptions);
+        $.extend(true, this, C, {initial: o}, defaultOptions);
 
         this._parseInput(o);
 
@@ -72,13 +71,14 @@ define([
 
     /**
      * pub/sub
-     * @return {Object} Dashboard instance
+     * @return {Object} component instance
      */
-    Dashboard.prototype.on = function (channel, fn) {
+    Dashboard.prototype.on = function (channel, fn, context) {
+        var _context = context || this;
         if (!this.channels[channel]) {
             this.channels[channel] = [];
         }
-        this.channels[channel].push({context: this, callback: fn});
+        this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
 
@@ -192,7 +192,7 @@ define([
 
     Dashboard.prototype._initVariables = function () {
 
-        this.items_registry = $.extend(true, {}, DC.items_registry, C.items_registry, this.initial.items_registry);
+        this.items_registry = $.extend(true, {}, C.items_registry, this.initial.items_registry);
 
         // pub/sub
         this.channels = {};
@@ -306,7 +306,7 @@ define([
 
                 log.error(ERR.READY_TIMEOUT);
 
-            }, C.VALID_TIMEOUT || DC.VALID_TIMEOUT);
+            }, C.VALID_TIMEOUT);
         } else {
 
             //no items by default
