@@ -108,6 +108,7 @@ define([
         this.postProcess = this.initial.postProcess || [];
         this.commonFilter = this.initial.filter || {};
         this.environment = this.initial.environment;
+        this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
 
         this.$el = $(this.el);
 
@@ -191,7 +192,7 @@ define([
 
     Dashboard.prototype._initVariables = function () {
 
-        this.items_registry = $.extend(true, {}, C.items_registry, this.initial.items_registry);
+        this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
 
         // pub/sub
         this.channels = {};
@@ -230,7 +231,7 @@ define([
 
     Dashboard.prototype._getItemScriptPath = function (name) {
 
-        var registeredItems = $.extend(true, {}, this.items_registry),
+        var registeredItems = $.extend(true, {}, this.itemsRegistry),
             path;
 
         var conf = registeredItems[name];
@@ -263,6 +264,7 @@ define([
         return this.bridge.getMetadata({
             uid: this.uid,
             version: this.version,
+            cache : this.cache,
             params: {
                 dsd: true
             }
@@ -305,7 +307,7 @@ define([
 
                 log.error(ERR.READY_TIMEOUT);
 
-            }, C.VALID_TIMEOUT);
+            }, C.validityTimeout);
         } else {
 
             //no items by default

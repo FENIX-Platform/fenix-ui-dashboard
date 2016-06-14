@@ -8,9 +8,11 @@ define(function () {
 
     return {
 
-        VALID_TIMEOUT: 10000, //10 secs
+        validityTimeout: 10000, //10 secs
 
-        items_registry: {
+        cache : false,
+
+        itemsRegistry: {
             'chart': {
                 path: selectorPath + 'chart'
             },

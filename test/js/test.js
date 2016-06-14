@@ -40,7 +40,7 @@ define([
     Test.prototype._renderCustomItem = function () {
 
         var dashboard = this.createDashboard($.extend(true, CustomItemModel, {
-            items_registry : {
+            itemsRegistry : {
                 custom: {
                     path: 'test/js/custom'
                 }
