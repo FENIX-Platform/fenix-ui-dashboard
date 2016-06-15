@@ -21,6 +21,9 @@ define(function () {
             },
             'olap': {
                 path: selectorPath + 'olap'
+            },
+            'box': {
+                path: selectorPath + 'box'
             }
         }
 

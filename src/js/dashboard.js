@@ -266,7 +266,8 @@ define([
             version: this.version,
             cache : this.cache,
             params: {
-                dsd: true
+                dsd: true,
+                full : true
             }
         });
     };
@@ -420,7 +421,7 @@ define([
                 controller: this,
                 $el: this._getItemContainer(item.id)
             });
-//console.log("CONF",conf,Item)
+
         var is = new Item(conf);
 
         is.on("ready", _.bind(this._onItemReady, this));
@@ -496,24 +497,30 @@ define([
 
         var model = this.model || {},
             newMetadata = Utils.getNestedProperty("metadata", resource),
-            newDsd = Utils.getNestedProperty("metadata.dsd", resource),
-            newData = Utils.getNestedProperty("data", resource);
+            newDsd = Utils.getNestedProperty("dsd", newMetadata) || {},
+            newData = Utils.getNestedProperty("data", resource),
+            newSize = Utils.getNestedProperty("size", resource);
+
+        var dsdWithoutRid = _.without(Object.keys(newDsd), "rid");
 
         //if metadata exists updated only dsd
-        if (model.metadata) {
+        if (dsdWithoutRid.length > 0) {
             Utils.assign(model, "metadata.dsd", newDsd);
-        } else {
-            Utils.assign(model, "metadata", newMetadata);
         }
 
         if (Array.isArray(newData)) {
             Utils.assign(model, "data", newData);
-        } else {
-            Utils.assign(model, "data", []);
         }
+
+        if (model.size !== newSize) {
+            Utils.assign(model, "size", newSize);
+        }
+
+        this.model = model;
 
         return model;
     };
+
 
     //disposition
     Dashboard.prototype._unbindEventListeners = function () {

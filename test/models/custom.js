@@ -14,14 +14,9 @@ define(function () {
         items: [
             {
                 id: "chart_1", //ref [data-item=':id']
-                type: "chart", //chart || map || olap,
+                type: "box", //chart || map || olap || box,
                 config: {
-                    type: "line",
-                    useDimensionLabelsIfExist : true,
-                    x: ["Year"], //x axis and series
-                    series: ["CountryCode"], //Y dimension
-                    y: ["Value"],
-                    aggregationFn: {"Value": "sum"}
+
                 }, // :type-creator config
                 filter: { //FX-filter format
 
@@ -57,7 +52,9 @@ define(function () {
                 },
 
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
-            }]
+            }
+
+        ]
     }
 
 });
