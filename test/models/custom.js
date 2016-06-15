@@ -32,7 +32,7 @@ define(function () {
             },
             {
                 id: "custom_1", //ref [data-item=':id']
-                type: "custom", //chart || map || olap,
+                type: "custom", //chart || map || olap || box,
                 config: {
                     type: "line",
                     useDimensionLabelsIfExist : true,
@@ -42,19 +42,17 @@ define(function () {
                     aggregationFn: {"Value": "sum"}
                 }, // :type-creator config
                 filter: { //FX-filter format
-
                     IndicatorCode: ["010101"],
                     GenderCode: ["3"],
                     AgeRangeCode: ["AGT"],
                     CountryCode: ["BEN", "BFA", "CAF", "COM", "DJI", "ERI", "GHA", "GNB", "KEN", "LBR",
                         "LBY", "MRT", "NER", "NGA", "STP", "SEN", "SLE", "SOM", "SDN", "TGO", "TUN"],
-                    Year: ["2013"]
+                    Year: [{value :"2013", parent : "from"}, {value :"2016", parent : "to"}]
                 },
 
-                filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
+                //filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
+                filterFor: ["Year"] // allowed dimension ids to filter,
             }
-
         ]
     }
-
 });

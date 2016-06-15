@@ -287,7 +287,6 @@ define([
         });
 
         this._renderDashboard();
-
     };
 
     Dashboard.prototype._renderDashboard = function () {
@@ -395,7 +394,8 @@ define([
             body = _.union(body, item.postProcess);
         }
 
-        log.trace("Body for item id[" + item.id + "]: " + JSON.stringify(body));
+        log.info("Body for item id[" + item.id + "]: ");
+        log.info(body);
 
         return body;
 
