@@ -251,6 +251,7 @@ define([
 
     Dashboard.prototype._preloadItemsScriptsSuccess = function () {
         log.info('Items scripts loaded successfully');
+        log.info('Load resource metadata');
 
         this._preloadMetadataResource().then(
             _.bind(this._preloadMetadataResourceSuccess, this),
@@ -264,10 +265,10 @@ define([
         return this.bridge.getMetadata({
             uid: this.uid,
             version: this.version,
-            cache : this.cache,
+            cache: this.cache,
             params: {
                 dsd: true,
-                full : true
+                full: true
             }
         });
     };
@@ -319,7 +320,7 @@ define([
         _.each(this.items, _.bind(function (item) {
 
             //used during refresh
-            item.filter = $.extend({}, item.filter, this.values);
+            item.filter = $.extend(true, {}, item.filter, this.values);
 
             item.body = this._createProcessBody(item);
 
@@ -334,13 +335,10 @@ define([
 
     Dashboard.prototype._getProcessedResource = function (item) {
 
-        var body = _.union(this.preProcess, item.body, this.postProcess),
-            isMultiResource =
-                hasSid(this.preProcess) || hasSid(this.postProcess) ||
-                hasSid(item.preProcess) || hasSid(item.postProcess);
+        var isMultiResource = hasSid(item.body);
 
         return this.bridge.getProcessedResource($.extend({
-            body: body,
+            body: item.body,
             params: {
                 dsd: true,
                 full: true,
@@ -352,11 +350,11 @@ define([
         } : null));
 
         // if at least one step has sid is multi resource
-        function hasSid( array ) {
+        function hasSid(array) {
 
             var itemsFound = _.filter(array, function (item) {
-                return item.hasOwnProperty("sid");
-            }) || [];
+                    return item.hasOwnProperty("sid");
+                }) || [];
 
             return Array.isArray(array) && itemsFound.length > 0;
         }
@@ -364,54 +362,109 @@ define([
 
     Dashboard.prototype._createProcessBody = function (item) {
 
-        var filterFor = item.filterFor || [],
+        var self = this,
+            filterFor = item.filterFor || [],
             values = item.filter || {},
             filter = {},
-            rowsFilter;
+            rowsFilter,
+            body = [],
+            postProcess;
 
-        if (filterFor.length !== 0) {
+        // prepend pre process
+        body = _.union(this.preProcess, item.preProcess, body);
 
-            _.each(filterFor, function (r) {
+        // create post process
+        postProcess = _.union(this.postProcess, item.postProcess);
 
-                if (values.hasOwnProperty(r)) {
-                    filter[r] = values[r];
+        if (Array.isArray(item.filterFor)) {
+
+            log.info("Apply 'filter' to process chain");
+
+            filter = filterAllowedValues(filterFor);
+
+            //append filter step
+            body.push(createFilterStep(filter));
+
+            //append post process
+            body = _.union(body, postProcess);
+
+        }
+        else {
+
+            log.info("Apply 'filter' to process step");
+
+            //append post process
+            body = _.union(body, postProcess);
+
+            _.each(filterFor, function (filterRidFor, rid ) {
+
+                log.info("rid: " + rid);
+
+                var step = _.findWhere(body, {rid: rid}),
+                    filterStep;
+
+                if (step) {
+                    log.info("Step found");
+
+                    filter = filterAllowedValues(filterRidFor);
+
+                    filterStep = createFilterStep(filter);
+
+                    $.extend(true, step, filterStep);
+
                 } else {
-                    log.warn("Item " + item.id + ": filter " + r + " not included because not present in item.filterFor")
+                    log.warn("Filter for rid: " + rid + " was specified but no step was found");
                 }
 
             });
-
-        } else {
-
-            //include all filter values
-            filter = values;
         }
 
-        rowsFilter = $.extend(true, {},
-            Utils.toD3P(this.filterConfiguration, {values: filter}),
-            Utils.toD3P(this.filterConfiguration, {values: this.commonFilter}));
-
-        var body = [{
-            name: "filter",
-            parameters: {
-                rows: rowsFilter
-            }
-        }];
-
-        //prepend a custom D3P process
-        if (Array.isArray(item.preProcess)) {
-            body = _.union(item.preProcess, body);
-        }
-
-        //append a custom D3P process
-        if (Array.isArray(item.postProcess)) {
-            body = _.union(body, item.postProcess);
-        }
-
-        log.info("Body for item id[" + item.id + "]: ");
+        log.info("Body for item id [" + item.id + "]: ");
         log.info(body);
 
         return body;
+
+        function createFilterStep(filter) {
+
+            rowsFilter = $.extend(true, {},
+                Utils.toD3P(self.filterConfiguration, {values: self.commonFilter}),
+                Utils.toD3P(self.filterConfiguration, {values: filter}));
+
+            return {
+                name: "filter",
+                parameters: {
+                    rows: rowsFilter
+                }
+            };
+
+        }
+
+        function filterAllowedValues(filterFor) {
+
+            var filter = {};
+
+            if (filterFor.length !== 0) {
+
+                _.each(filterFor, function (r) {
+
+                    if (values.hasOwnProperty(r)) {
+                        filter[r] = values[r];
+                    } else {
+                        log.warn("Item " + item.id + ": filter " + r + " not included because not present in item.filterFor")
+                    }
+
+                });
+
+            }
+            else {
+
+                //include all filter values
+                filter = values;
+            }
+
+            return filter;
+
+        }
 
     };
 
