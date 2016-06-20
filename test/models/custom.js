@@ -8,8 +8,8 @@ define(function () {
 
         uid: "UNECA_Population",
         //version: "",
-        //preProcess : {} //D3P process
-        //postProcess : {} //D3P process
+        //preProcess : [] //D3P process
+        //postProcess : [] //D3P process
         //filter : {} //FX-filter format
         items: [
             {
@@ -27,6 +27,12 @@ define(function () {
                         "LBY", "MRT", "NER", "NGA", "STP", "SEN", "SLE", "SOM", "SDN", "TGO", "TUN"],
                     Year: ["2013"]
                 },
+
+ /*               preProcess : [
+                    {
+                        sid : "Test"
+                    }
+                ],*/
 
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
             },

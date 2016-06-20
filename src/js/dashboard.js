@@ -334,18 +334,32 @@ define([
 
     Dashboard.prototype._getProcessedResource = function (item) {
 
-        var body = _.union(this.preProcess, item.body, this.postProcess);
+        var body = _.union(this.preProcess, item.body, this.postProcess),
+            isMultiResource =
+                hasSid(this.preProcess) || hasSid(this.postProcess) ||
+                hasSid(item.preProcess) || hasSid(item.postProcess);
 
-        return this.bridge.getProcessedResource({
-            uid: this.uid,
-            version: this.version,
+        return this.bridge.getProcessedResource($.extend({
             body: body,
             params: {
                 dsd: true,
                 full: true,
                 language: this.lang
             }
-        })
+        }, !isMultiResource ? { //include uid and version if is not multi resource
+            uid: this.uid,
+            version: this.version
+        } : null));
+
+        // if at least one step has sid is multi resource
+        function hasSid( array ) {
+
+            var itemsFound = _.filter(array, function (item) {
+                return item.hasOwnProperty("sid");
+            }) || [];
+
+            return Array.isArray(array) && itemsFound.length > 0;
+        }
     };
 
     Dashboard.prototype._createProcessBody = function (item) {
