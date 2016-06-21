@@ -367,11 +367,11 @@ define([
             values = item.filter || {},
             filter = {},
             rowsFilter,
-            body = [],
+            body,
             postProcess;
 
         // prepend pre process
-        body = _.union(this.preProcess, item.preProcess, body);
+        body = _.union(this.preProcess, item.preProcess) || [];
 
         // create post process
         postProcess = _.union(this.postProcess, item.postProcess);
@@ -383,7 +383,10 @@ define([
             filter = filterAllowedValues(filterFor);
 
             //append filter step
-            body.push(createFilterStep(filter));
+            var f = createFilterStep(filter);
+            if (f) {
+                body.push(f);
+            }
 
             //append post process
             body = _.union(body, postProcess);
@@ -425,6 +428,10 @@ define([
         return body;
 
         function createFilterStep(filter) {
+
+            if (_.isEmpty(filter)) {
+                return;
+            }
 
             rowsFilter = $.extend(true, {},
                 Utils.toD3P(self.filterConfiguration, {values: self.commonFilter}),

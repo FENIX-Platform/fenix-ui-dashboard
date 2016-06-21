@@ -21,15 +21,18 @@ define(function () {
                     aggregationFn: {"value": "sum"},
                     useDimensionLabelsIfExist: false,// || default raw else fenixtool
 
-                    filterFor: {
-                        "filter_sector_oda": ['sectorcode', 'year', 'oda'],
-                        "filter_total_oda": ['year']
-                    },
                     config: {
                         xAxis: {
                             type: 'datetime'
                         }
                     }
+                },
+
+                // filterFor: ['parentsector_code', 'purposecode', 'year-from', 'year-to'],
+
+                filterFor: {
+                    "filter_sector_oda": ['sectorcode', 'year', 'oda'],
+                    "filter_total_oda": ['year']
                 },
 
                 postProcess: [
@@ -46,8 +49,7 @@ define(function () {
                                 "uid": "percentage_ODA"
                             }
                         ],
-                        "parameters": {
-                        },
+                        "parameters": {},
                         "rid": {
                             "uid": "union_process"
                         }
@@ -292,8 +294,7 @@ define(function () {
                                     }
                                 ]
                             ],
-                            "values": [
-                            ]
+                            "values": []
                         },
                         "rid": {
                             "uid": "join_process"
@@ -316,8 +317,8 @@ define(function () {
                                 "subject": null
                             },
                             "value": {
-                                "keys":  ["1=1"],
-                                "values":["(sector_oda_value/total_oda_value)*100"]
+                                "keys": ["1=1"],
+                                "values": ["(sector_oda_value/total_oda_value)*100"]
                             }
                         },
                         "rid": {
