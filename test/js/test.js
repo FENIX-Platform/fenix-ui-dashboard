@@ -5,15 +5,16 @@ define([
     'fx-dashboard/start',
     'test/models/model-1',
     'test/models/uneca',
-    'test/models/custom'
-], function (log, $, _, Dashboard, Model1, UnecaModel, CustomItemModel) {
+    'test/models/custom',
+    'test/models/adam'
+], function (log, $, _, Dashboard, Model1, UnecaModel, CustomItemModel, AdamModel) {
 
     'use strict';
 
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "production",
+        environment = "develop",//"production",
         cache = false,
         instances = [];
 
@@ -30,11 +31,13 @@ define([
 
     Test.prototype._render = function () {
 
-        this._renderCustomItem();
+       // this._renderCustomItem();
 
         //this._renderModel1();
 
         //this._renderUneca();
+
+        this._renderAdam();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -63,6 +66,12 @@ define([
     Test.prototype._renderUneca = function () {
 
         var dashboard = this.createDashboard(UnecaModel);
+
+    };
+
+    Test.prototype._renderAdam = function () {
+
+        var dashboard = this.createDashboard(AdamModel);
 
     };
 
