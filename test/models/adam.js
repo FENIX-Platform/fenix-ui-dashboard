@@ -21,8 +21,6 @@ define(function () {
                     aggregationFn: {"value": "sum"},
                     useDimensionLabelsIfExist: false,// || default raw else fenixtool
 
-                    // filterFor: ['parentsector_code', 'purposecode', 'year-from', 'year-to'],
-
                     filterFor: {
                         "filter_sector_oda": ['sectorcode', 'year', 'oda'],
                         "filter_total_oda": ['year']
