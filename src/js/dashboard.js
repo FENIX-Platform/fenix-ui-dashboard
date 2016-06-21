@@ -376,7 +376,7 @@ define([
         // create post process
         postProcess = _.union(this.postProcess, item.postProcess);
 
-        if (Array.isArray(item.filterFor)) {
+        if (Array.isArray(filterFor)) {
 
             log.info("Apply 'filter' to process chain");
 
