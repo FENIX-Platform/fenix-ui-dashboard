@@ -57,17 +57,6 @@ define([
         }
     };
 
-    Dashboard.prototype._refresh = function (values) {
-
-        this.values = values.values;
-
-        this._disposeItems();
-
-        this._renderDashboard();
-
-        log.info("Dashboard refresh");
-    };
-
     /**
      * pub/sub
      * @return {Object} component instance
@@ -80,6 +69,19 @@ define([
         this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
+
+    Dashboard.prototype._refresh = function (values) {
+
+        this.values = values.values;
+
+        this._disposeItems();
+
+        this._renderDashboard();
+
+        log.info("Dashboard refresh");
+    };
+
+    // end API
 
     Dashboard.prototype._trigger = function (channel) {
 
@@ -95,11 +97,8 @@ define([
         return this;
     };
 
-    // end API
-
     Dashboard.prototype._parseInput = function () {
 
-        this.id = this.initial.id;
         this.uid = this.initial.uid;
         this.el = this.initial.el || window.document;
         this.version = this.initial.version;
@@ -109,9 +108,10 @@ define([
         this.commonFilter = this.initial.filter || {};
         this.environment = this.initial.environment;
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
+        this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
 
+        //not from input
         this.$el = $(this.el);
-
         this.types = [];
         this.ids = [];
     };
@@ -126,7 +126,7 @@ define([
 
             window.fx_Dashboard_id >= 0 ? window.fx_Dashboard_id++ : window.fx_Dashboard_id = 0;
             this.id = String(window.fx_Dashboard_id);
-            log.warn("Impossible to find Dashboard id. Set auto id to: " + this.id);
+            log.info("Set dashboard id to: " + this.id);
         }
 
         if (!this.uid) {
@@ -191,8 +191,6 @@ define([
     };
 
     Dashboard.prototype._initVariables = function () {
-
-        this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
 
         // pub/sub
         this.channels = {};
@@ -470,13 +468,12 @@ define([
             }
 
             return filter;
-
         }
-
     };
 
     Dashboard.prototype._onGetProcessedResourceError = function (obj) {
         log.error("Resources load: error");
+        log.error(obj);
     };
 
     Dashboard.prototype._onGetProcessedResourceSuccess = function (item, resource) {
@@ -595,7 +592,6 @@ define([
         return model;
     };
 
-
     //disposition
     Dashboard.prototype._unbindEventListeners = function () {
 
@@ -613,7 +609,6 @@ define([
 
         //unbind event listeners
         this._unbindEventListeners();
-
     };
 
     return Dashboard;

@@ -14,12 +14,11 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",//"production",
+        environment = "production",//"production",
         cache = false,
         instances = [];
 
-    function Test() {
-    }
+    function Test() {  }
 
     Test.prototype.start = function () {
 
@@ -31,13 +30,13 @@ define([
 
     Test.prototype._render = function () {
 
-       // this._renderCustomItem();
+       this._renderCustomItem();
 
         //this._renderModel1();
 
         //this._renderUneca();
 
-        this._renderAdam();
+       // this._renderAdam();
     };
 
     Test.prototype._renderCustomItem = function () {
