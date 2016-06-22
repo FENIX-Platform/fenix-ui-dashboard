@@ -244,7 +244,7 @@ The array relative to each key is used to calculate a FENIX process filter step 
 ...
 
 filterFor : {
-        step_1 : ["year],
+        step_1 : ["year"],
         step_2 : ["indicator"]
     },
 preProcess : [
