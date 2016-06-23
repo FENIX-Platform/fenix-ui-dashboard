@@ -32,11 +32,11 @@ define([
 
        //this._renderCustomItem();
 
-        this._renderModel1();
+        //this._renderModel1();
 
         //this._renderUneca();
 
-       // this._renderAdam();
+        this._renderAdam();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -71,6 +71,12 @@ define([
     Test.prototype._renderAdam = function () {
 
         var dashboard = this.createDashboard(AdamModel);
+
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                values : { year: ["2000"] }
+            });
+        })
 
     };
 

@@ -72,6 +72,9 @@ define([
 
     Dashboard.prototype._refresh = function (values) {
 
+        if (!values.values) {
+            log.warn("Refresh values is not valid. Missing values.values field. Is it FENIX plain filter format?")
+        }
         this.values = values.values;
 
         this._disposeItems();
@@ -401,11 +404,18 @@ define([
 
                 log.info("rid: " + rid);
 
-                var step = _.findWhere(body, {rid: rid}),
-                    filterStep;
+                var filteredSteps = _.filter(body, function (s) {
+                    return Utils.getNestedProperty("rid.uid", s) === rid;
+                }) || [], filterStep, step;
+
+                if (filteredSteps.length > 1 ) {
+                    log.error("Rid " + rid + " is not unique in configuration.")
+                }
+
+                step = filteredSteps[0];
 
                 if (step) {
-                    log.info("Step found");
+                    log.info("Step found:");
 
                     filter = filterAllowedValues(filterRidFor);
 

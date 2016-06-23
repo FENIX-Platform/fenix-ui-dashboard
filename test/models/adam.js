@@ -30,6 +30,7 @@ define(function () {
 
                 // filterFor: ['parentsector_code', 'purposecode', 'year-from', 'year-to'],
 
+                
                 filterFor: {
                     "filter_sector_oda": ['sectorcode', 'year', 'oda'],
                     "filter_total_oda": ['year']
@@ -94,7 +95,7 @@ define(function () {
                                 }
                             }
                         },
-                        rid: "filter_sector_oda"
+                        rid: { uid : "filter_sector_oda" }
                     },
                     {
                         "name": "group",
@@ -218,7 +219,7 @@ define(function () {
                                 }
                             }
                         },
-                        rid: "filter_total_oda"
+                        rid: {uid: "filter_total_oda" }
                     },
                     {
                         "name": "group",
