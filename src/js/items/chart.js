@@ -13,14 +13,14 @@ define([
 
     'use strict';
 
-    var defaultOptions = {},
-        s = { };
+    var defaultOptions = {};
 
     function Chart(o) {
 
         var self = this;
 
         $.extend(true, this, defaultOptions, o);
+        this.$el = $(this.el);
 
         this._renderTemplate();
 

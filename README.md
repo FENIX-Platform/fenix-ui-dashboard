@@ -21,7 +21,7 @@ var dashboard = new Dashboard({
 
 # Configuration
 
-To have a look of the default configuration check `fx-dashboard/config/config.js`.
+Check `fx-dashboard/config/config.js` to have a look of the default configuration.
 
 <table>
    <thead>
@@ -111,8 +111,8 @@ To have a look of the default configuration check `fx-dashboard/config/config.js
             'map': {
             path: selectorPath + 'map'
             },
-            'olap': {
-            path: selectorPath + 'olap'
+            'table': {
+            path: selectorPath + 'table'
             }
             }
          </td>
@@ -205,6 +205,7 @@ To have a look of the default configuration check `fx-dashboard/config/config.js
 dashboard.refresh({...});
 ```
 
+- `new dashboard( config )` : dashboard creator
 - `dashboard.refresh( values )` : refresh dashboard items with new filter values (FENIX filter plain format)
 - `dashboard.on(event, callback[, context])` : pub/sub 
 - `dashboard.dispose()` : dispose the dashboard instance
@@ -218,6 +219,8 @@ dashboard.refresh({...});
 FENIX dashboard composes dynamically the FENIX process to be use to retrieve the data for each dashboard item.
 The FENIX process composition is based on the nature (`typeof`) of `item.filterFor`: if it is defined as array or as object.
 
+> The request is actually performed by FENIX Bridge, using the process created by the FENIX dashboard
+
 ## `item.filterFor` as array
 
 + `dashboard.preProcess`
@@ -225,6 +228,34 @@ The FENIX process composition is based on the nature (`typeof`) of `item.filterF
 + calculated filter step from `item.filter` and `item.filterFor`
 + `item.postProcess`
 + `dashboard.postProcess`
+
+### Example 
+
+```javascript
+
+...
+
+filterFor : ["year"],
+    
+preProcess : [
+    { 
+        rid : "step_1",
+        ...
+    }
+    ],
+
+postProcess : [
+    { 
+        rid : "step_2",
+        ...
+    }
+    ],
+...
+
+
+```
+
+In the previous example the filter step will be placed between `preProcess` and `postProcess`
 
 ## `item.filterFor` as object
 
@@ -237,7 +268,7 @@ The FENIX process composition is based on the nature (`typeof`) of `item.filterF
 to consider for filtering. Each key of the key set represents in fact a step rid (i.e. the identification of a step). 
 The array relative to each key is used to calculate a FENIX process filter step that will extend the original step.
 
-### Example
+### Example 
 
 ```javascript
 
@@ -247,11 +278,14 @@ filterFor : {
         step_1 : ["year"],
         step_2 : ["indicator"]
     },
+    
 preProcess : [
     { 
         rid : "step_1",
         ...
-    },
+    }
+    ],
+preProcess : [
     { 
         rid : "step_2",
         ...
@@ -262,4 +296,43 @@ preProcess : [
 
 ```
 
-In the previous example the filter for will be applied to `step_1` ( for `year` values) and to `step_2` ( for `indicator` values).
+In the previous example the filter step will extend `step_1` ( for `year` values) and to `step_2` ( for `indicator` values).
+
+# Custom Plugin
+
+# Mandatory configuration
+
+<table>
+   <thead>
+      <tr>
+         <th>Parameter</th>
+         <th>Type</th>
+         <th>Default Value</th>
+         <th>Example</th>
+         <th>Description</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>controller</td>
+         <td>FENIX dashboard instance</td>
+         <td>-</td>
+         <td>-</td>
+         <td>FENIX dashboard that is the controller of the custom plugin</td>
+      </tr>
+      <tr>
+         <td>el</td>
+         <td>CSS3 Selector/JavaScript DOM element/jQuery DOM element</td>
+         <td> - </td>
+         <td>"#container"</td>
+         <td>Plug container.</td>
+      </tr>
+   </tbody>
+</table>
+
+# Mandatory API
+
+- `new plugin( config )` : plugin creator
+- `plugin.refresh( values )` : refresh plugin with new filter values (FENIX filter plain format)
+- `plugin.on(event, callback[, context])` : pub/sub 
+- `plugin.dispose()` : dispose the plugin instance

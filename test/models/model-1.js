@@ -13,8 +13,8 @@ define(function () {
         //filter : {} //FX-filter format
         items: [
             {
-                id: "chart_1", //ref [data-item=':id']
-                type: "chart", //chart || map || table,
+                id: "item_1", //ref [data-item=':id']
+                type: "chart", //chart || map || table || box,
                 config: {
                     type: "line",
                     useDimensionLabelsIfExist : true,
@@ -31,8 +31,8 @@ define(function () {
                 //postProcess : [] //D3P process
             },
             {
-                id: "olap_1", //ref [data-item=':id']
-                type: "olap", //chart || map || olap,
+                id: "item_2", //ref [data-item=':id']
+                type: "table", //chart || map || table || box,
                 config: {
                     useDimensionLabelsIfExist : true,
                     columns: ["Year"],

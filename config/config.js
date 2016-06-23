@@ -19,8 +19,8 @@ define(function () {
             'map': {
                 path: selectorPath + 'map'
             },
-            'olap': {
-                path: selectorPath + 'olap'
+            'table': {
+                path: selectorPath + 'table'
             },
             'box': {
                 path: selectorPath + 'box'

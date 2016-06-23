@@ -20,51 +20,52 @@ define(function () {
         //filter : {} //FX-filter format
         items: [
             {
-                id: "chart_1", //ref [data-item=':id']
-                type: "chart", //chart || map || olap,
+                id: "item_1", //ref [data-item=':id']
+                type: "chart", //chart || map || table || box,
                 config: {
-                    type : "pyramide",
-					inputFormat:"fenixtool",// || default raw else fenixtool
+                    type: "pyramide",
+                    inputFormat: "fenixtool",// || default raw else fenixtool
                     "x": ["GenderCode"],
-                    "series": [ "AgeRangeCode"],
-                    "y": ["Value"], 
-                   
+                    "series": ["AgeRangeCode"],
+                    "y": ["Value"],
+
                 }
                 , // :type-creator config
                 filter: { //FX-filter format
                     IndicatorCode: ["010101"],
-                           GenderCode: ["1","2"],
-                           AgeRangeCode: [
-                               "AG02",
-                                "AG03",
-                                "AG04",
-                                "AG05",
-                                "AG06",
-                                "AG07",
-                                "AG08",
-                                "AG09",
-                                "AG10",
-                                "AG11",
-                                "AG12",
-                                "AG13",
-                                "AG14",
-                                "AG15"
-                            ],
-                            Year: ["2008"]
+                    GenderCode: ["1", "2"],
+                    AgeRangeCode: [
+                        "AG02",
+                        "AG03",
+                        "AG04",
+                        "AG05",
+                        "AG06",
+                        "AG07",
+                        "AG08",
+                        "AG09",
+                        "AG10",
+                        "AG11",
+                        "AG12",
+                        "AG13",
+                        "AG14",
+                        "AG15"
+                    ],
+                    Year: ["2008"]
                 },
                 //preProcess : [{id:"preItem"}], //D3P process
                 //postProcess : [{id: "postIem"}] //D3P process
                 //filterFor: ["countrycode"], // allowed dimension ids to filter,
-            },   {
-                id: "chart_2", //ref [data-item=':id']
-                type: "chart", //chart || map || olap,
+            },
+            {
+                id: "item_2", //ref [data-item=':id']
+                type: "chart", //chart || map || table || box,
                 config: {
-                    type : "line",
+                    type: "line",
                     "aggregations": [],
                     "x": ["Year"],
-                    "series": [ "IndicatorCode_EN","GenderCode_EN"],
+                    "series": ["IndicatorCode_EN", "GenderCode_EN"],
                     "hidden": [],
-                    "y": ["Value"], 
+                    "y": ["Value"],
                     "aggregationFn": {"Value": "sum", "v1": "default"},
                     //"valueOutputType": "classicToNumber",
                     "formatter": "value",
@@ -80,14 +81,13 @@ define(function () {
                 },
                 //filterFor: ["countrycode"], // allowed dimension ids to filter,
             },
-            //"IndicatorCode_EN",, "CountryCode_EN"
             {
-                id: "olap_1", //ref [data-item=':id']
-                type: "olap", //chart || map || olap,
+                id: "item_3", //ref [data-item=':id']
+                type: "table", //chart || map || table || box,
                 config: {
                     "aggregations": [],
                     "columns": ["Year"],
-                    "rows": [ "GenderCode_EN"],
+                    "rows": ["GenderCode_EN"],
                     "hidden": [],
                     "values": ["Value"],
                     "aggregationFn": {"Value": "sum", "v1": "default"},
@@ -104,15 +104,15 @@ define(function () {
                     //countrycode: ["1012"]
                 },
                 //filterFor: ["d"], // allowed dimension ids to filter,
-            } ,
-			{
-                id: "olap_2", //ref [data-item=':id']
-                type: "olap", //chart || map || olap,
+            },
+            {
+                id: "item_4", //ref [data-item=':id']
+                type: "table", //chart || map || table || box,
                 config: {
-					inputFormat:"fenixtool",
+                    inputFormat: "fenixtool",
                     "aggregations": [],
-                    "columns": ["Year","IndicatorCode"],
-                    "rows": [ "GenderCode"],
+                    "columns": ["Year", "IndicatorCode"],
+                    "rows": ["GenderCode"],
                     "hidden": [],
                     "values": ["Value"],
                     "aggregationFn": {"Value": "sum", "v1": "default"},

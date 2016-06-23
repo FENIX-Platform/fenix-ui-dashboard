@@ -21,6 +21,7 @@ define([
         var self = this;
 
         $.extend(true, this, defaultOptions, o);
+        this.$el = $(this.el);
 
         this._renderTemplate();
 

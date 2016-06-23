@@ -490,7 +490,7 @@ define([
         var Item = this._getItemRender(item.type),
             conf = $.extend(true, {}, item, {
                 controller: this,
-                $el: this._getItemContainer(item.id)
+                el: this._getItemContainer(item.id)
             });
 
         var is = new Item(conf);

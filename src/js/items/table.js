@@ -13,14 +13,14 @@ define([
 
     'use strict';
 
-    var defaultOptions = {},
-        s = { };
+    var defaultOptions = {};
 
-    function Olap(o) {
+    function Table(o) {
 
         var self = this;
 
         $.extend(true, this, defaultOptions, o);
+        this.$el = $(this.el);
 
         this._renderTemplate();
 
@@ -44,7 +44,7 @@ define([
      * Disposition method
      * Mandatory method
      */
-    Olap.prototype.dispose = function () {
+    Table.prototype.dispose = function () {
 
         this._dispose();
         
@@ -56,7 +56,7 @@ define([
      * refresh method
      * Mandatory method
      */
-    Olap.prototype.refresh = function () {
+    Table.prototype.refresh = function () {
 
         log.info("Item refresh successfully");
 
@@ -67,7 +67,7 @@ define([
      * pub/sub
      * @return {Object} component instance
      */
-    Olap.prototype.on = function (channel, fn, context) {
+    Table.prototype.on = function (channel, fn, context) {
         var _context = context || this;
         if (!this.channels[channel]) {
             this.channels[channel] = [];
@@ -75,7 +75,7 @@ define([
         this.channels[channel].push({context: _context, callback: fn});
         return this;
     };
-    Olap.prototype._trigger = function (channel) {
+    Table.prototype._trigger = function (channel) {
 
         if (!this.channels[channel]) {
             return false;
@@ -89,17 +89,17 @@ define([
         return this;
     };
 
-    Olap.prototype._getStatus = function () {
+    Table.prototype._getStatus = function () {
 
         return this.status;
     };
 
-    Olap.prototype._renderTemplate = function () {
+    Table.prototype._renderTemplate = function () {
 
         //TODO
     };
 
-    Olap.prototype._initVariables = function () {
+    Table.prototype._initVariables = function () {
 
         //Init status
         this.status = {};
@@ -110,7 +110,7 @@ define([
         //TODO
     };
 
-    Olap.prototype._renderOlap = function () {
+    Table.prototype._renderOlap = function () {
 
         var config = $.extend(true, {}, this.config, {
                 model : this.model,
@@ -121,22 +121,22 @@ define([
 
     };
 
-    Olap.prototype._destroyOlap = function () {
+    Table.prototype._destroyOlap = function () {
 
         //TODO
 
-        log.info("Destroyed Olap: " + this.id);
+        log.info("Destroyed Table: " + this.id);
     };
 
-    Olap.prototype._bindEventListeners = function () {
+    Table.prototype._bindEventListeners = function () {
         //TODO
     };
 
-    Olap.prototype._unbindEventListeners = function () {
+    Table.prototype._unbindEventListeners = function () {
         //TODO
     };
 
-    Olap.prototype._dispose = function () {
+    Table.prototype._dispose = function () {
 
         this._unbindEventListeners();
 
@@ -144,11 +144,11 @@ define([
 
     };
 
-    Olap.prototype._getEventName = function (evt) {
+    Table.prototype._getEventName = function (evt) {
 
         return this.controller.id + evt;
     };
 
-    return Olap;
+    return Table;
 
 });

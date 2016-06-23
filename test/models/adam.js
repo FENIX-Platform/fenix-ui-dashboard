@@ -11,8 +11,8 @@ define(function () {
 
         items: [
             {
-                id: "chart_1", //ref [data-item=':id']
-                type: "chart", //chart || map || olap,
+                id: "item_1", //ref [data-item=':id']
+                type: "chart", //chart || map || table || box,
                 config: {
                     type: "line",
                     x: ["year"], //x axis

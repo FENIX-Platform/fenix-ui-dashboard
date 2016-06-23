@@ -13,8 +13,8 @@ define(function () {
         //filter : {} //FX-filter format
         items: [
         /*    {
-                id: "chart_1", //ref [data-item=':id']
-                type: "box", //chart || map || olap || box,
+                id: "item_1", //ref [data-item=':id']
+                type: "box", //chart || map || table || box,
                 config: {
 
                 }, // :type-creator config
@@ -37,8 +37,8 @@ define(function () {
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
             },*/
             {
-                id: "custom_1", //ref [data-item=':id']
-                type: "custom", //chart || map || olap || box,
+                id: "item_2", //ref [data-item=':id']
+                type: "custom", //chart || map || table || box,
                 config: {
                     type: "line",
                     useDimensionLabelsIfExist : true,
