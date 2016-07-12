@@ -6560,7 +6560,7 @@ input[type="radio"]:disabled + label {
   background-color: white; }
 
 /* Hide selectors */
-[data-section="table"] [data-role="toolbar"] [data-group="hidden"], [data-section="table"] [data-role="toolbar"] [data-group="aggregations"], [data-section="table"] [data-role="toolbar"] [data-group="values"], [data-section="table"] [data-role="toolbar"] [data-selector="aggregator_value"], [data-section="chart"] [data-role="toolbar"] [data-group="hidden"], [data-section="chart"] [data-role="toolbar"] [data-group="aggregations"], [data-section="chart"] [data-role="toolbar"] [data-group="values"], [data-section="chart"] [data-role="toolbar"] [data-selector="aggregator_value"] {
+[data-section="table"] [data-role="toolbar"] [data-group="hidden"], [data-section="table"] [data-role="toolbar"] [data-group="aggregations"], [data-section="table"] [data-role="toolbar"] [data-group="values"], [data-section="table"] [data-role="toolbar"] [data-selector="aggregatorValue"], [data-section="chart"] [data-role="toolbar"] [data-group="hidden"], [data-section="chart"] [data-role="toolbar"] [data-group="aggregations"], [data-section="chart"] [data-role="toolbar"] [data-group="values"], [data-section="chart"] [data-role="toolbar"] [data-selector="aggregatorValue"] {
   display: none !important; }
 
 /* Toolbar */
