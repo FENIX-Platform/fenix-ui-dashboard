@@ -21,7 +21,6 @@ require.config({
         mapPaths: pathProjectRoot + 'submodules/fenix-ui-map-creator/src/js/paths',
         tablePaths: pathProjectRoot + 'submodules/fenix-ui-table-creator/src/js/paths',
         filterPaths: pathProjectRoot + 'submodules/fenix-ui-filter/src/js/paths',
-        olapPaths: pathProjectRoot + 'submodules/fenix-ui-olap/src/js/paths',
         reportPaths: pathProjectRoot + 'submodules/fenix-ui-reports/src/js/paths',
         visualizationPaths: pathProjectRoot + 'submodules/fenix-ui-visualization-box/src/js/paths',
         dataEditorPaths: pathProjectRoot + 'submodules/fenix-ui-DataEditor/js/paths',
@@ -39,14 +38,14 @@ require([
     "commonPaths",
     "dashboardPaths",
     "chartPaths",
-    "olapPaths",
     "visualizationPaths",
     "filterPaths",
     "metadataViewerPaths",
     "mapPaths",
     "reportPaths",
-    "fenixMap"
-], function (Compiler, Common, Dashboard, Chart, Olap, Box, Filter, MetadataViewer, MapCreator, Report, Map) {
+    "fenixMap",
+    "tablePaths"
+], function (Compiler, Common, Dashboard, Chart, Box, Filter, MetadataViewer, MapCreator, Report, Map, TableCreator) {
 
     'use strict';
 
@@ -61,14 +60,14 @@ require([
     var chartConfig = Chart;
     chartConfig.baseUrl = submodules_path + 'fenix-ui-chart-creator/src/js';
 
-    var olapConfig = Olap;
-    olapConfig.baseUrl = submodules_path + 'fenix-ui-olap/src/js';
-
     var filterConfig = Filter;
     filterConfig.baseUrl = submodules_path + 'fenix-ui-filter/src/js';
 
     var mapCreatorConfig = MapCreator;
     mapCreatorConfig.baseUrl = submodules_path + 'fenix-ui-map-creator/src/js';
+
+    var tableCreatorConfig = TableCreator;
+    tableCreatorConfig.baseUrl = submodules_path + 'fenix-ui-table-creator/src/js';
 
     var reportConfig = Report;
     reportConfig.baseUrl = submodules_path + 'fenix-ui-reports/src/js';
@@ -82,7 +81,7 @@ require([
     var metadataViewerConfig = MetadataViewer;
     metadataViewerConfig.baseUrl = submodules_path + 'fenix-ui-metadata-viewer/src/js';
 
-    Compiler.resolve([commonConfig, dashboardConfig, chartConfig, olapConfig, filterConfig, mapCreatorConfig, reportConfig, mapConfig, boxConfig, metadataViewerConfig],
+    Compiler.resolve([commonConfig, dashboardConfig, chartConfig, filterConfig, mapCreatorConfig, reportConfig, mapConfig, boxConfig, metadataViewerConfig, tableCreatorConfig],
         {
             placeholders: {"FENIX_CDN": "http://fenixrepo.fao.org/cdn"},
 

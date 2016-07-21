@@ -14,7 +14,7 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",//"production",
+        environment = "production",//"production",
         cache = false,
         instances = [];
 
@@ -34,9 +34,9 @@ define([
 
         //this._renderModel1();
 
-        //this._renderUneca();
+        this._renderUneca();
 
-        this._renderAdam();
+        //this._renderAdam();
     };
 
     Test.prototype._renderCustomItem = function () {
