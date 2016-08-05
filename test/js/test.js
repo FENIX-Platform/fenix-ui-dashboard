@@ -36,7 +36,7 @@ define([
 
         //this._renderUneca();
 
-        this._renderAdam();
+		this._renderAdam();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -63,7 +63,7 @@ define([
     };
 
     Test.prototype._renderUneca = function () {
-
+console.log(UnecaModel);
         var dashboard = this.createDashboard(UnecaModel);
 
     };
