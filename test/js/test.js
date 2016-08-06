@@ -30,11 +30,11 @@ define([
 
     Test.prototype._render = function () {
 
-       //this._renderCustomItem();
+       this._renderCustomItem();
 
         //this._renderModel1();
 
-        this._renderUneca();
+        //this._renderUneca();
 
         //this._renderAdam();
     };

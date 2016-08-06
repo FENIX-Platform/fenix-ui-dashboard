@@ -8,13 +8,13 @@ define(function () {
 
         uid: "UNECA_Population",
         //version: "",
-        //preProcess : {} //D3P process
-        //postProcess : {} //D3P process
+        //preProcess : [] //D3P process
+        //postProcess : [] //D3P process
         //filter : {} //FX-filter format
         items: [
-            {
-                id: "chart_1", //ref [data-item=':id']
-                type: "box", //chart || map || olap || box,
+        /*    {
+                id: "item_1", //ref [data-item=':id']
+                type: "box", //chart || map || table || box,
                 config: {
 
                 }, // :type-creator config
@@ -28,11 +28,17 @@ define(function () {
                     Year: ["2013"]
                 },
 
+ /!*               preProcess : [
+                    {
+                        sid : "Test"
+                    }
+                ],*!/
+
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
-            },
+            },*/
             {
-                id: "custom_1", //ref [data-item=':id']
-                type: "chart", //chart || map || olap || box,
+                id: "item_2", //ref [data-item=':id']
+                type: "table", //chart || map || table || box,
                 config: {
                     type: "scatter",
                     useDimensionLabelsIfExist : true,
@@ -41,6 +47,10 @@ define(function () {
                     y: ["Value"],
                     aggregationFn: {"Value": "sum"}
                 }, // :type-creator config
+/*                preProcess : [
+                    {rid : "step_1"},
+                    {rid : "step_2"}
+                ],*/
                 filter: { //FX-filter format
                     IndicatorCode: ["010101"],
                     GenderCode: ["3"],
@@ -52,6 +62,10 @@ define(function () {
 
                 //filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
                 filterFor: ["Year"] // allowed dimension ids to filter,
+/*                filterFor: {
+                    "step_1" : ["Year"],
+                    "step_2" : ["IndicatorCode","Year"],
+                }*/
             }
         ]
     }
