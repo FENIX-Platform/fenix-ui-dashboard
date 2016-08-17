@@ -339,7 +339,7 @@ In the previous example the filter step will extend `step_1` ( for `year` values
 
 # Events
 
-<h3>Trigger Event</h3> A custom event can be triggered from within the plugin.
+<h3>Trigger Event</h3> A custom event can be triggered from within the plugin using the `trigger` function of the `controller`.
 
 ```javascript
 this.controller._trigger(event,data);
