@@ -206,7 +206,8 @@ define([
             environment: this.environment
         });
 
-        this.values  = this.filter.hasOwnProperty('values')? this.filter.values : this.filter;
+        if(this.filter)
+        	this.values  = this.filter.hasOwnProperty('values')? this.filter.values : this.filter;
 
 
     };
