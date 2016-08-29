@@ -1,12 +1,15 @@
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
 define(function () {
 
     var config = {
 
         paths: {
             'fx-dashboard/start': './dashboard',
-            'fx-dashboard/html': '../../html',
-            'fx-dashboard/js': './',
-            'fx-dashboard/config' :  '../../config',
+            'fx-dashboard/html': '../../src/html',
+            'fx-dashboard/js': '../../src/js',
+            'fx-dashboard/config' :  '../../src/config',
 
             //3rd party libs
             'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',

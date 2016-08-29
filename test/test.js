@@ -1,4 +1,6 @@
-/*global require*/
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
 
 var pathProjectRoot = "../../../";
 var projectRoot = "./";
@@ -23,9 +25,9 @@ require.config({
         filterPaths: pathProjectRoot + 'submodules/fenix-ui-filter/src/js/paths',
         reportPaths: pathProjectRoot + 'submodules/fenix-ui-reports/src/js/paths',
         visualizationPaths: pathProjectRoot + 'submodules/fenix-ui-visualization-box/src/js/paths',
-        dataEditorPaths: pathProjectRoot + 'submodules/fenix-ui-DataEditor/js/paths',
-        dsdEditorPaths: pathProjectRoot + 'submodules/fenix-ui-DSDEditor/js/paths',
-        metadataEditorPaths: pathProjectRoot + 'submodules/fenix-ui-metadata-editor/js/paths',
+        dataEditorPaths: pathProjectRoot + 'submodules/fenix-ui-DataEditor/src/js/paths',
+        dsdEditorPaths: pathProjectRoot + 'submodules/fenix-ui-DSDEditor/src/js/paths',
+        metadataEditorPaths: pathProjectRoot + 'submodules/fenix-ui-metadata-editor/src/js/paths',
         metadataViewerPaths : pathProjectRoot + 'submodules/fenix-ui-metadata-viewer/src/js/paths',
         catalogPaths: pathProjectRoot + 'submodules/fenix-ui-catalog/js/paths',
         dataManagementPaths: pathProjectRoot + 'submodules/fenix-ui-data-management/src/js/paths',
