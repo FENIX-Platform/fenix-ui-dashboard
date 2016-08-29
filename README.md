@@ -336,3 +336,27 @@ In the previous example the filter step will extend `step_1` ( for `year` values
 - `plugin.refresh( values )` : refresh plugin with new filter values (FENIX filter plain format)
 - `plugin.on(event, callback[, context])` : pub/sub 
 - `plugin.dispose()` : dispose the plugin instance
+
+# Events
+
+<h3>Trigger Event</h3> A custom event can be triggered from within the plugin using the `trigger` function of the `controller`.
+
+```javascript
+this.controller._trigger(event,data);
+
+// Example use
+this.controller._trigger('indicators_ready',{payload: {size: this.model.data.length}});
+```
+
+<h3>Handle Event</h3> An event handler is added to the dashboard instance (for which the plugin is registered) using the `on` function.
+
+```javascript
+this.dashboard.on(event, handler);
+
+// Example use
+this.dashboard.on('indicators_ready', function (data) {
+    if(data.payload.size > 0){
+        $(this.el).show();
+    }
+});
+ ```

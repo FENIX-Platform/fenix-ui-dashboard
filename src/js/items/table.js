@@ -7,7 +7,7 @@ define([
     'fx-dashboard/config/errors',
     'fx-dashboard/config/events',
     'fx-dashboard/config/config',
-    'fx-olap/start',
+    'fx-table/start',
     'amplify'
 ], function ($, log, _, ERR, EVT, C, OlapCreator) {
 

@@ -112,6 +112,8 @@ define([
         this.environment = this.initial.environment;
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
+        this.filter = this.initial.filter;
+
 
         //not from input
         this.$el = $(this.el);
@@ -203,6 +205,10 @@ define([
         this.bridge = new Bridge({
             environment: this.environment
         });
+
+        if(this.filter)
+        	this.values  = this.filter.hasOwnProperty('values')? this.filter.values : this.filter;
+
 
     };
 
@@ -321,7 +327,7 @@ define([
         _.each(this.items, _.bind(function (item) {
 
             //used during refresh
-            item.filter = $.extend(true, {}, item.filter, this.values);
+            item.filter = $.extend({}, item.filter, this.values);
 
             item.body = this._createProcessBody(item);
 
