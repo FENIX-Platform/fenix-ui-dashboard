@@ -20,7 +20,7 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",//"production",
+        environment = "production",
         cache = false,
         instances = [];
 
