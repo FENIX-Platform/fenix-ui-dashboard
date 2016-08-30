@@ -46,7 +46,7 @@ define(function () {
                         }
                       ]
                     }
-                  },
+                  }/*,
                   {
                     "name": "group",
                     "parameters": {
@@ -65,7 +65,7 @@ define(function () {
                         }
                       ]
                     }
-                  }
+                  }*/
                 ]
             }
         ]
