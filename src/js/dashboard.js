@@ -531,7 +531,8 @@ define([
             log.info("All items are ready");
 
             this._onReady();
-
+        } else {
+            this._trigger('itemready');
         }
     };
 
