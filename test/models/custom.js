@@ -12,6 +12,7 @@ define(function () {
         //postProcess : {} //D3P process
         //filter : {} //FX-filter format
         items: [
+        
             {
                 id: "chart_1", //ref [data-item=':id']
                 type: "box", //chart || map || olap || box,
