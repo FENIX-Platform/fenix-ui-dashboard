@@ -9,8 +9,11 @@ define([
     'test/models/model-1',
     'test/models/uneca',
     'test/models/custom',
-    'test/models/adam'
-], function (log, $, _, Dashboard, Model1, UnecaModel, CustomItemModel, AdamModel) {
+    'test/models/adam',
+    'test/models/gift'
+], function (log, $, _, Dashboard, 
+
+    Model1, UnecaModel, CustomItemModel, AdamModel, GiftModel) {
 
     'use strict';
 
@@ -33,13 +36,15 @@ define([
 
     Test.prototype._render = function () {
 
-       this._renderCustomItem();
+        //this._renderCustomItem();
 
         //this._renderModel1();
 
         //this._renderUneca();
 
         //this._renderAdam();
+
+        this._renderGift();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -74,6 +79,18 @@ define([
     Test.prototype._renderAdam = function () {
 
         var dashboard = this.createDashboard(AdamModel);
+
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                values : { year: ["2000"] }
+            });
+        })
+
+    };
+
+    Test.prototype._renderGift = function () {
+
+        var dashboard = this.createDashboard(GiftModel);
 
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
