@@ -427,6 +427,12 @@ define([
 
                     filter = filterAllowedValues(filterRidFor);
 
+                    _.each(filter, function(value, key){
+                        if (Array.isArray(value) && value.length === 0 && step.parameters && step.parameters.rows ){
+                           delete step.parameters.rows[key];
+                        }
+                    });
+
                     filterStep = createFilterStep(filter);
 
                     $.extend(true, step, filterStep);
@@ -513,14 +519,14 @@ define([
 
         var is = new Item(conf);
 
-        is.on("ready", _.bind(this._onItemReady, this));
+        is.on("ready", _.bind(this._onItemReady, this), item);
 
         this.itemInstances[item.id] = is
     };
 
     // Handlers
 
-    Dashboard.prototype._onItemReady = function () {
+    Dashboard.prototype._onItemReady = function (item) {
 
         this.itemsReady++;
 
@@ -532,7 +538,7 @@ define([
 
             this._onReady();
         } else {
-            this._trigger('itemready');
+            this._trigger('ready.item',item);
         }
     };
 
