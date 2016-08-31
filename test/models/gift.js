@@ -16,11 +16,12 @@ define(function () {
                 type: "chart",
                 config: {
                     type: "bubblecircle",
-                    x: ["Year"],
-                    y: ["Value"],                    
+                    x: ["subgroup_code"], 
+                    series: ["group_code"], //Y dimension      
+                    y: ["value"],                    
                     useDimensionLabelsIfExist : true,
-                    series: ["CountryCode"], //Y dimension                    
-                    aggregationFn: {"Value": "sum"}
+                                
+                    aggregationFn: {"value": "sum"}
                 },
 /*              filter: {
                     IndicatorCode: ["010101"],
@@ -37,7 +38,7 @@ define(function () {
                       "parameters": {
                         "by": [
                           "group_code",
-                          "subgroup_code"
+                          "subgroup_code" 
                         ],
                         "aggregations": [
                           {
@@ -48,7 +49,7 @@ define(function () {
                       }
                     }
                 ]
-            },
+            }/*,
             {
                 id: "item_2", //ref [data-item=':id']
                 type: "chart", //chart || map || olap,
@@ -60,7 +61,7 @@ define(function () {
                     y: ["Value"],
                     aggregationFn: {"Value": "sum"}
                 }
-            }
+            }*/
         ]
     }
 
