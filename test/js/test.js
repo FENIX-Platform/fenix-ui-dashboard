@@ -10,10 +10,17 @@ define([
     'test/models/uneca',
     'test/models/custom',
     'test/models/adam',
-    'test/models/gift'
+
+    'test/models/gift_bubble',
+    'test/models/gift_treemap',
+    'test/models/gift_donut'
 ], function (log, $, _, Dashboard, 
 
-    Model1, UnecaModel, CustomItemModel, AdamModel, GiftModel) {
+    Model1, UnecaModel, CustomItemModel, AdamModel, 
+    GiftModelBubble,
+    GiftModelTreemap,
+    GiftModelDonut
+    ) {
 
     'use strict';
 
@@ -37,14 +44,13 @@ define([
     Test.prototype._render = function () {
 
         //this._renderCustomItem();
-
         //this._renderModel1();
-
         //this._renderUneca();
-
 		//this._renderAdam();
 
-        this._renderGift();
+        this._renderGiftBubble();
+        this._renderGiftTreemap();
+        this._renderGiftDonut();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -88,17 +94,30 @@ define([
 
     };
 
-    Test.prototype._renderGift = function () {
-
-        var dashboard = this.createDashboard(GiftModel);
-
+    Test.prototype._renderGiftBubble = function () {
+        var dashboard = this.createDashboard(GiftModelBubble);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
                 values : { year: ["2000"] }
             });
         })
-
     };
+    Test.prototype._renderGiftTreemap = function () {
+        var dashboard = this.createDashboard(GiftModelTreemap);
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                values : { year: ["2000"] }
+            });
+        })
+    };
+    Test.prototype._renderGiftDonut = function () {
+        var dashboard = this.createDashboard(GiftModelDonut);
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                values : { year: ["2000"] }
+            });
+        })
+    };    
 
     //Utils
 
