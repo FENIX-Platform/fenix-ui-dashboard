@@ -13,13 +13,13 @@ define([
 
     'test/models/gift_bubble',
     'test/models/gift_treemap',
-    'test/models/gift_donut'
+    'test/models/gift_donut','test/models/gift_table'
 ], function (log, $, _, Dashboard, 
 
     Model1, UnecaModel, CustomItemModel, AdamModel, 
     GiftModelBubble,
     GiftModelTreemap,
-    GiftModelDonut
+    GiftModelDonut,GiftModelTable
     ) {
 
     'use strict';
@@ -51,6 +51,7 @@ define([
         this._renderGiftBubble();
         this._renderGiftTreemap();
         this._renderGiftDonut();
+		this._renderGiftTable();
     };
 
     Test.prototype._renderCustomItem = function () {
@@ -117,7 +118,15 @@ define([
                 values : { year: ["2000"] }
             });
         })
-    };    
+    };  
+    Test.prototype._renderGiftTAble = function () {
+        var dashboard = this.createDashboard(GiftModelTable);
+        $(s.REFRESH_BTN).on("click", function () {
+            dashboard.refresh({
+                values : { year: ["2000"] }
+            });
+        })
+    };  	
 
     //Utils
 
