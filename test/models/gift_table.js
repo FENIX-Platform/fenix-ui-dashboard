@@ -16,13 +16,13 @@ define(function () {
 				
 				config:{
                    // type: "donut",
-				   groupedRow:false,
+				   groupedRow:true,
 				  "formatter":"localstring",
 				  "decimals":["2"],
 				  "showRowHeaders":true,
                     inputFormat : "fenixtool",
-                    columns: ["subgroup_code"], //x axis and series
-                    rows: ["group_code"], //Y dimension
+                    columns: [], //x axis and series
+                    rows: ["group_code","subgroup_code"], //Y dimension
                     values: ["value"],
 					hidden:[],
                     aggregationFn: {"value": "sum"}
