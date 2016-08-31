@@ -33,7 +33,7 @@ define(function () {
                     Year: ["2013"]
                 },
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
-            },
+            }/*,
               {
                 id: "item_2", //ref [data-item=':id']
                 type: "chart", //chart || map || olap,
@@ -55,7 +55,7 @@ define(function () {
                     Year: ["2013"]
                 },
                 filterFor: ["IndicatorCode", "GenderCode", "AgeRangeCode", "CountryCode"] // allowed dimension ids to filter,
-            }
+            }*/
             /*{
                 id: "item_1", //ref [data-item=':id']
                 type: "chart", //chart || map || table || box,
