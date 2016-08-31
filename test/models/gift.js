@@ -95,12 +95,15 @@ define(function () {
 				
 				config:{
                    // type: "donut",
+				   groupedRow:false,
 				  "formatter":"localstring",
 				  "decimals":["2"],
-                    useDimensionLabelsIfExist : true,
+				  "showRowHeaders":true,
+                    inputFormat : "fenixtool",
                     columns: ["subgroup_code"], //x axis and series
                     rows: ["group_code"], //Y dimension
-                    value: ["value"],"showRowHeaders":true,
+                    values: ["value"],
+					hidden:[],
                     aggregationFn: {"value": "sum"}
                 },
 				
