@@ -119,7 +119,7 @@ define([
             });
         })
     };  
-    Test.prototype._renderGiftTAble = function () {
+    Test.prototype._renderGiftTable = function () {
         var dashboard = this.createDashboard(GiftModelTable);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
