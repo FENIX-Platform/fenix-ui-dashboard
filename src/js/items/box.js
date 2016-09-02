@@ -1,22 +1,17 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define([
     "jquery",
     "loglevel",
     'underscore',
-    'fx-dashboard/config/errors',
-    'fx-dashboard/config/events',
-    'fx-dashboard/config/config',
-    'fx-box/start',
-    'amplify'
-], function ($, log, _, ERR, EVT, C, Box) {
+    '../../config/errors',
+    '../../config/events',
+    '../../config/config',
+    'fenix-ui-visualization-box',
+    'amplify-pubsub'
+], function ($, log, _, ERR, EVT, C, Box, amplify) {
 
     'use strict';
 
-    var defaultOptions = {},
-        s = { };
+    var defaultOptions = {};
 
     function BoxTab(o) {
         

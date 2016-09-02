@@ -1,24 +1,20 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
 define([
     'jquery',
-    'require',
     'underscore',
     'loglevel',
-    'fx-dashboard/config/errors',
-    'fx-dashboard/config/events',
-    'fx-dashboard/config/config',
-    'text!fx-dashboard/html/templates.hbs',
-    "fx-common/bridge",
-    "fx-common/utils",
-    'amplify',
-    'bootstrap'
-], function ($, require, _, log, ERR, EVT, C, templates, Bridge, Utils) {
+    '../config/errors',
+    '../config/events',
+    '../config/config',
+    "fenix-ui-bridge",
+    "fenix-ui-converter",
+    "fenix-ui-filter-utils",
+    'amplify-pubsub'
+], function ($, _, log, ERR, EVT, C, Bridge, Converter, Utils, amplify) {
 
     'use strict';
 
-    var defaultOptions = {lang: "EN"}, s = {};
+    var defaultOptions = {lang: "EN"},
+        selectorPath = "fx-dashboard/js/items/";
 
     function Dashboard(o) {
         log.info("FENIX Dashboard");
@@ -34,7 +30,10 @@ define([
 
             this._initVariables();
 
-            this._preloadItemsScripts();
+            this._preloadMetadataResource().then(
+                _.bind(this._preloadMetadataResourceSuccess, this),
+                _.bind(this._preloadMetadataResourceError, this)
+            );
 
             return this;
 
@@ -208,8 +207,8 @@ define([
             environment: this.environment
         });
 
-        if(this.filter)
-        	this.values  = this.filter.hasOwnProperty('values')? this.filter.values : this.filter;
+        if (this.filter)
+            this.values = this.filter.hasOwnProperty('values') ? this.filter.values : this.filter;
 
 
     };
@@ -217,24 +216,6 @@ define([
     Dashboard.prototype._getItemContainer = function (id) {
 
         return this.$el.find("[data-item='" + id + "']");
-
-    };
-
-    Dashboard.prototype._preloadItemsScripts = function () {
-
-        var paths = [];
-
-        _.each(this.types, _.bind(function (t) {
-
-            paths.push(this._getItemScriptPath(t));
-
-        }, this));
-
-        log.info("Item path to load");
-        log.info(paths);
-
-        //Async load of plugin js source
-        require(paths, _.bind(this._preloadItemsScriptsSuccess, this));
 
     };
 
@@ -255,19 +236,9 @@ define([
             log.error('Impossible to find path configuration for "' + name + ' item".');
         }
 
-        return path;
+        return selectorPath + path;
     };
 
-    Dashboard.prototype._preloadItemsScriptsSuccess = function () {
-        log.info('Items scripts loaded successfully');
-        log.info('Load resource metadata');
-
-        this._preloadMetadataResource().then(
-            _.bind(this._preloadMetadataResourceSuccess, this),
-            _.bind(this._preloadMetadataResourceError, this)
-        );
-
-    };
 
     Dashboard.prototype._preloadMetadataResource = function () {
 
@@ -408,15 +379,15 @@ define([
             //append post process
             body = _.union(body, postProcess);
 
-            _.each(filterFor, function (filterRidFor, rid ) {
+            _.each(filterFor, function (filterRidFor, rid) {
 
                 log.info("rid: " + rid);
 
                 var filteredSteps = _.filter(body, function (s) {
-                    return Utils.getNestedProperty("rid.uid", s) === rid;
-                }) || [], filterStep, step;
+                        return self.getNestedProperty("rid.uid", s) === rid;
+                    }) || [], filterStep, step;
 
-                if (filteredSteps.length > 1 ) {
+                if (filteredSteps.length > 1) {
                     log.error("Rid " + rid + " is not unique in configuration.")
                 }
 
@@ -427,9 +398,9 @@ define([
 
                     filter = filterAllowedValues(filterRidFor);
 
-                    _.each(filter, function(value, key){
-                        if (Array.isArray(value) && value.length === 0 && step.parameters && step.parameters.rows ){
-                           delete step.parameters.rows[key];
+                    _.each(filter, function (value, key) {
+                        if (Array.isArray(value) && value.length === 0 && step.parameters && step.parameters.rows) {
+                            delete step.parameters.rows[key];
                         }
                     });
 
@@ -456,8 +427,8 @@ define([
             }
 
             rowsFilter = $.extend(true, {},
-                Utils.toD3P(self.filterConfiguration, {values: self.commonFilter}),
-                Utils.toD3P(self.filterConfiguration, {values: filter}));
+                Converter.toD3P(self.filterConfiguration, {values: self.commonFilter}),
+                Converter.toD3P(self.filterConfiguration, {values: filter}));
 
             return {
                 name: "filter",
@@ -538,7 +509,7 @@ define([
 
             this._onReady();
         } else {
-            this._trigger('ready.item',item);
+            this._trigger('ready.item', item);
         }
     };
 
@@ -592,24 +563,24 @@ define([
     Dashboard.prototype._updateModel = function (resource) {
 
         var model = this.model || {},
-            newMetadata = Utils.getNestedProperty("metadata", resource),
-            newDsd = Utils.getNestedProperty("dsd", newMetadata) || {},
-            newData = Utils.getNestedProperty("data", resource),
-            newSize = Utils.getNestedProperty("size", resource);
+            newMetadata = this.getNestedProperty("metadata", resource),
+            newDsd = this.getNestedProperty("dsd", newMetadata) || {},
+            newData = this.getNestedProperty("data", resource),
+            newSize = this.getNestedProperty("size", resource);
 
         var dsdWithoutRid = _.without(Object.keys(newDsd), "rid");
 
         //if metadata exists updated only dsd
         if (dsdWithoutRid.length > 0) {
-            Utils.assign(model, "metadata.dsd", newDsd);
+            this.assign(model, "metadata.dsd", newDsd);
         }
 
         if (Array.isArray(newData)) {
-            Utils.assign(model, "data", newData);
+            this.assign(model, "data", newData);
         }
 
         if (model.size !== newSize) {
-            Utils.assign(model, "size", newSize);
+            this.assign(model, "size", newSize);
         }
 
         this.model = model;
@@ -634,6 +605,35 @@ define([
 
         //unbind event listeners
         this._unbindEventListeners();
+    };
+
+    // utils
+    Dashboard.prototype.assign = function (obj, prop, value) {
+        if (typeof prop === "string")
+            prop = prop.split(".");
+
+        if (prop.length > 1) {
+            var e = prop.shift();
+            this.assign(obj[e] =
+                    Object.prototype.toString.call(obj[e]) === "[object Object]"
+                        ? obj[e]
+                        : {},
+                prop,
+                value);
+        } else {
+            obj[prop[0]] = value;
+        }
+    };
+
+    Dashboard.prototype.getNestedProperty = function (path, obj) {
+
+        var obj = $.extend(true, {}, obj),
+            arr = path.split(".");
+
+        while (arr.length && (obj = obj[arr.shift()]));
+
+        return obj;
+
     };
 
     return Dashboard;

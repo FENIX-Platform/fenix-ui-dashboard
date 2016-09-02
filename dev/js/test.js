@@ -27,7 +27,7 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "demo",//"production",
+        environment = "develop",//"production",
         cache = false,
         instances = [];
 
@@ -43,10 +43,12 @@ define([
 
     Test.prototype._render = function () {
 
-        //this._renderCustomItem();
+        this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
 		//this._renderAdam();
+
+        return;
 
         this._renderGiftBubble();
         this._renderGiftTreemap();

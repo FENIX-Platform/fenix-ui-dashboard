@@ -1,29 +1,26 @@
 /*global define*/
-
 define(function () {
 
     'use strict';
-
-    var selectorPath = "fx-dashboard/js/items/";
 
     return {
 
         validityTimeout: 10000, //10 secs
 
-        cache : false,
+        cache: false,
 
         itemsRegistry: {
             'chart': {
-                path: selectorPath + 'chart'
+                path: 'chart'
             },
             'map': {
-                path: selectorPath + 'map'
+                path: 'map'
             },
             'table': {
-                path: selectorPath + 'table'
+                path: 'table'
             },
             'box': {
-                path: selectorPath + 'box'
+                path: 'box'
             }
         }
 

@@ -1,17 +1,13 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define([
     "jquery",
     "loglevel",
     'underscore',
-    'fx-dashboard/config/errors',
-    'fx-dashboard/config/events',
-    'fx-dashboard/config/config',
-    'fx-m-c/start',
-    'amplify'
-], function ($, log, _, ERR, EVT, C, MapCreator) {
+    '../../config/errors',
+    '../../config/events',
+    '../../config/config',
+    'fenix-ui-map-creator',
+    'amplify-pubsub'
+], function ($, log, _, ERR, EVT, C, MapCreator, amplify) {
 
     'use strict';
 
