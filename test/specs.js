@@ -2,7 +2,7 @@
 var Component = require("../src/js/index"),
     $ = require("jquery");
 
-describe("Filter", function () {
+describe("Component", function () {
     it("should be not null", function () {
         expect(Component).to.be.not.null;
     });
