@@ -2,7 +2,7 @@ define([
     'loglevel',
     'jquery',
     'underscore',
-    'fx-dashboard/start',
+    '../../../src/js/index',
     '../models/model-1',
     '../models/uneca',
     '../models/custom',

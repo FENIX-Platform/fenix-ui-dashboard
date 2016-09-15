@@ -542,7 +542,7 @@ define([
 
     Dashboard.prototype._getItemRender = function (id) {
 
-        return require(this._getItemScriptPath(id));
+        return require(this._getItemScriptPath(id) + ".js");
     };
 
     Dashboard.prototype._getSelectorInstance = function (name) {

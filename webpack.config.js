@@ -14,6 +14,10 @@ module.exports = {
 
     devtool: isProduction('source-map', 'eval'),
 
+    node: {
+        fs: "empty"
+    },
+
     entry: getEntry(),
 
     output: getOutput(),
@@ -21,6 +25,7 @@ module.exports = {
     resolve: {
         root: Path.resolve(__dirname),
         alias: {
+            handlebars : Path.join(__dirname, 'node_modules/handlebars/dist/handlebars.js'),
             jquery: Path.join(__dirname, 'node_modules/jquery/dist/jquery') //neede by eonasdan-bootstrap-datetimepicker
         }
     },
@@ -30,6 +35,8 @@ module.exports = {
     module: {
         loaders: [
             {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+            {test: /\.hbs$/, loader: "handlebars-loader"},
+            {test: /\.json$/, loader: "json-loader"},
             {test: /bootstrap.+\.(jsx|js)$/, loader: 'imports?jQuery=jquery,$=jquery'}]
     },
 
@@ -38,11 +45,12 @@ module.exports = {
             compress: {warnings: false},
             output: {comments: false}
         })),
-        new ExtractTextPlugin(packageJson.name + '.min.css'),
+        new ExtractTextPlugin(packageJson.name + '.min.css')/*,
         isDevelop(new HtmlWebpackPlugin({
             inject: "body",
             template: devFolderPath + "/index.template.html"
         }))
+        */
     ])
 };
 
