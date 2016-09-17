@@ -30,6 +30,9 @@ define([
         instances = [];
 
     function Dev() {
+
+        this._importThirdPartyCss();
+
         console.clear();
         log.setLevel('trace')
         this.start();
@@ -44,13 +47,13 @@ define([
     };
 
     Dev.prototype._render = function () {
-
-        this._renderCustomItem();
+        //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
-		//this._renderAdam();
+
 
         return;
+        this._renderAdam();
 
         this._renderGiftBubble();
         this._renderGiftTreemap();
@@ -144,6 +147,19 @@ define([
         instances.push(instance);
 
         return instance;
+    };
+
+    // utils
+
+    Dev.prototype._importThirdPartyCss = function () {
+
+        //Bootstrap
+        require("bootstrap-loader");
+
+        // fenix-ui-table-creator
+        require("../../../node_modules/fenix-ui-table-creator/dist/fenix-ui-table-creator.min.css");
+
+
     };
 
     return new Dev();
