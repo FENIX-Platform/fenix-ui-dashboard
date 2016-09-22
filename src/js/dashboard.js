@@ -515,8 +515,6 @@ define([
 
     Dashboard.prototype._renderItem = function (item) {
 
-       // console.log(" ================== _renderItem ============");
-       // console.log(" ================== item ============");
 
         var Item = this._getItemRender(item.type),
             conf = $.extend(true, {}, item, {
@@ -524,13 +522,9 @@ define([
                 el: this._getItemContainer(item.id)
             });
 
-       // console.log(conf.type, conf.id);
-       // console.log(Item);
-
         var is = new Item(conf);
 
         is.on("ready", _.bind(this._onItemReady, this), item);
-        is.on("click", _.bind(this._onItemClick, this));
 
         this.itemInstances[item.id] = is
     };
@@ -540,9 +534,6 @@ define([
     Dashboard.prototype._onItemReady = function (item) {
 
         this.itemsReady++;
-
-       // console.log("=============== _onItemReady DASHBOARD ==================");
-
 
         if (this.itemsReady === this.items.length) {
 
@@ -555,12 +546,6 @@ define([
             this._trigger('ready.item',item);
         }
     };
-
-    Dashboard.prototype._onItemClick = function (values) {
-        console.log(values);
-        this._trigger("click.item", values);
-    };
-
 
     Dashboard.prototype._onReady = function () {
         log.info("Dashboard [" + this.id + "] is ready");
