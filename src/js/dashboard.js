@@ -30,6 +30,9 @@ define([
 
         var valid = this._validateInput();
 
+        console.log("DASHBOARD ================= ");
+        console.log(valid);
+
         if (valid === true) {
 
             this._initVariables();
@@ -157,6 +160,7 @@ define([
 
                 if (_.contains(this.ids, item.id)) {
                     errors.push({code: ERR.ITEM_DUPLICATED_ID});
+                    console.log("Duplicated item's id: " + item.id);
                     log.error("Duplicated item's id: " + item.id);
                     log.error(item);
                 }
@@ -511,8 +515,8 @@ define([
 
     Dashboard.prototype._renderItem = function (item) {
 
-        console.log(" ================== _renderItem ============");
-        console.log(" ================== item ============");
+       // console.log(" ================== _renderItem ============");
+       // console.log(" ================== item ============");
 
         var Item = this._getItemRender(item.type),
             conf = $.extend(true, {}, item, {
@@ -520,16 +524,13 @@ define([
                 el: this._getItemContainer(item.id)
             });
 
-        console.log(conf.type, conf.id);
-        console.log(Item);
+       // console.log(conf.type, conf.id);
+       // console.log(Item);
 
         var is = new Item(conf);
 
         is.on("ready", _.bind(this._onItemReady, this), item);
-        is.on("click", function (){
-             alert("here")
-            //_.bind(this._onItemClick, this)
-        });
+        is.on("click", _.bind(this._onItemClick, this));
 
         this.itemInstances[item.id] = is
     };
@@ -540,7 +541,7 @@ define([
 
         this.itemsReady++;
 
-        console.log("=============== _onItemReady DASHBOARD ==================");
+       // console.log("=============== _onItemReady DASHBOARD ==================");
 
 
         if (this.itemsReady === this.items.length) {
@@ -555,17 +556,11 @@ define([
         }
     };
 
-
     Dashboard.prototype._onItemClick = function (values) {
-
-        console.log("=============== _onItemClick DASHBOARD ==================");
         console.log(values);
-
-        this.trigger("item.click", values);
-
-
-
+        this._trigger("click.item", values);
     };
+
 
     Dashboard.prototype._onReady = function () {
         log.info("Dashboard [" + this.id + "] is ready");
