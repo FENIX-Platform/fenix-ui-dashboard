@@ -30,8 +30,7 @@ define([
 
         var valid = this._validateInput();
 
-        console.log("DASHBOARD ================= ");
-        console.log(valid);
+
 
         if (valid === true) {
 
