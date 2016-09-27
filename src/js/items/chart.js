@@ -117,7 +117,8 @@ define([
 
         var config = $.extend(true, {}, this.config, {
                 model : this.model,
-                el : this.$el
+                el : this.$el,
+                id : this.id
         });
 
         new ChartCreator(config);
