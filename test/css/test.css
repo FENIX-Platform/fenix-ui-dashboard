@@ -5333,6 +5333,9 @@ button_new_2:before {
 .fa-caret-right:before {
   content: ""; }
 
+.fa-sort:before {
+  content: ""; }
+
 .fa-rss-square:before {
   content: ""; }
 
@@ -5603,6 +5606,33 @@ input[type="radio"]:disabled + label {
     opacity: 0.4; }
 
 /* Filter */
+.fx-selector.hideSwitch .fx-selector-title {
+  margin-right: 30px;
+  /* Small devices (tablets, 768px and up) */
+  /* Medium devices (desktops, 992px and up) */
+  /* Large devices (large desktops, 1200px and up) */ }
+  @media (min-width: 992px) {
+    .fx-selector.hideSwitch .fx-selector-title {
+      margin-right: 30px; } }
+
+.fx-selector.hideRemoveButton .fx-selector-title {
+  margin-right: 30px;
+  /* Small devices (tablets, 768px and up) */
+  /* Medium devices (desktops, 992px and up) */
+  /* Large devices (large desktops, 1200px and up) */ }
+  @media (min-width: 992px) {
+    .fx-selector.hideRemoveButton .fx-selector-title {
+      margin-right: 80px; } }
+
+.fx-selector.hideSwitch.hideRemoveButton .fx-selector-title {
+  margin-right: 0;
+  /* Small devices (tablets, 768px and up) */
+  /* Medium devices (desktops, 992px and up) */
+  /* Large devices (large desktops, 1200px and up) */ }
+  @media (min-width: 992px) {
+    .fx-selector.hideSwitch.hideRemoveButton .fx-selector-title {
+      margin-right: 0; } }
+
 [data-selector], [data-semantic] {
   /* Focused */
   /* Mandatory */
@@ -6527,7 +6557,7 @@ input[type="radio"]:disabled + label {
   background-color: #f4f4f4 !important; }
 
 /* Freezed Rows */
-.gt-freeze-div[id*="bodyDiv"] td {
+.fx-box .gt-freeze-div[id*="bodyDiv"] td {
   background-color: #f4f4f4 !important; }
 
 /* Freezed Header */
