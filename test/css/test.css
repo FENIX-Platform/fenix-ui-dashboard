@@ -6557,7 +6557,7 @@ input[type="radio"]:disabled + label {
   background-color: #f4f4f4 !important; }
 
 /* Freezed Rows */
-.gt-freeze-div[id*="bodyDiv"] td {
+.fx-box .gt-freeze-div[id*="bodyDiv"] td {
   background-color: #f4f4f4 !important; }
 
 /* Freezed Header */
