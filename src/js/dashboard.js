@@ -598,7 +598,7 @@ define([
         var model = this.model || {},
             newMetadata = Utils.getNestedProperty("metadata", resource),
             newDsd = Utils.getNestedProperty("dsd", newMetadata) || {},
-            newData = Utils.getNestedProperty("data", resource),
+            newData = Utils.getNestedProperty("data", resource) || [],
             newSize = Utils.getNestedProperty("size", resource);
 
         var dsdWithoutRid = _.without(Object.keys(newDsd), "rid");
