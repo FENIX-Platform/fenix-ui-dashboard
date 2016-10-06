@@ -440,7 +440,8 @@ define([
 
                     // The filterStep parameters should take precedence over the step parameters
                     // So parameters that are both in the step and filterStep, should be removed from the step (before merging)
-                    step = self._removeMatchingKeysFromStep(step, filterStep);
+                    if(filterStep)
+                        step = self._removeMatchingKeysFromStep(step, filterStep);
 
                     $.extend(true, step, filterStep);
 
