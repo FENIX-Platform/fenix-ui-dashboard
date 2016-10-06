@@ -438,6 +438,10 @@ define([
 
                     filterStep = createFilterStep(filter);
 
+                    // The filterStep parameters should take precedence over the step parameters
+                    // So parameters that are both in the step and filterStep, should be removed from the step (before merging)
+                    step = self._removeMatchingKeysFromStep(step, filterStep);
+
                     $.extend(true, step, filterStep);
 
                 } else {
@@ -496,6 +500,33 @@ define([
 
             return filter;
         }
+    };
+
+
+    Dashboard.prototype._removeMatchingKeysFromStep = function (step, filterStep) {
+        if(step.parameters && filterStep.parameters){
+            var stepParameters = step.parameters;
+            var filterStepParameters =filterStep.parameters;
+
+            if(stepParameters.rows && filterStepParameters.rows){
+                var keys = this._getMatchingKeys(stepParameters.rows, filterStepParameters.rows);
+
+                if(keys && keys.length > 0){
+                    for(var idx in keys){
+                        var key =  keys[idx];
+                        delete stepParameters.rows[key];
+                    }
+                }
+            }
+        }
+
+        return step;
+    };
+
+    Dashboard.prototype._getMatchingKeys = function (a, b) {
+       var aKeys = Object.keys(a);
+       var bKeys = Object.keys(b);
+       return _.intersection(aKeys, bKeys);
     };
 
     Dashboard.prototype._onGetProcessedResourceError = function (obj) {
