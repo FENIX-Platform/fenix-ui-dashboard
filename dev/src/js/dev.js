@@ -50,10 +50,9 @@ define([
         //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
-
+        //this._renderAdam();
 
         return;
-        this._renderAdam();
 
         this._renderGiftBubble();
         this._renderGiftTreemap();

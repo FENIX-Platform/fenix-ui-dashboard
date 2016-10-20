@@ -14,7 +14,7 @@ define([
     'use strict';
 
     var defaultOptions = {lang: "EN"},
-        //selectorPath = "fx-dashboard/js/items/",
+       // selectorPath = "fx-dashboard/js/items/"
         selectorPath = "./items/"
 
     function Dashboard(o) {
