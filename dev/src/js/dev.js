@@ -53,7 +53,6 @@ define([
         //this._renderAdam();
 
         return;
-
         this._renderGiftBubble();
         this._renderGiftTreemap();
         this._renderGiftDonut();
