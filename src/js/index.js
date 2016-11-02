@@ -576,8 +576,10 @@ define([
             this.assign(model, "metadata.dsd", newDsd);
         }
 
-        if (Array.isArray(newData)) {
+        if(Array.isArray(newData)) {
             this.assign(model, "data", newData);
+        } else {
+            model.data = [];
         }
 
         if (model.size !== newSize) {
