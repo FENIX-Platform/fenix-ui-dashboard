@@ -491,7 +491,7 @@ define([
 
         var is = new Item(conf);
 
-        is.on("ready", _.bind(this._onItemReady(item), this), item);
+        is.on("ready", _.bind(this._onItemReady, this, item));
 
         this.itemInstances[item.id] = is
     };
