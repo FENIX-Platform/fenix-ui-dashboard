@@ -13,122 +13,170 @@ define(function () {
 
     return {
 
-        uid: "UNECA_Population",
-        //version: "",
+        uid:  "D3P_R_3",
+        version: "65280662580072738468598523287757025566",
         //preProcess : [{id:"preResource"}], //D3P process
         //postProcess : [{id: "postResource"}], //D3P process
         //filter : {} //FX-filter format
         items: [
             {
-                id: "item_1", //ref [data-item=':id']
-                type: "chart", //chart || map || table || box,
+                //Average annual growth rate 010103
+                id: "item_5", //ref [data-item=':id'] // 010103  Average annual growth rate
+                type: "map", //chart || map || olap,
                 config: {
-                    type: "pyramide",
-                    inputFormat: "fenixtool",// || default raw else fenixtool
-                    "x": ["GenderCode"],
-                    "series": ["AgeRangeCode"],
-                    "y": ["Value"],
+                    fenix_ui_map: {
+                        guiController: {
+                            overlay: false,
+                            baselayer: false,
+                            wmsLoader: false
+                        },
+                        baselayers: {
+                            "cartodb": {
+                                title_en: "Baselayer",
+                                url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+                                subdomains: 'abcd',
+                                maxZoom: 19
+                            }
+                        },
+                        zoomToCountry: ["DZA"]//,
+                        // highlightCountry: ["DZA"]
+                    }
+                },
+                filterFor: {
+                    "filtered_ds": ['CountryCode']
+                },
+                postProcess: [
+                    {
+                        "name": "join",
+                        "sid": [
+                            {
+                                "uid": "filtered_ds"
+                            },
+                            {
+                                "uid": "last_year_country"
+                            }
+                        ],
+                        "parameters": {
+                            "joins": [
+                                [
+                                    {
+                                        "type": "id",
+                                        "value": "CountryCode"
+                                    },
+                                    {
+                                        "type": "id",
+                                        "value": "Year"
+                                    }
 
-                }
-                , // :type-creator config
-                filter: { //FX-filter format
-                    IndicatorCode: ["010101"],
-                    GenderCode: ["1", "2"],
-                    AgeRangeCode: [
-                        "AG02",
-                        "AG03",
-                        "AG04",
-                        "AG05",
-                        "AG06",
-                        "AG07",
-                        "AG08",
-                        "AG09",
-                        "AG10",
-                        "AG11",
-                        "AG12",
-                        "AG13",
-                        "AG14",
-                        "AG15"
-                    ],
-                    Year: ["2008"]
-                },
-                //preProcess : [{id:"preItem"}], //D3P process
-                //postProcess : [{id: "postIem"}] //D3P process
-                //filterFor: ["countrycode"], // allowed dimension ids to filter,
-            },
-            {
-                id: "item_2", //ref [data-item=':id']
-                type: "chart", //chart || map || table || box,
-                config: {
-                    type: "line",
-                    "aggregations": [],
-                    "x": ["Year"],
-                    "series": ["IndicatorCode_EN", "GenderCode_EN"],
-                    "hidden": [],
-                    "y": ["Value"],
-                    "aggregationFn": {"Value": "sum", "v1": "default"},
-                    //"valueOutputType": "classicToNumber",
-                    "formatter": "value",
-                    "decimals": 2,
-                    "showUnit": false,
-                    "showFlag": false,
-                    "showCode": false,
-                    "showRowHeaders": false
-                }
-                , // :type-creator config
-                filter: { //FX-filter format
-                    //countrycode: ["1012"]
-                },
-                //filterFor: ["countrycode"], // allowed dimension ids to filter,
-            },
-            {
-                id: "item_3", //ref [data-item=':id']
-                type: "table", //chart || map || table || box,
-                config: {
-                    "aggregations": [],
-                    "columns": ["Year"],
-                    "rows": ["GenderCode_EN"],
-                    "hidden": [],
-                    "values": ["Value"],
-                    "aggregationFn": {"Value": "sum", "v1": "default"},
-                    //"valueOutputType": "classicToNumber",
-                    "formatter": "localstring",
-                    "decimals": 2,
-                    "showUnit": false,
-                    "showFlag": false,
-                    "showCode": false,
-                    "showRowHeaders": true
-                }
-                , // :type-creator config
-                filter: { //FX-filter format
-                    //countrycode: ["1012"]
-                },
-                //filterFor: ["d"], // allowed dimension ids to filter,
-            },
-            {
-                id: "item_4", //ref [data-item=':id']
-                type: "table", //chart || map || table || box,
-                config: {
-                    inputFormat: "fenixtool",
-                    "aggregations": [],
-                    "columns": ["Year", "IndicatorCode"],
-                    "rows": ["GenderCode"],
-                    "hidden": [],
-                    "values": ["Value"],
-                    "aggregationFn": {"Value": "sum", "v1": "default"},
-                    //"valueOutputType": "classicToNumber",
-                    "formatter": "localstring",
-                    "decimals": 2,
-                    "showUnit": true,
-                    "showFlag": true,
-                    "showCode": true,
-                    "showRowHeaders": true
-                }
-                , // :type-creator config
-                filter: { //FX-filter format
-                    GenderCode: [1]
-                },
-                //filterFor: ["d"], // allowed dimension ids to filter,
+                                ],
+                                [
+                                    {
+                                        "type": "id",
+                                        "value": "CountryCode"
+                                    },
+                                    {
+                                        "type": "id",
+                                        "value": "Year"
+                                    }
+
+                                ]
+                            ],
+                            "values": []
+                        },
+                        "rid": {
+                            "uid": "filtered_join"
+                        }
+                    },
+
+                    {
+                        "name": "filter",
+                        "sid": [
+                            {
+                                "uid": "Uneca_PopulationNew"
+                            }
+                        ],
+                        "parameters": {
+                            "columns": [
+                                "CountryCode",
+                                "Year",
+                                "Value"
+                            ],
+                            "rows": {
+
+                                "IndicatorCode": {
+                                    "codes": [
+                                        {
+                                            "uid": "UNECA_ClassificationOfActivities",
+                                            "codes": [
+                                                "010103"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "CountryCode": {
+                                    "codes": [
+                                        {
+                                            "uid": "ISO3",
+                                            "codes": [
+                                                "DZA"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "rid": {
+                            "uid": "filtered_ds"
+                        }
+                    },
+
+                    {
+                        "name": "group",
+                        "sid": [
+                            {
+                                "uid": "filtered_ds"
+                            }
+                        ],
+                        "parameters": {
+                            "by": [                   //
+                                "CountryCode"
+                            ],
+                            "aggregations": [
+                                {
+                                    "columns": [
+                                        "Year"
+                                    ],
+                                    "rule": "max"
+                                }
+                            ]
+                        },
+                        "rid": {
+                            "uid": "last_year_country"
+                        }
+                    },
+                    {
+                        "name": "group",
+                        "sid": [
+                            {
+                                "uid": "filtered_join"
+                            }
+                        ],
+                        "parameters": {
+                            "by": [
+                                "CountryCode"
+                            ],
+                            "aggregations": [
+                                {
+                                    "columns": [
+                                        "filtered_ds_Value"
+                                    ],
+                                    "rule": "max"
+                                }
+                            ]
+                        }
+                    }
+
+                ]
             }
         ]
     }

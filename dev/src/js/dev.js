@@ -15,6 +15,7 @@ define([
 ], function (log, $, _, Dashboard,
 
     Model1, UnecaModel, CustomItemModel, AdamModel, 
+
     GiftModelBubble,
     GiftModelTreemap,
     GiftModelDonut,GiftModelTable
@@ -25,7 +26,8 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",//"production",
+        //environment = "develop",
+        environment = "production",
         cache = false,
         instances = [];
 
@@ -33,8 +35,8 @@ define([
 
         this._importThirdPartyCss();
 
-        console.clear();
-        log.setLevel('trace')
+        //console.clear();
+        log.setLevel('silent')
         this.start();
     }
 
@@ -49,14 +51,14 @@ define([
     Dev.prototype._render = function () {
         //this._renderCustomItem();
         //this._renderModel1();
-        //this._renderUneca();
+        this._renderUneca();
         //this._renderAdam();
 
         return;
-        this._renderGiftBubble();
-        this._renderGiftTreemap();
-        this._renderGiftDonut();
-		this._renderGiftTable();
+        //this._renderGiftBubble();
+        //this._renderGiftTreemap();
+        //this._renderGiftDonut();
+		//this._renderGiftTable();
     };
 
     Dev.prototype._renderCustomItem = function () {
@@ -153,6 +155,9 @@ define([
 
         //Bootstrap
         require("bootstrap-loader");
+
+        require("../../../node_modules/leaflet/dist/leaflet.css");
+        require("../../../node_modules/fenix-ui-map/dist/fenix-ui-map.min.css");
 
         // fenix-ui-table-creator
         require("../../../node_modules/fenix-ui-table-creator/dist/fenix-ui-table-creator.min.css");
