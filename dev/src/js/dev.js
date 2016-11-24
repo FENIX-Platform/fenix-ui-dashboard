@@ -26,8 +26,8 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        //environment = "develop",
-        environment = "production",
+        environment = "develop",
+        //environment = "production",
         cache = false,
         instances = [];
 
@@ -51,8 +51,8 @@ define([
     Dev.prototype._render = function () {
         //this._renderCustomItem();
         //this._renderModel1();
-        this._renderUneca();
-        //this._renderAdam();
+        //this._renderUneca();
+       // this._renderAdam();
 
         return;
         //this._renderGiftBubble();
@@ -138,6 +138,7 @@ define([
     //Utils
 
     Dev.prototype.createDashboard = function (params) {
+
 
         var instance = new Dashboard($.extend(true, params, {
             environment : environment,
