@@ -482,9 +482,17 @@ define([
     };
 
     Dashboard.prototype._renderItem = function (item) {
+        var Item;
 
-        var Item = this._getItemRender(item.type),
-            conf = $.extend(true, {}, item, {
+        if(item.type === 'custom') {
+            Item = this.itemsRegistry['custom'].item;
+        } else {
+            Item = this._getItemRender(item.type);
+        }
+
+    
+       // var Item = this._getItemRender(item.type),
+           var conf = $.extend(true, {}, item, {
                 controller: this,
                 el: this._getItemContainer(item.id)
             });
