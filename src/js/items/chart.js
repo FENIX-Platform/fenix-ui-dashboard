@@ -113,16 +113,23 @@ define([
 
         var config = $.extend(true, {}, this.config, {
                 model : this.model,
-                el : this.$el
+                el : this.$el,
+                id : this.id
         });
 
-        new ChartCreator(config);
+        this.cc = new ChartCreator(config);
+
+        this.cc.on("click", _.bind(this._onChartCreatorClick, this));
 
     };
 
-    Chart.prototype._destroyChart = function () {
+    Chart.prototype._onChartCreatorClick = function (values) {
 
-        //TODO
+        this.controller._trigger('click.item', values);
+    };
+
+    Chart.prototype._destroyChart = function () {
+        this.cc.dispose();
 
         log.info("Destroyed Chart: " + this.id);
     };
