@@ -510,6 +510,8 @@ define([
 
         this.itemsReady++;
 
+        this._trigger('ready.item', item);
+
         if (this.itemsReady === this.items.length) {
 
             this.ready = true;
@@ -517,8 +519,6 @@ define([
             log.info("All items are ready");
 
             this._onReady();
-        } else {
-            this._trigger('ready.item', item);
         }
     };
 

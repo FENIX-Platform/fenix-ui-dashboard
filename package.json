@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-dashboard",
-  "version": "3.0.0-beta.12",
+  "version": "3.0.0-beta.13",
   "description": "FENIX Dashboard",
   "main": "dist/fenix-ui-dashboard.min.js",
   "scripts": {
