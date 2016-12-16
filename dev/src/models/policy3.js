@@ -203,7 +203,7 @@ define(function () {
                         }
                     }
                 }, // :type-creator config
-                postProcess: [
+                postProcess:  [
                     {
                         "name": "filter",
                         "sid": [
@@ -214,7 +214,7 @@ define(function () {
                         "parameters": {
                             "columns": [
                                 "commodityclass",
-                                "policymeasure",
+                                "element",
                                 "country",
                                 "startYear",
                                 "value",
@@ -266,6 +266,26 @@ define(function () {
                                     ]
                                 }
                             }
+                        }
+                    },
+                    {
+                        "name": "group",
+                        "parameters": {
+                            "by": [
+                                "commodityclass",
+                                "element",
+                                "country",
+                                "startYear",
+                                "um"
+                            ],
+                            "aggregations": [
+                                {
+                                    "columns": [
+                                        "value"
+                                    ],
+                                    "rule": "SUM"
+                                }
+                            ]
                         }
                     },
                     {

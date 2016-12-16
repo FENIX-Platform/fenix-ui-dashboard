@@ -24,6 +24,7 @@ define([
 
         this._initVariables();
 
+        console.log("Before _renderChart")
         this._renderChart();
 
         this._bindEventListeners();
@@ -117,6 +118,7 @@ define([
                 id : this.id
         });
 
+        console.log(config)
         this.cc = new ChartCreator(config);
 
         this.cc.on("click", _.bind(this._onChartCreatorClick, this));

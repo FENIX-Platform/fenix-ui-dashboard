@@ -94,6 +94,7 @@ define([
 
     Dev.prototype._renderPolicy = function () {
 
+        console.log(PolicyModel)
         var dashboard = this.createDashboard(PolicyModel);
         console.log(dashboard)
     };
