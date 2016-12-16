@@ -216,8 +216,6 @@ define([
 
     Dashboard.prototype._getItemContainer = function (id) {
 
-        console.log("//////////////////////////////////////")
-        console.log(this.$el.find("[data-item='" + id + "']"))
         return this.$el.find("[data-item='" + id + "']");
 
     };
