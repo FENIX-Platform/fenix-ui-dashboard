@@ -11,14 +11,15 @@ define([
     '../models/gift_bubble',
     '../models/gift_treemap',
     '../models/gift_donut',
-    '../models/gift_table'
+    '../models/gift_table',
+    '../models/policy4',
 ], function (log, $, _, Dashboard,
 
     Model1, UnecaModel, CustomItemModel, AdamModel, 
 
     GiftModelBubble,
     GiftModelTreemap,
-    GiftModelDonut,GiftModelTable
+    GiftModelDonut,GiftModelTable, PolicyModel
     ) {
 
     'use strict';
@@ -26,8 +27,8 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",
-        //environment = "production",
+        //environment = "develop",
+        environment = "production",
         cache = false,
         instances = [];
 
@@ -36,7 +37,7 @@ define([
         this._importThirdPartyCss();
 
         //console.clear();
-        log.setLevel('silent')
+        log.setLevel('trace')
         this.start();
     }
 
@@ -49,6 +50,7 @@ define([
     };
 
     Dev.prototype._render = function () {
+        this._renderPolicy();
         //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
@@ -88,6 +90,12 @@ define([
 
         var dashboard = this.createDashboard(UnecaModel);
 
+    };
+
+    Dev.prototype._renderPolicy = function () {
+
+        var dashboard = this.createDashboard(PolicyModel);
+        console.log(dashboard)
     };
 
     Dev.prototype._renderAdam = function () {
