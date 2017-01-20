@@ -1,17 +1,13 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define([
     "jquery",
     "loglevel",
     'underscore',
-    'fx-dashboard/config/errors',
-    'fx-dashboard/config/events',
-    'fx-dashboard/config/config',
-    'fx-table/start',
-    'amplify'
-], function ($, log, _, ERR, EVT, C, OlapCreator) {
+    '../../config/errors',
+    '../../config/events',
+    '../../config/config',
+    'fenix-ui-table-creator',
+    'amplify-pubsub'
+], function ($, log, _, ERR, EVT, C, OlapCreator, amplify) {
 
     'use strict';
 

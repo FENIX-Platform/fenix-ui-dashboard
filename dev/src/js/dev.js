@@ -1,25 +1,25 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
 define([
     'loglevel',
     'jquery',
     'underscore',
-    'fx-dashboard/start',
-    'test/models/model-1',
-    'test/models/uneca',
-    'test/models/custom',
-    'test/models/adam',
+    '../../../src/js/index',
+    '../models/model-1',
+    '../models/uneca',
+    '../models/custom',
+    '../models/adam',
 
-    'test/models/gift_bubble',
-    'test/models/gift_treemap',
-    'test/models/gift_donut','test/models/gift_table'
-], function (log, $, _, Dashboard, 
+    '../models/gift_bubble',
+    '../models/gift_treemap',
+    '../models/gift_donut',
+    '../models/gift_table',
+    '../models/policy5',
+], function (log, $, _, Dashboard,
 
     Model1, UnecaModel, CustomItemModel, AdamModel, 
+
     GiftModelBubble,
     GiftModelTreemap,
-    GiftModelDonut,GiftModelTable
+    GiftModelDonut,GiftModelTable, PolicyModel
     ) {
 
     'use strict';
@@ -27,13 +27,21 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "demo",//"production",
+        //environment = "develop",
+        environment = "production",
         cache = false,
         instances = [];
 
-    function Test() {  }
+    function Dev() {
 
-    Test.prototype.start = function () {
+        this._importThirdPartyCss();
+
+        //console.clear();
+        log.setLevel('trace')
+        this.start();
+    }
+
+    Dev.prototype.start = function () {
 
         log.trace("Test started");
 
@@ -41,20 +49,21 @@ define([
 
     };
 
-    Test.prototype._render = function () {
-
+    Dev.prototype._render = function () {
+        this._renderPolicy();
         //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
-		//this._renderAdam();
+       // this._renderAdam();
 
-        this._renderGiftBubble();
-        this._renderGiftTreemap();
-        this._renderGiftDonut();
-		this._renderGiftTable();
+        return;
+        //this._renderGiftBubble();
+        //this._renderGiftTreemap();
+        //this._renderGiftDonut();
+		//this._renderGiftTable();
     };
 
-    Test.prototype._renderCustomItem = function () {
+    Dev.prototype._renderCustomItem = function () {
 
         var dashboard = this.createDashboard($.extend(true, CustomItemModel, {
             itemsRegistry : {
@@ -66,7 +75,7 @@ define([
 
     };
 
-    Test.prototype._renderModel1 = function () {
+    Dev.prototype._renderModel1 = function () {
 
         var dashboard = this.createDashboard(Model1);
 
@@ -77,13 +86,20 @@ define([
         })
     };
 
-    Test.prototype._renderUneca = function () {
+    Dev.prototype._renderUneca = function () {
 
         var dashboard = this.createDashboard(UnecaModel);
 
     };
 
-    Test.prototype._renderAdam = function () {
+    Dev.prototype._renderPolicy = function () {
+
+        console.log(PolicyModel)
+        var dashboard = this.createDashboard(PolicyModel);
+        console.log(dashboard)
+    };
+
+    Dev.prototype._renderAdam = function () {
 
         var dashboard = this.createDashboard(AdamModel);
 
@@ -95,7 +111,7 @@ define([
 
     };
 
-    Test.prototype._renderGiftBubble = function () {
+    Dev.prototype._renderGiftBubble = function () {
         var dashboard = this.createDashboard(GiftModelBubble);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
@@ -103,7 +119,7 @@ define([
             });
         })
     };
-    Test.prototype._renderGiftTreemap = function () {
+    Dev.prototype._renderGiftTreemap = function () {
         var dashboard = this.createDashboard(GiftModelTreemap);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
@@ -111,7 +127,7 @@ define([
             });
         })
     };
-    Test.prototype._renderGiftDonut = function () {
+    Dev.prototype._renderGiftDonut = function () {
         var dashboard = this.createDashboard(GiftModelDonut);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
@@ -119,7 +135,7 @@ define([
             });
         })
     };  
-    Test.prototype._renderGiftTable = function () {
+    Dev.prototype._renderGiftTable = function () {
         var dashboard = this.createDashboard(GiftModelTable);
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
@@ -130,7 +146,8 @@ define([
 
     //Utils
 
-    Test.prototype.createDashboard = function (params) {
+    Dev.prototype.createDashboard = function (params) {
+
 
         var instance = new Dashboard($.extend(true, params, {
             environment : environment,
@@ -142,6 +159,22 @@ define([
         return instance;
     };
 
-    return new Test();
+    // utils
+
+    Dev.prototype._importThirdPartyCss = function () {
+
+        //Bootstrap
+        require("bootstrap-loader");
+
+        require("../../../node_modules/leaflet/dist/leaflet.css");
+        require("../../../node_modules/fenix-ui-map/dist/fenix-ui-map.min.css");
+
+        // fenix-ui-table-creator
+        require("../../../node_modules/fenix-ui-table-creator/dist/fenix-ui-table-creator.min.css");
+
+
+    };
+
+    return new Dev();
 
 });

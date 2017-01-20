@@ -1,17 +1,13 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define([
     "jquery",
     "loglevel",
     'underscore',
-    'fx-dashboard/config/errors',
-    'fx-dashboard/config/events',
-    'fx-dashboard/config/config',
-    'fx-chart/start',
-    'amplify'
-], function ($, log, _, ERR, EVT, C, ChartCreator) {
+    '../../config/errors',
+    '../../config/events',
+    '../../config/config',
+    'fenix-ui-chart-creator',
+    'amplify-pubsub'
+], function ($, log, _, ERR, EVT, C, ChartCreator, amplify) {
 
     'use strict';
 
@@ -118,8 +114,7 @@ define([
         var config = $.extend(true, {}, this.config, {
                 model : this.model,
                 el : this.$el,
-                id : this.id,
-                controller: this
+                id : this.id
         });
 
         this.cc = new ChartCreator(config);
@@ -134,7 +129,6 @@ define([
     };
 
     Chart.prototype._destroyChart = function () {
-
         this.cc.dispose();
 
         log.info("Destroyed Chart: " + this.id);
