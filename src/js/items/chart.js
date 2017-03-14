@@ -116,7 +116,14 @@ define([
                 el : this.$el
         });
 
-        new ChartCreator(config);
+        var item = new ChartCreator(config);
+
+        var self = this;
+
+        item.on('click.item', function(object){
+            self.controller._trigger('click.item', object);
+        });
+
 
     };
 
