@@ -36,7 +36,7 @@ define([
         this._importThirdPartyCss();
 
         //console.clear();
-        log.setLevel('silent')
+        log.setLevel('silent');
         this.start();
     }
 
@@ -52,7 +52,7 @@ define([
         //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
-       // this._renderAdam();
+        //this._renderAdam();
 
         return;
         //this._renderGiftBubble();

@@ -510,17 +510,15 @@ define([
 
     Dashboard.prototype._onItemReady = function (item) {
 
+        log.info("Item is ready ",item);
+        this._trigger('ready.item', item);
+
         this.itemsReady++;
 
         if (this.itemsReady === this.items.length) {
-
             this.ready = true;
-
             log.info("All items are ready");
-
             this._onReady();
-        } else {
-            this._trigger('ready.item', item);
         }
     };
 
