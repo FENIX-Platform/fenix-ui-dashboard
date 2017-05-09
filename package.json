@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-dashboard",
-  "version": "3.0.0-beta.29",
+  "version": "3.0.0-beta.30",
   "description": "FENIX Dashboard",
   "main": "dist/fenix-ui-dashboard.min.js",
   "scripts": {
@@ -26,13 +26,13 @@
   "dependencies": {
     "amplify-pubsub": "^0.0.1",
     "cross-env": "^3.1.3",
-    "fenix-ui-bridge": "^1.0.0-beta.6",
-    "fenix-ui-chart-creator": "^3.0.0-beta.3",
-    "fenix-ui-converter": "^1.0.0-beta.3",
-    "fenix-ui-filter-utils": "^1.0.0-beta.3",
-    "fenix-ui-map-creator": "^2.7.9-beta.25",
-    "fenix-ui-table-creator": "^3.0.0-beta.3",
-    "fenix-ui-visualization-box": "^2.0.0-beta.3",
+    "fenix-ui-bridge": "^1.0.0-beta.18",
+    "fenix-ui-chart-creator": "^3.0.0-beta.18",
+    "fenix-ui-converter": "^1.0.0-beta.10",
+    "fenix-ui-filter-utils": "^1.0.0-beta.18",
+    "fenix-ui-map-creator": "^2.7.9-beta.24",
+    "fenix-ui-table-creator": "^3.0.0-beta.8",
+    "fenix-ui-visualization-box": "^2.0.0-beta.74",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1",
     "underscore": "^1.8.3"
