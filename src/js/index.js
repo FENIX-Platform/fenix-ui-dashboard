@@ -471,8 +471,11 @@ define([
     };
 
     Dashboard.prototype._onGetProcessedResourceError = function (obj) {
+
         log.error("Resources load: error");
         log.error(obj);
+
+        this._trigger('error.resource', obj);
     };
 
     Dashboard.prototype._onGetProcessedResourceSuccess = function (item, resource) {
@@ -538,6 +541,7 @@ define([
 
             this._refresh(values);
         } else {
+
             amplify.publish(this._getEventName(EVT.DASHBOARD_READY));
 
             this._trigger('ready');

@@ -99,6 +99,10 @@ define([
             });
         })
 
+        dashboard.on('error.resource', function(){
+            alert("Resource Error");
+        });
+
     };
 
     Dev.prototype._renderGiftBubble = function () {

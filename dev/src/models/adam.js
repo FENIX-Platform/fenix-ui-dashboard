@@ -9,7 +9,7 @@ define(function () {
 
         uid: "adam_usd_commitment",
 
-        maxSize: 2000,
+        maxSize: 5,
 
         items: [
             {
@@ -126,7 +126,14 @@ define(function () {
                             },
                             "value": "ODA"
                         }
-                    }
+                    },
+                    {
+                        "name": "order",
+                        "parameters": {
+                           // "oda": "ASC",
+                            "value": "DESC"
+                        }
+                    },
                 ]
             }
         ]

@@ -14,7 +14,8 @@ define(function ( ) {
         ITEM_MISSING_TYPE : prefix + "item_missing_type",
         ITEM_MISSING_CONTAINER : prefix + "item_missing_container",
         ITEM_DUPLICATED_ID : prefix + "item_duplicated_id",
-        READY_TIMEOUT : prefix + "dashboard.timeout"
+        READY_TIMEOUT : prefix + "dashboard.timeout",
+        INVALID_SELECTION: prefix + "invalid_selection"
 
     };
 });
