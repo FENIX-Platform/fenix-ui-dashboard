@@ -7,7 +7,6 @@ define([
     '../models/uneca',
     '../models/custom',
     '../models/adam',
-
     '../models/gift_bubble',
     '../models/gift_treemap',
     '../models/gift_donut',
@@ -52,7 +51,7 @@ define([
         //this._renderCustomItem();
         //this._renderModel1();
         //this._renderUneca();
-        //this._renderAdam();
+        this._renderAdam();
 
         return;
         //this._renderGiftBubble();
@@ -158,7 +157,7 @@ define([
         require("bootstrap-loader");
 
         require("../../../node_modules/leaflet/dist/leaflet.css");
-        require("../../../node_modules/fenix-ui-map/dist/fenix-ui-map.min.css");
+        //require("../../../node_modules/fenix-ui-map/dist/fenix-ui-map.min.css");
 
         // fenix-ui-table-creator
         require("../../../node_modules/fenix-ui-table-creator/dist/fenix-ui-table-creator.min.css");

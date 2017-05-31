@@ -9,6 +9,8 @@ define(function () {
 
         uid: "adam_usd_commitment",
 
+        maxSize: 2000,
+
         items: [
             {
                 id: "chart_1", //ref [data-item=':id']

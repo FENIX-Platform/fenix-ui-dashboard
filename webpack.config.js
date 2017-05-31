@@ -37,9 +37,9 @@ module.exports = {
          ],*/
         loaders: [
             {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-            { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
-            { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
-            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+            {test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
+            {test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+            {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
             {test: /\.hbs$/, loader: "handlebars-loader"},
             {test: /\.json$/, loader: "json-loader"},
             {test: /bootstrap.+\.(jsx|js)$/, loader: 'imports?jQuery=jquery,$=jquery'},

@@ -115,6 +115,7 @@ define([
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
         this.filter = this.initial.filter;
+        this.maxSize = this.initial.maxSize || "";
 
 
         //not from input
@@ -317,14 +318,16 @@ define([
     Dashboard.prototype._getProcessedResource = function (item) {
 
         var isMultiResource = hasSid(item.body);
+        var params = {
+            dsd: true,
+            full: true,
+            language: this.lang
+        };
+        if (this.initial.maxSize) params.maxSize = this.maxSize;
 
         return this.bridge.getProcessedResource($.extend({
             body: item.body,
-            params: {
-                dsd: true,
-                full: true,
-                language: this.lang
-            }
+            params: params
         }, !isMultiResource ? { //include uid and version if is not multi resource
             uid: this.uid,
             version: this.version
