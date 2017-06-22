@@ -255,7 +255,7 @@ define([
         });
     };
 
-    Dashboard.prototype._preloadMetadataResourceError = function () {
+    Dashboard.prototype._preloadMetadataResourceError = function (object) {
         log.error("Resources load: error");
     };
 
@@ -474,6 +474,8 @@ define([
 
         log.error("Resources load: error");
         log.error(obj);
+
+        console.log(obj);
 
         this._trigger('error.resource', obj);
     };
