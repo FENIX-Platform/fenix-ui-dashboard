@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-dashboard",
-  "version": "3.0.0-beta.36",
+  "version": "3.0.0-beta.37",
   "description": "FENIX Dashboard",
   "main": "dist/fenix-ui-dashboard.min.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "fenix-ui-filter-utils": "^1.0.0-beta.18",
     "fenix-ui-map-creator": "^2.7.9-beta.25",
     "fenix-ui-table-creator": "^3.0.0-beta.8",
-    "fenix-ui-visualization-box": "^2.0.0-beta.80",
+    "fenix-ui-visualization-box": "^2.0.0-beta.81",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1",
     "underscore": "^1.8.3"
