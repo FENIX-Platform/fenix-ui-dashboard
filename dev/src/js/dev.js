@@ -25,8 +25,8 @@ define([
     var s = {
             REFRESH_BTN: "#refresh-btn"
         },
-        environment = "develop",
-        //environment = "production",
+        //environment = "develop",
+        environment = "demo",
         cache = false,
         instances = [];
 
@@ -35,7 +35,7 @@ define([
         this._importThirdPartyCss();
 
         //console.clear();
-        log.setLevel('silent');
+        log.setLevel('trace');
         this.start();
     }
 
@@ -52,12 +52,11 @@ define([
         //this._renderModel1();
         //this._renderUneca();
         this._renderAdam();
-
-        return;
         //this._renderGiftBubble();
         //this._renderGiftTreemap();
         //this._renderGiftDonut();
 		//this._renderGiftTable();
+        return;
     };
 
     Dev.prototype._renderCustomItem = function () {
@@ -90,14 +89,15 @@ define([
     };
 
     Dev.prototype._renderAdam = function () {
-
         var dashboard = this.createDashboard(AdamModel);
+
+
 
         $(s.REFRESH_BTN).on("click", function () {
             dashboard.refresh({
                 values : { year: ["2000"] }
             });
-        })
+        });
 
         dashboard.on('error.resource', function(){
             alert("Resource Error");

@@ -6,33 +6,49 @@ define(function () {
 
 
     return {
-
-        uid: "adam_usd_commitment",
-
-        maxSize: 5,
+        //default dataset id
+        uid: "adam_project_analysis",
 
         items: [
             {
-                id: "chart_1", //ref [data-item=':id']
-                type: "chart", //chart || map || olap,
+                id: "custom_1",
+                type: 'table',
+                //type: 'custom',
                 config: {
-                    type: "line",
-                    x: ["year"], //x axis
-                    series: ["indicator"], // series
-                    y: ["value"],//Y dimension
-                    aggregationFn: {"value": "sum"},
-                    useDimensionLabelsIfExist: false,// || default raw else fenixtool
+                    "type" : "bootstrap-table",
+                    "groupedRow":false,
+                    "aggregationFn":{"commitment_value":"sum"},
+                    "formatter":"localstring",
+                    "decimals":2,
+                    "pageSize": "150",
+                    "showRowHeaders":true,
+                    // "rows":["recipientcode_EN", "donorcode_EN", "projecttitle", "year", "parentsector_code_EN", "purposecode_EN", 'commitment_value', "disbursement_value" ],
+                    "rows":["recipientcode_EN", "donorcode_EN", "projecttitle", "year", "parentsector_code_EN", "purposecode_EN", 'value', "unitcode_EN" ],
+                    "aggregations":[],
+                    //"values":["value"],
 
                     config: {
-                        xAxis: {
-                            type: 'datetime'
-                        }
+                        pageSize: 150,
+                        height: 700,
+                        autoSelectFirstRow: false,
+                        columns: [
+                            {id: "recipientcode_EN", width: 110},
+                            {id: "donorcode_EN", width: 120},
+                            {id: "projecttitle", width: 160},
+                            {id: "year", width: 60,  align: 'center'},
+                            {id: "parentsector_code_EN", width: 100},
+                            {id: "purposecode_EN", width: 100},
+                            {id: "value", width: 100, align: 'center', sortOrder: 'desc'},
+                            {id: "unitcode_EN", width: 100, align: 'center'}
+                            // {id: "commitment_value", width: 100, align: 'center', sortOrder: 'desc'},
+                            // {id: "disbursement_value", width: 100, align: 'center'}
+                        ]
                     }
                 },
 
+
                 filterFor: {
-                    // "filter_total_ODA": ['fao_region_code', 'recipientcode', 'year', 'oda']
-                    "filter_total_ODA": ['recipientcode', 'year', 'oda']
+                    "filter_projects": ['recipientcode', 'donorcode', 'purposecode', 'year', 'fao_region', 'oda']
                 },
 
                 postProcess: [
@@ -40,19 +56,46 @@ define(function () {
                         "name": "filter",
                         "sid": [
                             {
-                                "uid": "adam_usd_aggregation_table"
+                                "uid": "adam_project_analysis"
                             }
                         ],
                         "parameters": {
                             "columns": [
+                                "recipientcode",
+                                "oda",
+                                "donorcode",
+                                "projecttitle",
                                 "year",
+                                "parentsector_code",
+                                "purposecode",
                                 "value",
                                 "unitcode"
                             ],
                             "rows": {
                                 "oda": {
-                                    "enumeration": [
-                                        "usd_commitment"
+                                    "codes": [{
+                                        "uid": "oda_crs",
+                                        "version": "2016",
+                                        "codes": ["usd_commitment"]
+                                    }]
+                                },
+                                "year": {
+                                    "time": [
+                                        {
+                                            "from": 2010,
+                                            "to": 2014
+                                        }
+                                    ]
+                                },
+                                "fao_region": {
+                                    "codes": [
+                                        {
+                                            "uid": "crs_fao_regions",
+                                            "version": "2016",
+                                            "codes": [
+                                                "RAP"
+                                            ]
+                                        }
                                     ]
                                 },
                                 "recipientcode": {
@@ -66,74 +109,57 @@ define(function () {
                                         }
                                     ]
                                 },
-                                "year": {
-                                    "time": [
+                                "donorcode": {
+                                    "codes": [
                                         {
-                                            "from": 2000,
-                                            "to": 2014
+                                            "uid": "crs_donors",
+                                            "version": "2016",
+                                            "codes": [
+                                                "1"
+                                            ]
                                         }
+                                    ]
+                                },
+                                "fao_sector":{
+                                    "enumeration":[
+                                        "1"
                                     ]
                                 }
                             }
                         },
-                        "rid":{"uid":"filter_total_ODA"}
-                    },
-                    {
-                        "name": "group",
-                        "parameters": {
-                            "by": [
-                                "year"
-                            ],
-                            "aggregations": [
-                                {
-                                    "columns": [
-                                        "value"
-                                    ],
-                                    "rule": "SUM"
-                                },
-                                {
-                                    "columns": [
-                                        "unitcode"
-                                    ],
-                                    "rule": "first"
-                                }
-                            ]
-                        },
                         "rid": {
-                            "uid": "total_oda"
+                            "uid": "filter_projects"
                         }
                     },
                     {
-                        "name": "addcolumn",
-                        "parameters": {
-                            "column": {
-                                "dataType": "text",
-                                "id": "indicator",
-                                "title": {
-                                    "EN": "Indicator"
-                                },
-                                "domain": {
-                                    "codes": [
-                                        {
-                                            "extendedName": {
-                                                "EN": "Adam Processes"
-                                            },
-                                            "idCodeList": "adam_processes"
-                                        }
-                                    ]
-                                },
-                                "subject": null
-                            },
-                            "value": "ODA"
+                        "name" : "select",
+                        "parameters" : {
+                            "values" : {
+                                "recipientcode" : null,
+                                "donorcode" : null,
+                                "projecttitle" : null,
+                                "year" : null,
+                                "parentsector_code" : null,
+                                "purposecode" : null,
+                                "value" : "round(value::numeric,2)",
+                                "unitcode" : null
+                            }
                         }
                     },
                     {
                         "name": "order",
                         "parameters": {
-                           // "oda": "ASC",
-                            "value": "DESC"
+                            "year": "DESC",
+                            "value":"DESC"
                         }
                     },
+                    {
+                        "name": "page",
+                        "parameters": {
+                            "perPage": 500,
+                            "page": 1
+                        }
+                    }
                 ]
             }
         ]

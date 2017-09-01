@@ -115,14 +115,14 @@ define([
                 el : this.$el
         });
 
-        new OlapCreator(config);
+        this.olap = new OlapCreator(config);
 
     };
 
     Table.prototype._destroyOlap = function () {
 
         //TODO
-
+        this.olap.dispose();
         log.info("Destroyed Table: " + this.id);
     };
 

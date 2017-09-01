@@ -475,8 +475,6 @@ define([
         log.error("Resources load: error");
         log.error(obj);
 
-        console.log(obj);
-
         this._trigger('error.resource', obj);
     };
 
