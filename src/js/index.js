@@ -116,7 +116,7 @@ define([
         this.itemsRegistry = $.extend(true, {}, C.itemsRegistry, this.initial.itemsRegistry);
         this.filter = this.initial.filter;
         this.maxSize = this.initial.maxSize || "";
-
+        this.serviceProvider = this.initial.serviceProvider || undefined ;
 
         //not from input
         this.$el = $(this.el);
@@ -205,8 +205,11 @@ define([
 
         this.itemInstances = {};
 
+
+
         this.bridge = new Bridge({
-            environment: this.environment
+            environment: this.environment,
+            serviceProvider: this.serviceProvider
         });
 
         if (this.filter)
