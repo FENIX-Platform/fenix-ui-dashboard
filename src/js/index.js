@@ -167,12 +167,13 @@ define([
 
             //missing container
             var $el = this._getItemContainer(item.id);
+            /*
             if ($el.length !== 1) {
                 errors.push({code: ERR.ITEM_MISSING_CONTAINER});
                 log.error("Missing item's container");
                 log.error(item);
             }
-
+            */
             //missing item type
             if (!item.hasOwnProperty("type")) {
                 errors.push({code: ERR.ITEM_MISSING_TYPE});
@@ -282,8 +283,9 @@ define([
 
     Dashboard.prototype._renderItems = function () {
 
-        this.ready = false;
+        var self = this;
 
+        this.ready = false;
         this.itemsReady = 0; //used for "ready" event
 
         //In case there are items set timeout
@@ -292,6 +294,7 @@ define([
             this.validTimeout = window.setTimeout(function () {
 
                 log.error(ERR.READY_TIMEOUT);
+                self._trigger('timeout');
 
             }, C.validityTimeout);
         } else {
